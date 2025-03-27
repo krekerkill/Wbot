@@ -2,49 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Каталог смартфонов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="catalog-container">
-        <!-- Первый ряд -->
-        <div class="brand-card" onclick="selectBrand('Samsung')">
-            <div class="brand-content">
-                <span>Samsung</span>
-            </div>
+    <div class="catalog">
+        <div class="brand" onclick="selectBrand('Samsung')">
+            <img src="https://i.imgur.com/JDyh6Wv.png" alt="Samsung"> <!-- Логотип 1 -->
+            <span>Samsung</span>
         </div>
-        <div class="brand-card" onclick="selectBrand('Xiaomi')">
-            <div class="brand-content">
-                <span>Xiaomi</span>
-            </div>
+        <div class="brand" onclick="selectBrand('Xiaomi')">
+            <img src="https://i.imgur.com/7Qm6kXJ.png" alt="Xiaomi"> <!-- Логотип 2 -->
+            <span>Xiaomi</span>
         </div>
-
-        <!-- Второй ряд -->
-        <div class="brand-card" onclick="selectBrand('Realme')">
-            <div class="brand-content">
-                <span>Realme</span>
-            </div>
+        <div class="brand" onclick="selectBrand('Realme')">
+            <img src="https://i.imgur.com/5v5wD0Q.png" alt="Realme"> <!-- Логотип 3 -->
+            <span>Realme</span>
         </div>
-        <div class="brand-card" onclick="selectBrand('Apple')">
-            <div class="brand-content">
-                <span>Apple</span>
-            </div>
+        <div class="brand" onclick="selectBrand('Apple')">
+            <img src="https://i.imgur.com/4Z4g1hP.png" alt="Apple"> <!-- Логотип 4 -->
+            <span>Apple</span>
         </div>
-
-        <!-- Третий ряд -->
-        <div class="brand-card" onclick="selectBrand('Tecno')">
-            <div class="brand-content">
-                <span>Tecno</span>
-            </div>
+        <div class="brand" onclick="selectBrand('Tecno')">
+            <img src="https://i.imgur.com/9zJjY7L.png" alt="Tecno"> <!-- Логотип 5 -->
+            <span>Tecno</span>
         </div>
-        <div class="brand-card" onclick="selectBrand('Huawei')">
-            <div class="brand-content">
-                <span>Huawei</span>
-            </div>
+        <div class="brand" onclick="selectBrand('Huawei')">
+            <img src="https://i.imgur.com/3qJQY9W.png" alt="Huawei"> <!-- Логотип 6 -->
+            <span>Huawei</span>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
