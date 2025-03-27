@@ -1,10 +1,12 @@
-function selectBrand(brand) {
+// Добавление товара в корзину
+function addToCart(name, price) {
     if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.sendData(JSON.stringify({
-            action: "select_brand",
-            brand: brand
+            action: "add_to_cart",
+            product: name,
+            price: price
         }));
     } else {
-        console.log("Выбран бренд:", brand);
+        alert(`Товар "${name}" добавлен в корзину!\nЦена: ${price} ₽`);
     }
 }
