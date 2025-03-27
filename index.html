@@ -1,47 +1,62 @@
-<div class="product-grid">
-  <!-- Apple -->
-  <div class="product-card">
-    <div class="product-badge">TOP</div>
-    <img src="https://via.placeholder.com/150" alt="iPhone 15" class="product-image">
-    <h3>iPhone 15 Pro</h3>
-    <p>128GB, Титан</p>
-    <div class="product-footer">
-      <span class="price">99 990 ₽</span>
-      <button onclick="addToCart('iPhone 15 Pro', 99990)">+</button>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог телефонов</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Мобильные телефоны</h1>
+        <div class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-counter">0</span></div>
     </div>
-  </div>
 
-  <!-- Samsung -->
-  <div class="product-card">
-    <img src="https://via.placeholder.com/150" alt="Galaxy S23" class="product-image">
-    <h3>Samsung Galaxy S23</h3>
-    <p>256GB, Черный</p>
-    <div class="product-footer">
-      <span class="price">79 990 ₽</span>
-      <button onclick="addToCart('Galaxy S23', 79990)">+</button>
-    </div>
-  </div>
+    <div class="product-grid">
+        <!-- Apple -->
+        <div class="product-card">
+            <div class="badge">TOP</div>
+            <img src="https://via.placeholder.com/150x150?text=iPhone" alt="iPhone">
+            <h3>iPhone 15 Pro</h3>
+            <p>128GB, Титан</p>
+            <div class="price">99 990 ₽</div>
+            <button onclick="addToCart('iPhone 15 Pro', 99990)">В корзину</button>
+        </div>
 
-  <!-- Xiaomi -->
-  <div class="product-card">
-    <div class="product-badge">NEW</div>
-    <img src="https://via.placeholder.com/150" alt="Xiaomi 13" class="product-image">
-    <h3>Xiaomi 13 Lite</h3>
-    <p>128GB, Розовый</p>
-    <div class="product-footer">
-      <span class="price">34 990 ₽</span>
-      <button onclick="addToCart('Xiaomi 13 Lite', 34990)">+</button>
-    </div>
-  </div>
+        <!-- Samsung -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150x150?text=Samsung" alt="Samsung">
+            <h3>Samsung S23 Ultra</h3>
+            <p>256GB, Черный</p>
+            <div class="price">89 990 ₽</div>
+            <button onclick="addToCart('Samsung S23 Ultra', 89990)">В корзину</button>
+        </div>
 
-  <!-- Кнопочные телефоны -->
-  <div class="product-card">
-    <img src="https://via.placeholder.com/150" alt="Nokia 105" class="product-image">
-    <h3>Nokia 105 (2023)</h3>
-    <p>Черный, 4G</p>
-    <div class="product-footer">
-      <span class="price">3 990 ₽</span>
-      <button onclick="addToCart('Nokia 105', 3990)">+</button>
+        <!-- Xiaomi -->
+        <div class="product-card">
+            <div class="badge">NEW</div>
+            <img src="https://via.placeholder.com/150x150?text=Xiaomi" alt="Xiaomi">
+            <h3>Xiaomi 13 Pro</h3>
+            <p>256GB, Синий</p>
+            <div class="price">59 990 ₽</div>
+            <button onclick="addToCart('Xiaomi 13 Pro', 59990)">В корзину</button>
+        </div>
+
+        <!-- Кнопочный телефон -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150x150?text=Nokia" alt="Nokia">
+            <h3>Nokia 105 (2023)</h3>
+            <p>4G, Черный</p>
+            <div class="price">3 990 ₽</div>
+            <button onclick="addToCart('Nokia 105', 3990)">В корзину</button>
+        </div>
     </div>
-  </div>
-</div>
+
+    <div class="cart" id="cart">
+        <h2>Корзина</h2>
+        <div id="cart-items"></div>
+        <button onclick="checkout()">Оформить заказ</button>
+    </div>
+</body>
+</html>
