@@ -2,24 +2,32 @@ let cart = [];
 
 function addToCart(name, price) {
     cart.push({name, price});
-    alert(`${name} добавлен в корзину!`);
     updateCart();
+    Telegram.WebApp.HapticFeedback.impactOccurred('light');
 }
 
 function updateCart() {
-    const cartDiv = document.getElementById('cart-items');
-    cartDiv.innerHTML = '';
+    // Обновляем счетчик корзины
+    document.getElementById('cart-counter').textContent = cart.length;
+    
+    // Обновляем список товаров в корзине
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
     
     cart.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'cart-item';
-        itemDiv.innerHTML = `${item.name} - ${item.price}$`;
-        cartDiv.appendChild(itemDiv);
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <span>${item.name}</span>
+            <span>${item.price} ₽</span>
+        `;
+        cartItems.appendChild(div);
     });
-    
-    if (cart.length > 0) {
-        document.getElementById('cart').style.display = 'block';
-    }
+}
+
+function toggleCart() {
+    const cart = document.getElementById('cart');
+    cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
 }
 
 function checkout() {
