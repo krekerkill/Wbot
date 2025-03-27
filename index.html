@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Каталог брендов</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог блюд</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="script.js"></script>
 </head>
 <body>
-    <div class="brand-list">
-        <div class="brand-item" onclick="openBrand('Samsung')">
-            <span>Samsung</span>
-            <span>→</span>
-        </div>
-        
-        <div class="brand-item" onclick="openBrand('Apple')">
-            <span>Apple</span>
-            <span>→</span>
-        </div>
-        
-        <div class="brand-item" onclick="openBrand('Xiaomi')">
-            <span>Xiaomi</span>
-            <span>→</span>
-        </div>
-        
-        <div class="brand-item" onclick="openBrand('Tecno')">
-            <span>Tecno</span>
-            <span>→</span>
-        </div>
-        
-        <div class="brand-item" onclick="openBrand('Realme')">
-            <span>Realme</span>
-            <span>→</span>
-        </div>
-        
-        <div class="brand-item" onclick="openBrand('Huawei')">
-            <span>Huawei</span>
-            <span>→</span>
-        </div>
+    <div class="header">
+        <h1>Салаты</h1>
     </div>
+    
+    <div class="catalog">
+        <!-- Пример карточки товара -->
+        <div class="item" onclick="selectItem('Грань салат', 590)">
+            <div class="item-image">
+                <img src="https://via.placeholder.com/150" alt="Грань салат"> <!-- Замените на реальное фото -->
+            </div>
+            <div class="item-info">
+                <h3>Грань салат</h3>
+                <p>Салат-микс: вата, отряда, свекла, томаты, цитрусовый соус</p>
+                <div class="item-footer">
+                    <span class="price">590 ₽</span>
+                    <button class="add-btn">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Добавьте другие товары по аналогии -->
+    </div>
+
+    <div class="cart">
+        <div class="cart-total">
+            <span>Итого: </span>
+            <span id="total-price">0 ₽</span>
+        </div>
+        <button class="order-btn" onclick="sendOrder()">Заказать</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
