@@ -3,71 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог брендов</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-            line-height: 1.5;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 18px;
-            color: #333;
-            margin: 10px 0 5px 0;
-        }
-        h3 {
-            font-size: 16px;
-            color: #555;
-            margin: 10px 0 5px 0;
-        }
-        .brand-list {
-            margin-left: 15px;
-        }
-        .brand-item {
-            padding: 3px 0;
-        }
-        .bold {
-            font-weight: bold;
-        }
-        hr {
-            border: none;
-            border-top: 1px solid #ddd;
-            margin: 15px 0;
-        }
-    </style>
+    <title>Каталог смартфонов</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="section">
-        <h2>Samsung</h2>
-        <div class="brand-list">
-            <div class="brand-item">Samsung</div>
-            <div class="brand-item">Xiaomi</div>
+    <div class="catalog-container">
+        <!-- Первый ряд -->
+        <div class="brand-card" onclick="selectBrand('Samsung')">
+            <div class="brand-content">
+                <span>Samsung</span>
+            </div>
+        </div>
+        <div class="brand-card" onclick="selectBrand('Xiaomi')">
+            <div class="brand-content">
+                <span>Xiaomi</span>
+            </div>
+        </div>
+
+        <!-- Второй ряд -->
+        <div class="brand-card" onclick="selectBrand('Realme')">
+            <div class="brand-content">
+                <span>Realme</span>
+            </div>
+        </div>
+        <div class="brand-card" onclick="selectBrand('Apple')">
+            <div class="brand-content">
+                <span>Apple</span>
+            </div>
+        </div>
+
+        <!-- Третий ряд -->
+        <div class="brand-card" onclick="selectBrand('Tecno')">
+            <div class="brand-content">
+                <span>Tecno</span>
+            </div>
+        </div>
+        <div class="brand-card" onclick="selectBrand('Huawei')">
+            <div class="brand-content">
+                <span>Huawei</span>
+            </div>
         </div>
     </div>
 
-    <hr>
-
-    <div class="section">
-        <h3>Realme</h3>
-        <div class="brand-list">
-            <div class="brand-item bold">Realme</div>
-            <div class="brand-item bold">Apple</div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="section">
-        <h3>Tecno</h3>
-        <div class="brand-list">
-            <div class="brand-item bold">Tecno</div>
-            <div class="brand-item bold">Huawei</div>
-        </div>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>
