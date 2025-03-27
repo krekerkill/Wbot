@@ -1,51 +1,41 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 15px;
+    padding: 10px;
     background: #f5f5f5;
+    font-family: Arial, sans-serif;
 }
 
-.brand-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.catalog-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
 }
 
-.section {
+.brand-card {
+    aspect-ratio: 1/1; /* Квадратная форма */
     background: white;
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.section h2 {
-    font-size: 18px;
-    margin: 0 0 8px 0;
-    color: #333;
-}
-
-.section h3 {
-    font-size: 16px;
-    margin: 0 0 8px 0;
-    color: #555;
-}
-
-.brand-group {
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     display: flex;
-    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.brand-item {
-    flex: 1;
-    padding: 8px;
-    background: #f9f9f9;
-    border-radius: 6px;
+.brand-card:hover {
+    transform: scale(1.03);
+}
+
+.brand-content {
     text-align: center;
-    font-size: 14px;
+    padding: 15px;
 }
 
-.bold {
+.brand-content span {
+    font-size: 18px;
     font-weight: bold;
 }
