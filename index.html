@@ -3,41 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог смартфонов</title>
+    <title>Каталог брендов</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="catalog">
-        <!-- Плашки брендов с ссылками на их страницы -->
-        <a href="samsung.html" class="brand">
-            <img src="images/brands/samsung.png" alt="Samsung">
-            <span>Samsung</span>
-        </a>
-        
-        <a href="xiaomi.html" class="brand">
-            <img src="images/brands/xiaomi.png" alt="Xiaomi">
-            <span>Xiaomi</span>
-        </a>
-        
-        <a href="apple.html" class="brand">
-            <img src="images/brands/apple.png" alt="Apple">
-            <span>Apple</span>
-        </a>
-        
-        <a href="realme.html" class="brand">
-            <img src="images/brands/realme.png" alt="Realme">
-            <span>Realme</span>
-        </a>
-        
-        <a href="tecno.html" class="brand">
-            <img src="images/brands/tecno.png" alt="Tecno">
-            <span>Tecno</span>
-        </a>
-        
-        <a href="huawei.html" class="brand">
-            <img src="images/brands/huawei.png" alt="Huawei">
-            <span>Huawei</span>
-        </a>
+    <div class="brand-list">
+        <!-- Группа 1 -->
+        <div class="brand-group">
+            <div class="brand-item" onclick="selectBrand('Samsung')">
+                <img src="images/brands/samsung.png" alt="Samsung" class="brand-logo">
+                <span>Samsung</span>
+            </div>
+            <div class="brand-item" onclick="selectBrand('Xiaomi')">
+                <img src="images/brands/xiaomi.png" alt="Xiaomi" class="brand-logo">
+                <span>Xiaomi</span>
+            </div>
+        </div>
+
+        <!-- Группа 2 -->
+        <div class="brand-group">
+            <div class="brand-item" onclick="selectBrand('Realme')">
+                <img src="images/brands/realme.png" alt="Realme" class="brand-logo">
+                <span>Realme</span>
+            </div>
+            <div class="brand-item" onclick="selectBrand('Apple')">
+                <img src="images/brands/apple.png" alt="Apple" class="brand-logo">
+                <span>Apple</span>
+            </div>
+        </div>
+
+        <!-- Группа 3 -->
+        <div class="brand-group">
+            <div class="brand-item" onclick="selectBrand('Tecno')">
+                <img src="images/brands/tecno.png" alt="Tecno" class="brand-logo">
+                <span>Tecno</span>
+            </div>
+            <div class="brand-item" onclick="selectBrand('Huawei')">
+                <img src="images/brands/huawei.png" alt="Huawei" class="brand-logo">
+                <span>Huawei</span>
+            </div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
