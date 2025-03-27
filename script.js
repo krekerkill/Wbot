@@ -5,8 +5,6 @@ function selectBrand(brand) {
             brand: brand
         }));
     } else {
-        console.log("Выбран бренд:", brand);
-        // Для теста вне Telegram:
-        alert("Выбран бренд: " + brand);
+        alert("Выбран бренд: " + brand); // Для теста вне Telegram
     }
 }
