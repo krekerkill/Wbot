@@ -2,44 +2,42 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог смартфонов</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="catalog">
-        <!-- Плашки с фиксированным размером и центрированием -->
-        <div class="brand" onclick="selectBrand('Samsung')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung" loading="lazy">
+        <!-- Плашки брендов с ссылками на их страницы -->
+        <a href="samsung.html" class="brand">
+            <img src="images/brands/samsung.png" alt="Samsung">
             <span>Samsung</span>
-        </div>
-
-        <div class="brand" onclick="selectBrand('Xiaomi')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Xiaomi_logo_%282021-%29.svg" alt="Xiaomi" loading="lazy">
+        </a>
+        
+        <a href="xiaomi.html" class="brand">
+            <img src="images/brands/xiaomi.png" alt="Xiaomi">
             <span>Xiaomi</span>
-        </div>
-
-        <div class="brand" onclick="selectBrand('Realme')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Realme_logo_2021.svg" alt="Realme" loading="lazy">
-            <span>Realme</span>
-        </div>
-
-        <div class="brand" onclick="selectBrand('Apple')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" loading="lazy">
+        </a>
+        
+        <a href="apple.html" class="brand">
+            <img src="images/brands/apple.png" alt="Apple">
             <span>Apple</span>
-        </div>
-
-        <div class="brand" onclick="selectBrand('Tecno')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/TECNO_Mobile_logo.svg" alt="Tecno" loading="lazy">
+        </a>
+        
+        <a href="realme.html" class="brand">
+            <img src="images/brands/realme.png" alt="Realme">
+            <span>Realme</span>
+        </a>
+        
+        <a href="tecno.html" class="brand">
+            <img src="images/brands/tecno.png" alt="Tecno">
             <span>Tecno</span>
-        </div>
-
-        <div class="brand" onclick="selectBrand('Huawei')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Huawei_Standard_logo.svg" alt="Huawei" loading="lazy">
+        </a>
+        
+        <a href="huawei.html" class="brand">
+            <img src="images/brands/huawei.png" alt="Huawei">
             <span>Huawei</span>
-        </div>
+        </a>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
