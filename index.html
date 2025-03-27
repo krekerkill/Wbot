@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог блюд</title>
+    <title>Каталог смартфонов</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Салаты</h1>
-    </div>
-    
     <div class="catalog">
-        <!-- Пример карточки товара -->
-        <div class="item" onclick="selectItem('Грань салат', 590)">
-            <div class="item-image">
-                <img src="https://via.placeholder.com/150" alt="Грань салат"> <!-- Замените на реальное фото -->
-            </div>
-            <div class="item-info">
-                <h3>Грань салат</h3>
-                <p>Салат-микс: вата, отряда, свекла, томаты, цитрусовый соус</p>
-                <div class="item-footer">
-                    <span class="price">590 ₽</span>
-                    <button class="add-btn">+</button>
-                </div>
-            </div>
+        <!-- Плашки брендов -->
+        <div class="brand" onclick="selectBrand('Samsung')">
+            <img src="https://via.placeholder.com/100x50?text=Samsung" alt="Samsung">
+            <span>Samsung</span>
         </div>
 
-        <!-- Добавьте другие товары по аналогии -->
-    </div>
-
-    <div class="cart">
-        <div class="cart-total">
-            <span>Итого: </span>
-            <span id="total-price">0 ₽</span>
+        <div class="brand" onclick="selectBrand('Xiaomi')">
+            <img src="https://via.placeholder.com/100x50?text=Xiaomi" alt="Xiaomi">
+            <span>Xiaomi</span>
         </div>
-        <button class="order-btn" onclick="sendOrder()">Заказать</button>
+
+        <div class="brand" onclick="selectBrand('Realme')">
+            <img src="https://via.placeholder.com/100x50?text=Realme" alt="Realme">
+            <span>Realme</span>
+        </div>
+
+        <div class="brand" onclick="selectBrand('Apple')">
+            <img src="https://via.placeholder.com/100x50?text=Apple" alt="Apple">
+            <span>Apple</span>
+        </div>
+
+        <div class="brand" onclick="selectBrand('Tecno')">
+            <img src="https://via.placeholder.com/100x50?text=Tecno" alt="Tecno">
+            <span>Tecno</span>
+        </div>
+
+        <div class="brand" onclick="selectBrand('Huawei')">
+            <img src="https://via.placeholder.com/100x50?text=Huawei" alt="Huawei">
+            <span>Huawei</span>
+        </div>
     </div>
 
     <script src="script.js"></script>
