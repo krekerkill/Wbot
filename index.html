@@ -4,45 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог брендов</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 10px;
-            background: #f5f5f5;
-        }
-        .brand-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-        .brand-column {
-            flex: 1;
-            min-width: 120px;
-        }
-        .brand-item {
-            background: white;
-            padding: 8px;
-            margin-bottom: 5px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="brand-container">
-        <!-- Первый столбец -->
-        <div class="brand-column">
-            <div class="brand-item">Samsung Samsung</div>
-            <div class="brand-item">Xiaomi Xiaomi</div>
-            <div class="brand-item">Apple Apple</div>
+    <div class="brand-sections">
+        <!-- Секция Samsung -->
+        <div class="section">
+            <h2>Samsung</h2>
+            <div class="brand-group">
+                <div class="brand-item">Samsung</div>
+                <div class="brand-item">Xiaomi</div>
+            </div>
         </div>
-        
-        <!-- Второй столбец -->
-        <div class="brand-column">
-            <div class="brand-item">Realme Realme</div>
-            <div class="brand-item">Tecno Tecno</div>
-            <div class="brand-item">Huawei Huawei</div>
+
+        <!-- Секция Realme -->
+        <div class="section">
+            <h3>Realme</h3>
+            <div class="brand-group">
+                <div class="brand-item bold">Realme</div>
+                <div class="brand-item bold">Apple</div>
+            </div>
+        </div>
+
+        <!-- Секция Tecno -->
+        <div class="section">
+            <h3>Tecno</h3>
+            <div class="brand-group">
+                <div class="brand-item bold">Tecno</div>
+                <div class="brand-item bold">Huawei</div>
+            </div>
         </div>
     </div>
 </body>
