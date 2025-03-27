@@ -1,15 +1,17 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 10px;
     background: #f5f5f5;
+    -webkit-text-size-adjust: 100%; /* Фикс для iOS */
 }
 
 .catalog {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    height: 100vh; /* На всю высоту экрана */
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .brand {
@@ -19,27 +21,35 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1/1; /* Квадрат */
+    aspect-ratio: 1/1;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     cursor: pointer;
-    transition: transform 0.2s;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.brand:hover {
-    transform: scale(1.02);
+    padding: 15px;
+    overflow: hidden; /* Обрезаем лишнее */
 }
 
 .brand img {
-    width: 60%; /* Логотип занимает 60% ширины плашки */
-    height: auto;
+    width: 70px; /* Фиксированный размер для иконок */
+    height: 70px;
     object-fit: contain;
     margin-bottom: 10px;
 }
 
 .brand span {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
+    word-break: break-word; /* Перенос длинных названий */
+    max-width: 100%;
+}
+
+/* Оптимизация для маленьких экранов */
+@media (max-width: 400px) {
+    .brand img {
+        width: 50px;
+        height: 50px;
+    }
+    .brand span {
+        font-size: 14px;
+    }
 }
