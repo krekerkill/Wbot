@@ -2,16 +2,60 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Магазин</title>
+    <title>Premium Store</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #0088cc;
+            text-align: center;
+        }
+        .product {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .price {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 18px;
+        }
+        button {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div id="products">
-        <h1>Каталог товаров</h1>
-        <button onclick="addToCart('iPhone', 999)">iPhone - 999$</button>
+    <h1>Каталог товаров</h1>
+    
+    <div class="product">
+        <h2>iPhone 15 Pro</h2>
+        <p>Титан, 6.1" display, 128GB</p>
+        <div class="price">999$</div>
+        <button onclick="addToCart('iPhone 15 Pro', 999)">В корзину</button>
     </div>
-    <button onclick="checkout()">Оформить заказ</button>
+    
+    <div id="cart" style="display: none;">
+        <h2>Ваша корзина</h2>
+        <div id="cart-items"></div>
+        <button onclick="checkout()">Оформить заказ</button>
+    </div>
 </body>
 </html>
