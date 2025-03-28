@@ -3,7 +3,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 8px;
-    background-color: #f5f5f5;
+    background-color: #e0e0e0; /* Серый фон для контраста */
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -17,7 +17,7 @@ body {
     width: 100%;
     padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #ccc;
     background-color: white;
     font-size: 14px;
     appearance: none;
@@ -31,7 +31,7 @@ body {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px; /* Уменьшил промежуток до 1px */
+    gap: 1px;
     width: 100%;
 }
 
@@ -40,26 +40,29 @@ body {
     background: white;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     transition: all 0.15s ease;
     cursor: pointer;
-    margin: 0.5px; /* Минимальный отступ */
+    margin: 0.5px;
+    border: 1px solid #ddd; /* Граница для наглядности */
 }
 
 .product-card:active {
     transform: scale(0.98);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .product-image {
     width: 100%;
     height: 140px;
-    object-fit: contain;
-    background: #f8f8f8;
-    padding: 8px;
+    object-fit: cover;
+    background: #f0f0f0; /* Светло-серый фон под изображения */
+    border-bottom: 1px solid #eee; /* Разделитель */
 }
 
 .product-details {
     padding: 10px;
+    background: white;
 }
 
 .product-title {
@@ -79,7 +82,7 @@ body {
 
 .product-price {
     font-weight: 500;
-    color: #2a5885;
+    color: #d32f2f; /* Красный цвет для цены */
     font-size: 15px;
 }
 
