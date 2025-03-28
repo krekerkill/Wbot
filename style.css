@@ -1,113 +1,20 @@
-/* Основные стили */
-body {
-    font-family: 'Roboto', sans-serif;
+/* Reset */
+* {
     margin: 0;
     padding: 0;
-    background-color: #e5e5e5;
-    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
 }
 
-/* Сортировка */
-.sort-container {
-    margin: 0 auto;
-    max-width: 600px;
-    padding: 0 8px;
-}
-
-.sort-select {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #d0d0d0;
-    background-color: #ececec;
-    font-size: 14px;
-}
-
-/* Сетка товаров */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 8px;
-}
-
-/* Карточка товара */
-.product-card {
-    background: #ececec;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #d5d5d5;
-    transition: transform 0.2s;
-}
-
-.product-card:active {
-    transform: scale(0.98);
-}
-
-/* Изображение */
-.product-image-container {
-    width: 100%;
-    height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body {
+    font-family: 'Roboto', sans-serif;
     background: #f5f5f5;
-    padding: 10px;
-    border-radius: 12px 12px 0 0; /* Закругление и сверху и снизу */
+    padding: 0 16px 20px; /* Увеличены боковые отступы */
 }
 
-.product-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* Детали товара */
-.product-details {
-    padding: 12px;
-    background: #ececec;
-}
-
-.product-title {
-    margin: 0 0 4px 0;
-    font-size: 15px;
-    font-weight: 500;
-    color: #333;
-}
-
-.product-description {
-    margin: 0 0 8px 0;
-    font-size: 13px;
-    color: #555;
-}
-
-.product-price {
-    font-weight: 600;
-    color: #3a3a3a;
-    font-size: 16px;
-}
-
-/* Адаптивность */
-@media (min-width: 600px) {
-    .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-    }
-}
-
-@media (min-width: 900px) {
-    .products-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-    }
-}
-
-/* Новые стили для шапки */
+/* Header */
 .catalog-header {
     background: white;
-    padding: 16px 0;
+    padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -117,12 +24,49 @@ body {
 }
 
 .sort-container {
-    margin: 0 auto;
     max-width: 600px;
-    padding: 0 16px;
+    margin: 0 auto;
+    padding: 0 16px; /* Соответствует отступам body */
 }
 
-.sort-select {
-    padding: 14px 16px;
-    font-size: 16px;
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px; /* Уменьшен промежуток между плашками */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Product Card */
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Более тонкая тень */
+}
+
+.product-image-container {
+    height: 150px; /* Немного уменьшена высота */
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+/* Адаптивность */
+@media (min-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px; /* Немного больше на планшетах */
+    }
+}
+
+@media (min-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px; /* Чуть больше на десктопах */
+    }
 }
