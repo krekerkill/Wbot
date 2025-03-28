@@ -3,37 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Каталог смартфонов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <title>Каталог товаров</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="catalog">
-        <div class="brand" onclick="selectBrand('Samsung')">
-            <img src="https://i.imgur.com/JDyh6Wv.png" alt="Samsung"> <!-- Логотип 1 -->
-            <span>Samsung</span>
-        </div>
-        <div class="brand" onclick="selectBrand('Xiaomi')">
-            <img src="https://i.imgur.com/7Qm6kXJ.png" alt="Xiaomi"> <!-- Логотип 2 -->
-            <span>Xiaomi</span>
-        </div>
-        <div class="brand" onclick="selectBrand('Realme')">
-            <img src="https://i.imgur.com/5v5wD0Q.png" alt="Realme"> <!-- Логотип 3 -->
-            <span>Realme</span>
-        </div>
-        <div class="brand" onclick="selectBrand('Apple')">
-            <img src="https://i.imgur.com/4Z4g1hP.png" alt="Apple"> <!-- Логотип 4 -->
-            <span>Apple</span>
-        </div>
-        <div class="brand" onclick="selectBrand('Tecno')">
-            <img src="https://i.imgur.com/9zJjY7L.png" alt="Tecno"> <!-- Логотип 5 -->
-            <span>Tecno</span>
-        </div>
-        <div class="brand" onclick="selectBrand('Huawei')">
-            <img src="https://i.imgur.com/3qJQY9W.png" alt="Huawei"> <!-- Логотип 6 -->
-            <span>Huawei</span>
-        </div>
+    <div class="sort-options">
+        <select onchange="sortProducts(this.value)">
+            <option value="">Сортировка</option>
+            <option value="price_asc">По возрастанию цены</option>
+            <option value="price_desc">По убыванию цены</option>
+        </select>
     </div>
+    
+    <div class="products">
+        <!-- Пример товара 1 -->
+        <div class="product" onclick="selectProduct('p1')" data-price="19990">
+            <img src="https://i.imgur.com/sample1.jpg" alt="Смартфон X">
+            <div class="product-info">
+                <h3>Смартфон X</h3>
+                <p>128GB, черный</p>
+                <div class="price">19 990 ₽</div>
+            </div>
+        </div>
+        
+        <!-- Пример товара 2 -->
+        <div class="product" onclick="selectProduct('p2')" data-price="24990">
+            <img src="https://i.imgur.com/sample2.jpg" alt="Смартфон Y">
+            <div class="product-info">
+                <h3>Смартфон Y</h3>
+                <p>256GB, синий</p>
+                <div class="price">24 990 ₽</div>
+            </div>
+        </div>
+        
+        <!-- Добавьте остальные товары аналогично -->
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
