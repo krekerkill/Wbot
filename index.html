@@ -1,113 +1,46 @@
-<div id="products-container" class="products-grid">
-    <!-- 1. iPhone 15 -->
-    <div class="product-card" onclick="selectProduct('iphone15')" data-price="89990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>iPhone 15</h3>
-            <p>128GB, Black</p>
-            <div class="price">89 990 ₽</div>
-        </div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Каталог смартфонов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+    <div class="sort-container">
+        <select class="sort-select" onchange="sortProducts(this.value)">
+            <option value="">Сортировать по:</option>
+            <option value="price_asc">Цена (по возрастанию)</option>
+            <option value="price_desc">Цена (по убыванию)</option>
+        </select>
     </div>
 
-    <!-- 2. Samsung S23 Ultra -->
-    <div class="product-card" onclick="selectProduct('s23ultra')" data-price="99990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
+    <div id="products-container" class="products-grid">
+        <!-- 1. iPhone 15 -->
+        <div class="product-card" onclick="selectProduct('iphone15')" data-price="89990">
+            <img src="https://i.imgur.com/ykPzK3m.jpg" alt="iPhone 15" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">iPhone 15</h3>
+                <p class="product-description">128GB, Black</p>
+                <div class="product-price">89 990 ₽</div>
+            </div>
         </div>
-        <div class="product-details">
-            <h3>Samsung S23 Ultra</h3>
-            <p>256GB, Green</p>
-            <div class="price">99 990 ₽</div>
+
+        <!-- 2. Samsung S23 Ultra -->
+        <div class="product-card" onclick="selectProduct('s23ultra')" data-price="99990">
+            <img src="https://i.imgur.com/JrQZfYh.jpg" alt="S23 Ultra" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Samsung S23 Ultra</h3>
+                <p class="product-description">256GB, Green</p>
+                <div class="product-price">99 990 ₽</div>
+            </div>
         </div>
+
+        <!-- 3-18. Остальные товары -->
+        <!-- ... -->
     </div>
 
-    <!-- 3. Xiaomi 13T -->
-    <div class="product-card" onclick="selectProduct('xiaomi13t')" data-price="45990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>Xiaomi 13T</h3>
-            <p>256GB, Blue</p>
-            <div class="price">45 990 ₽</div>
-        </div>
-    </div>
-
-    <!-- 4. OnePlus 11 -->
-    <div class="product-card" onclick="selectProduct('oneplus11')" data-price="54990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>OnePlus 11</h3>
-            <p>256GB, Black</p>
-            <div class="price">54 990 ₽</div>
-        </div>
-    </div>
-
-    <!-- 5. Google Pixel 7 -->
-    <div class="product-card" onclick="selectProduct('pixel7')" data-price="64990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>Google Pixel 7</h3>
-            <p>128GB, White</p>
-            <div class="price">64 990 ₽</div>
-        </div>
-    </div>
-
-    <!-- 6. Realme 11 Pro+ -->
-    <div class="product-card" onclick="selectProduct('realme11')" data-price="24990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>Realme 11 Pro+</h3>
-            <p>256GB, Gold</p>
-            <div class="price">24 990 ₽</div>
-        </div>
-    </div>
-
-    <!-- 7. Nothing Phone 2 -->
-    <div class="product-card" onclick="selectProduct('nothingphone2')" data-price="42990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>Nothing Phone (2)</h3>
-            <p>256GB, White</p>
-            <div class="price">42 990 ₽</div>
-        </div>
-    </div>
-
-    <!-- 8. Huawei P60 Pro -->
-    <div class="product-card" onclick="selectProduct('huaweip60')" data-price="59990">
-        <div class="image-container">
-            <svg class="phone-icon" viewBox="0 0 24 24">
-                <path fill="#cccccc" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
-            </svg>
-        </div>
-        <div class="product-details">
-            <h3>Huawei P60 Pro</h3>
-            <p>512GB, White</p>
-            <div class="price">59 990 ₽</div>
-        </div>
-    </div>
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
