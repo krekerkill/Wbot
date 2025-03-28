@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог смартфонов</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="sort-container">
@@ -17,9 +17,11 @@
     </div>
 
     <div id="products-container" class="products-grid">
-        <!-- 1. iPhone 15 -->
-        <div class="product-card" onclick="selectProduct('iphone15')" data-price="89990">
-            <img src="https://i.imgur.com/ykPzK3m.jpg" alt="iPhone 15" class="product-image">
+        <!-- Все карточки с гарантированно работающими изображениями -->
+        <div class="product-card" data-price="89990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">iPhone 15</h3>
                 <p class="product-description">128GB, Black</p>
@@ -27,9 +29,10 @@
             </div>
         </div>
 
-        <!-- 2. Samsung S23 Ultra -->
-        <div class="product-card" onclick="selectProduct('s23ultra')" data-price="99990">
-            <img src="https://i.imgur.com/JrQZfYh.jpg" alt="S23 Ultra" class="product-image">
+        <div class="product-card" data-price="99990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Samsung S23 Ultra</h3>
                 <p class="product-description">256GB, Green</p>
@@ -37,9 +40,11 @@
             </div>
         </div>
 
-        <!-- 3. Xiaomi 13 Pro -->
-        <div class="product-card" onclick="selectProduct('xiaomi13pro')" data-price="79990">
-            <img src="https://i.imgur.com/Xqi3WzJ.jpg" alt="Xiaomi 13 Pro" class="product-image">
+        <!-- Остальные 6 карточек -->
+        <div class="product-card" data-price="79990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Xiaomi 13 Pro</h3>
                 <p class="product-description">256GB, White</p>
@@ -47,9 +52,10 @@
             </div>
         </div>
 
-        <!-- 4. Google Pixel 7 Pro -->
-        <div class="product-card" onclick="selectProduct('pixel7pro')" data-price="74990">
-            <img src="https://i.imgur.com/VvPd3fS.jpg" alt="Pixel 7 Pro" class="product-image">
+        <div class="product-card" data-price="74990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Google+Pixel+7+Pro" alt="Pixel 7 Pro" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Google Pixel 7 Pro</h3>
                 <p class="product-description">128GB, Black</p>
@@ -57,9 +63,10 @@
             </div>
         </div>
 
-        <!-- 5. OnePlus 11 -->
-        <div class="product-card" onclick="selectProduct('oneplus11')" data-price="65990">
-            <img src="https://i.imgur.com/9zQqZyG.jpg" alt="OnePlus 11" class="product-image">
+        <div class="product-card" data-price="65990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=OnePlus+11" alt="OnePlus 11" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">OnePlus 11</h3>
                 <p class="product-description">256GB, Green</p>
@@ -67,9 +74,10 @@
             </div>
         </div>
 
-        <!-- 6. Realme GT 3 -->
-        <div class="product-card" onclick="selectProduct('realmeGT3')" data-price="45990">
-            <img src="https://i.imgur.com/mXQ4w8j.jpg" alt="Realme GT 3" class="product-image">
+        <div class="product-card" data-price="45990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Realme+GT+3" alt="Realme GT 3" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Realme GT 3</h3>
                 <p class="product-description">256GB, Black</p>
@@ -77,9 +85,10 @@
             </div>
         </div>
 
-        <!-- 7. Honor Magic 5 Pro -->
-        <div class="product-card" onclick="selectProduct('honorMagic5')" data-price="69990">
-            <img src="https://i.imgur.com/5bQY9Lk.jpg" alt="Honor Magic 5 Pro" class="product-image">
+        <div class="product-card" data-price="69990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Honor Magic 5 Pro</h3>
                 <p class="product-description">256GB, Blue</p>
@@ -87,9 +96,10 @@
             </div>
         </div>
 
-        <!-- 8. Nothing Phone 2 -->
-        <div class="product-card" onclick="selectProduct('nothingPhone2')" data-price="54990">
-            <img src="https://i.imgur.com/JkQeY2x.jpg" alt="Nothing Phone 2" class="product-image">
+        <div class="product-card" data-price="54990">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" class="product-image" loading="lazy">
+            </div>
             <div class="product-details">
                 <h3 class="product-title">Nothing Phone 2</h3>
                 <p class="product-description">256GB, White</p>
