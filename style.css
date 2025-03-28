@@ -1,16 +1,14 @@
-/* ЯРКИЙ КРАСНЫЙ СТИЛЬ */
+/* Нежно-голубой стиль */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 8px;
-    background-color: #ff0000; /* Ярко-красный */
-    background-image: linear-gradient(45deg, #ff0000 0%, #cc0000 100%);
-    min-height: 100vh;
+    padding: 10px;
+    background-color: #e6f2ff; /* Нежно-голубой фон */
     -webkit-tap-highlight-color: transparent;
 }
 
 .sort-container {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     padding: 0 5px;
 }
 
@@ -18,17 +16,20 @@ body {
     width: 100%;
     padding: 10px 15px;
     border-radius: 10px;
-    border: 2px solid #fff;
-    background-color: rgba(255,255,255,0.9);
-    font-weight: bold;
-    color: #d50000;
-    font-size: 15px;
+    border: 1px solid #b3d1ff;
+    background-color: white;
+    font-size: 14px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
 }
 
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
+    gap: 1px;
     width: 100%;
 }
 
@@ -36,52 +37,51 @@ body {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     transition: transform 0.2s;
-    border: 2px solid #fff;
 }
 
 .product-card:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
 .product-image {
     width: 100%;
-    height: 160px;
+    height: 150px;
     object-fit: contain;
     background: #f5f5f5;
     padding: 10px;
-    border-bottom: 1px solid #eee;
 }
 
 .product-details {
     padding: 12px;
-    background: white;
 }
 
 .product-title {
-    margin: 0 0 5px 0;
+    margin: 0 0 4px 0;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: #333;
 }
 
 .product-description {
     margin: 0 0 8px 0;
     font-size: 13px;
-    color: #d50000;
-    font-weight: 500;
+    color: #666;
 }
 
 .product-price {
-    font-weight: 700;
-    color: #d50000;
-    font-size: 18px;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    font-weight: 500;
+    color: #2a5885; /* Исходный синий цвет цены */
+    font-size: 16px;
 }
 
 @media (min-width: 500px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .product-image {
+        height: 160px;
     }
 }
