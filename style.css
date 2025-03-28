@@ -1,41 +1,92 @@
-<style>
-  /* Контейнер для плашек */
-  .cards-container {
-    margin: 0 24px; /* Отступ от краёв экрана (24px) */
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* Отступ между плашками (12px — в 2 раза меньше, чем 24px) */
-  }
+/* Основные стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e5e5e5;
+    -webkit-tap-highlight-color: transparent;
+}
 
-  /* Стиль плашки */
-  .card {
-    background: #f6f8fa; /* Цвет фона */
-    border: 1px solid #e1e4e8; /* Граница */
-    border-radius: 8px; /* Закругление углов */
-    padding: 16px; /* Внутренний отступ */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень (опционально) */
-  }
+/* Сортировка */
+.sort-container {
+    margin: 8px auto; /* 8px сверху/снизу (в 2 раза больше gap) */
+    max-width: 600px;
+    padding: 0 8px; /* 8px по бокам (в 2 раза больше gap) */
+}
 
-  /* Для мобильных устройств — уменьшаем отступы */
-  @media (max-width: 768px) {
-    .cards-container {
-      margin: 0 12px;
-      gap: 6px;
+/* Сетка товаров */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px; /* Промежуток между плашками */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 8px; /* 8px по бокам (в 2 раза больше gap) */
+    margin-bottom: 8px; /* Отступ снизу */
+}
+
+/* Карточка товара */
+.product-card {
+    background: #ececec;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #d5d5d5;
+    transition: transform 0.2s;
+}
+
+.product-card:active {
+    transform: scale(0.98);
+}
+
+/* Изображение */
+.product-image {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    background: #f5f5f5;
+    padding: 8px;
+    border-radius: 8px 8px 0 0;
+    display: block;
+}
+
+/* Плашка с информацией */
+.product-details {
+    padding: 8px;
+    background: #ececec;
+}
+
+.product-title {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.product-description {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.product-price {
+    font-weight: 600;
+    color: #3a3a3a;
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (min-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        padding: 0 8px; /* Сохраняем пропорцию */
     }
-    .card {
-      padding: 12px;
-    }
-  }
-</style>
+}
 
-<!-- HTML-структура -->
-<div class="cards-container">
-  <div class="card">
-    <h3>Плашка 1</h3>
-    <p>Текст или контент внутри плашки.</p>
-  </div>
-  <div class="card">
-    <h3>Плашка 2</h3>
-    <p>Текст или контент внутри плашки.</p>
-  </div>
-</div>
+@media (min-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        padding: 0 8px; /* Сохраняем пропорцию */
+    }
+}
