@@ -1,4 +1,3 @@
-// Функция выбора товара
 function selectProduct(productId) {
     const productData = {
         action: "product_selected",
@@ -14,7 +13,6 @@ function selectProduct(productId) {
     }
 }
 
-// Функция сортировки товаров
 function sortProducts(criteria) {
     const container = document.getElementById('products-container');
     const products = Array.from(container.getElementsByClassName('product-card'));
@@ -28,18 +26,15 @@ function sortProducts(criteria) {
         return 0;
     });
 
-    // Очищаем контейнер
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
 
-    // Добавляем отсортированные товары
     products.forEach(product => {
         container.appendChild(product);
     });
 }
 
-// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Каталог товаров загружен");
+    console.log("Каталог загружен");
 });
