@@ -8,38 +8,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sort-options">
-        <select onchange="sortProducts(this.value)">
-            <option value="">Сортировка</option>
-            <option value="price_asc">По возрастанию цены</option>
-            <option value="price_desc">По убыванию цены</option>
+    <div class="sort-container">
+        <select class="sort-select" onchange="sortProducts(this.value)">
+            <option value="">Сортировать по:</option>
+            <option value="price_asc">Цена (по возрастанию)</option>
+            <option value="price_desc">Цена (по убыванию)</option>
         </select>
     </div>
-    
-    <div class="products">
+
+    <div id="products-container" class="products-grid">
         <!-- Пример товара 1 -->
-        <div class="product" onclick="selectProduct('p1')" data-price="19990">
-            <img src="https://i.imgur.com/sample1.jpg" alt="Смартфон X">
-            <div class="product-info">
-                <h3>Смартфон X</h3>
-                <p>128GB, черный</p>
-                <div class="price">19 990 ₽</div>
+        <div class="product-card" onclick="selectProduct('prod1')" data-price="19990">
+            <img src="https://i.imgur.com/sample1.jpg" alt="Смартфон X" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Смартфон X</h3>
+                <p class="product-description">128GB, черный</p>
+                <div class="product-price">19 990 ₽</div>
             </div>
         </div>
-        
+
         <!-- Пример товара 2 -->
-        <div class="product" onclick="selectProduct('p2')" data-price="24990">
-            <img src="https://i.imgur.com/sample2.jpg" alt="Смартфон Y">
-            <div class="product-info">
-                <h3>Смартфон Y</h3>
-                <p>256GB, синий</p>
-                <div class="price">24 990 ₽</div>
+        <div class="product-card" onclick="selectProduct('prod2')" data-price="24990">
+            <img src="https://i.imgur.com/sample2.jpg" alt="Смартфон Y" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Смартфон Y</h3>
+                <p class="product-description">256GB, синий</p>
+                <div class="product-price">24 990 ₽</div>
             </div>
         </div>
-        
+
         <!-- Добавьте остальные товары аналогично -->
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
