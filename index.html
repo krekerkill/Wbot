@@ -1,196 +1,181 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Каталог смартфонов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
-</head>
-<body>
-    <div class="sort-container">
-        <select class="sort-select" onchange="sortProducts(this.value)">
-            <option value="">Сортировать по:</option>
-            <option value="price_asc">Цена (по возрастанию)</option>
-            <option value="price_desc">Цена (по убыванию)</option>
-        </select>
+<div id="products-container" class="products-grid">
+    <!-- 1. iPhone 15 -->
+    <div class="product-card" onclick="selectProduct('iphone15')" data-price="89990">
+        <img src="https://i.imgur.com/JQZx0Er.jpg" alt="iPhone 15" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">iPhone 15</h3>
+            <p class="product-description">128GB, Black</p>
+            <div class="product-price">89 990 ₽</div>
+        </div>
     </div>
 
-    <div id="products-container" class="products-grid">
-        <!-- 1. iPhone 15 -->
-        <div class="product-card" onclick="selectProduct('iphone15')" data-price="89990">
-            <img src="https://i.imgur.com/ykPzK3m.jpg" alt="iPhone 15" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">iPhone 15</h3>
-                <p class="product-description">128GB, Black</p>
-                <div class="product-price">89 990 ₽</div>
-            </div>
+    <!-- 2. Samsung S23 Ultra -->
+    <div class="product-card" onclick="selectProduct('s23ultra')" data-price="99990">
+        <img src="https://i.imgur.com/KLmNpRx.jpg" alt="S23 Ultra" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Samsung S23 Ultra</h3>
+            <p class="product-description">256GB, Green</p>
+            <div class="product-price">99 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 2. Samsung S23 Ultra -->
-        <div class="product-card" onclick="selectProduct('s23ultra')" data-price="99990">
-            <img src="https://i.imgur.com/JrQZfYh.jpg" alt="S23 Ultra" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Samsung S23 Ultra</h3>
-                <p class="product-description">256GB, Green</p>
-                <div class="product-price">99 990 ₽</div>
-            </div>
+    <!-- 3. Redmi 12 -->
+    <div class="product-card" onclick="selectProduct('redmi12')" data-price="19990">
+        <img src="https://i.imgur.com/pXWxlEB.jpg" alt="Redmi 12" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Redmi 12</h3>
+            <p class="product-description">128GB, Blue</p>
+            <div class="product-price">19 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 3. Redmi 12 -->
-        <div class="product-card" onclick="selectProduct('redmi12')" data-price="19990">
-            <img src="https://i.imgur.com/pXWxlEB.jpg" alt="Redmi 12" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Redmi 12</h3>
-                <p class="product-description">128GB, Blue</p>
-                <div class="product-price">19 990 ₽</div>
-            </div>
+    <!-- 4. Realme 11 Pro+ -->
+    <div class="product-card" onclick="selectProduct('realme11')" data-price="24990">
+        <img src="https://i.imgur.com/NLrGvW9.jpg" alt="Realme 11" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Realme 11 Pro+</h3>
+            <p class="product-description">256GB, Gold</p>
+            <div class="product-price">24 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 4. Realme 11 Pro+ -->
-        <div class="product-card" onclick="selectProduct('realme11')" data-price="24990">
-            <img src="https://i.imgur.com/NLrGvW9.jpg" alt="Realme 11" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Realme 11 Pro+</h3>
-                <p class="product-description">256GB, Gold</p>
-                <div class="product-price">24 990 ₽</div>
-            </div>
+    <!-- 5. Tecno Camon 20 -->
+    <div class="product-card" onclick="selectProduct('tecnocamon20')" data-price="18990">
+        <img src="https://i.imgur.com/8v1ZQ5W.jpg" alt="Tecno Camon 20" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Tecno Camon 20</h3>
+            <p class="product-description">128GB, Black</p>
+            <div class="product-price">18 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 5. Tecno Camon 20 -->
-        <div class="product-card" onclick="selectProduct('tecnocamon20')" data-price="18990">
-            <img src="https://i.imgur.com/8v1ZQ5W.jpg" alt="Tecno Camon 20" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Tecno Camon 20</h3>
-                <p class="product-description">128GB, Black</p>
-                <div class="product-price">18 990 ₽</div>
-            </div>
+    <!-- 6. Huawei P60 Pro -->
+    <div class="product-card" onclick="selectProduct('huaweip60')" data-price="59990">
+        <img src="https://i.imgur.com/7jVz0Qp.jpg" alt="Huawei P60" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Huawei P60 Pro</h3>
+            <p class="product-description">512GB, White</p>
+            <div class="product-price">59 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 6. Huawei P60 Pro -->
-        <div class="product-card" onclick="selectProduct('huaweip60')" data-price="59990">
-            <img src="https://i.imgur.com/7jVz0Qp.jpg" alt="Huawei P60" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Huawei P60 Pro</h3>
-                <p class="product-description">512GB, White</p>
-                <div class="product-price">59 990 ₽</div>
-            </div>
+    <!-- 7. Google Pixel 7 -->
+    <div class="product-card" onclick="selectProduct('pixel7')" data-price="64990">
+        <img src="https://i.imgur.com/zXaTjUQ.jpg" alt="Pixel 7" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Google Pixel 7</h3>
+            <p class="product-description">128GB, Snow</p>
+            <div class="product-price">64 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 7. Google Pixel 7 -->
-        <div class="product-card" onclick="selectProduct('pixel7')" data-price="64990">
-            <img src="https://i.imgur.com/zXaTjUQ.jpg" alt="Pixel 7" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Google Pixel 7</h3>
-                <p class="product-description">128GB, Snow</p>
-                <div class="product-price">64 990 ₽</div>
-            </div>
+    <!-- 8. OnePlus 11 -->
+    <div class="product-card" onclick="selectProduct('oneplus11')" data-price="54990">
+        <img src="https://i.imgur.com/Kv1fHg5.jpg" alt="OnePlus 11" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">OnePlus 11</h3>
+            <p class="product-description">256GB, Black</p>
+            <div class="product-price">54 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 8. OnePlus 11 -->
-        <div class="product-card" onclick="selectProduct('oneplus11')" data-price="54990">
-            <img src="https://i.imgur.com/Kv1fHg5.jpg" alt="OnePlus 11" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">OnePlus 11</h3>
-                <p class="product-description">256GB, Black</p>
-                <div class="product-price">54 990 ₽</div>
-            </div>
+    <!-- 9. Xiaomi 13T -->
+    <div class="product-card" onclick="selectProduct('xiaomi13t')" data-price="45990">
+        <img src="https://i.imgur.com/YbGQ2rH.jpg" alt="Xiaomi 13T" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Xiaomi 13T</h3>
+            <p class="product-description">256GB, Alpine Blue</p>
+            <div class="product-price">45 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 9. Xiaomi 13T -->
-        <div class="product-card" onclick="selectProduct('xiaomi13t')" data-price="45990">
-            <img src="https://i.imgur.com/YbGQ2rH.jpg" alt="Xiaomi 13T" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Xiaomi 13T</h3>
-                <p class="product-description">256GB, Alpine Blue</p>
-                <div class="product-price">45 990 ₽</div>
-            </div>
+    <!-- 10. Vivo X90 -->
+    <div class="product-card" onclick="selectProduct('vivox90')" data-price="68990">
+        <img src="https://i.imgur.com/mX8JZoL.jpg" alt="Vivo X90" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Vivo X90 Pro</h3>
+            <p class="product-description">512GB, Legendary Black</p>
+            <div class="product-price">68 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 10. Vivo X90 -->
-        <div class="product-card" onclick="selectProduct('vivox90')" data-price="68990">
-            <img src="https://i.imgur.com/mX8JZoL.jpg" alt="Vivo X90" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Vivo X90 Pro</h3>
-                <p class="product-description">512GB, Legendary Black</p>
-                <div class="product-price">68 990 ₽</div>
-            </div>
+    <!-- 11. Oppo Find X5 -->
+    <div class="product-card" onclick="selectProduct('oppofindx5')" data-price="52990">
+        <img src="https://i.imgur.com/q3VWc9N.jpg" alt="Oppo Find X5" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Oppo Find X5</h3>
+            <p class="product-description">256GB, Glaze Black</p>
+            <div class="product-price">52 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 11. Oppo Find X5 -->
-        <div class="product-card" onclick="selectProduct('oppofindx5')" data-price="52990">
-            <img src="https://i.imgur.com/q3VWc9N.jpg" alt="Oppo Find X5" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Oppo Find X5</h3>
-                <p class="product-description">256GB, Glaze Black</p>
-                <div class="product-price">52 990 ₽</div>
-            </div>
+    <!-- 12. Nothing Phone 2 -->
+    <div class="product-card" onclick="selectProduct('nothingphone2')" data-price="42990">
+        <img src="https://i.imgur.com/JtHdYQk.jpg" alt="Nothing Phone 2" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Nothing Phone (2)</h3>
+            <p class="product-description">256GB, White</p>
+            <div class="product-price">42 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 12. Nothing Phone 2 -->
-        <div class="product-card" onclick="selectProduct('nothingphone2')" data-price="42990">
-            <img src="https://i.imgur.com/JtHdYQk.jpg" alt="Nothing Phone 2" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Nothing Phone (2)</h3>
-                <p class="product-description">256GB, White</p>
-                <div class="product-price">42 990 ₽</div>
-            </div>
+    <!-- 13. Asus ROG Phone 7 -->
+    <div class="product-card" onclick="selectProduct('rogphone7')" data-price="79990">
+        <img src="https://i.imgur.com/vN0PzUg.jpg" alt="ROG Phone 7" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Asus ROG Phone 7</h3>
+            <p class="product-description">512GB, Storm White</p>
+            <div class="product-price">79 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 13. Asus ROG Phone 7 -->
-        <div class="product-card" onclick="selectProduct('rogphone7')" data-price="79990">
-            <img src="https://i.imgur.com/vN0PzUg.jpg" alt="ROG Phone 7" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Asus ROG Phone 7</h3>
-                <p class="product-description">512GB, Storm White</p>
-                <div class="product-price">79 990 ₽</div>
-            </div>
+    <!-- 14. Honor Magic 5 -->
+    <div class="product-card" onclick="selectProduct('honormagic5')" data-price="49990">
+        <img src="https://i.imgur.com/4M6JYhF.jpg" alt="Honor Magic 5" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Honor Magic5 Pro</h3>
+            <p class="product-description">256GB, Meadow Green</p>
+            <div class="product-price">49 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 14. Honor Magic 5 -->
-        <div class="product-card" onclick="selectProduct('honormagic5')" data-price="49990">
-            <img src="https://i.imgur.com/4M6JYhF.jpg" alt="Honor Magic 5" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Honor Magic5 Pro</h3>
-                <p class="product-description">256GB, Meadow Green</p>
-                <div class="product-price">49 990 ₽</div>
-            </div>
+    <!-- 15. Motorola Edge 40 -->
+    <div class="product-card" onclick="selectProduct('motoedge40')" data-price="37990">
+        <img src="https://i.imgur.com/9kLmWnQ.jpg" alt="Motorola Edge 40" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Motorola Edge 40</h3>
+            <p class="product-description">256GB, Lunar Blue</p>
+            <div class="product-price">37 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 15. Motorola Edge 40 -->
-        <div class="product-card" onclick="selectProduct('motoedge40')" data-price="37990">
-            <img src="https://i.imgur.com/9kLmWnQ.jpg" alt="Motorola Edge 40" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Motorola Edge 40</h3>
-                <p class="product-description">256GB, Lunar Blue</p>
-                <div class="product-price">37 990 ₽</div>
-            </div>
+    <!-- 16. Nokia X30 -->
+    <div class="product-card" onclick="selectProduct('nokiax30')" data-price="34990">
+        <img src="https://i.imgur.com/7QNwzYJ.jpg" alt="Nokia X30" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Nokia X30 5G</h3>
+            <p class="product-description">128GB, Cloudy Blue</p>
+            <div class="product-price">34 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 16. Nokia X30 -->
-        <div class="product-card" onclick="selectProduct('nokiax30')" data-price="34990">
-            <img src="https://i.imgur.com/7QNwzYJ.jpg" alt="Nokia X30" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Nokia X30 5G</h3>
-                <p class="product-description">128GB, Cloudy Blue</p>
-                <div class="product-price">34 990 ₽</div>
-            </div>
+    <!-- 17. Sony Xperia 5 IV -->
+    <div class="product-card" onclick="selectProduct('xperia5iv')" data-price="75990">
+        <img src="https://i.imgur.com/5TQjJ9f.jpg" alt="Xperia 5 IV" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">Sony Xperia 5 IV</h3>
+            <p class="product-description">256GB, Black</p>
+            <div class="product-price">75 990 ₽</div>
         </div>
+    </div>
 
-        <!-- 17. Sony Xperia 5 IV -->
-        <div class="product-card" onclick="selectProduct('xperia5iv')" data-price="75990">
-            <img src="https://i.imgur.com/5TQjJ9f.jpg" alt="Xperia 5 IV" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">Sony Xperia 5 IV</h3>
-                <p class="product-description">256GB, Black</p>
-                <div class="product-price">75 990 ₽</div>
-            </div>
+    <!-- 18. ZTE Nubia Z50 -->
+    <div class="product-card" onclick="selectProduct('nubiaz50')" data-price="45990">
+        <img src="https://i.imgur.com/3qVWx8L.jpg" alt="Nubia Z50" class="product-image">
+        <div class="product-details">
+            <h3 class="product-title">ZTE Nubia Z50</h3>
+            <p class="product-description">256GB, Starry Black</p>
+            <div class="product-price">45 990 ₽</div>
         </div>
-
-        <!-- 18. ZTE Nubia Z50 -->
-        <div class="product-card" onclick="selectProduct('nubiaz50')" data-price="45990">
-            <img src="https://i.imgur.com/3qVWx8L.jpg" alt="Nubia Z50" class="product-image">
-            <div class="product-details">
-                <h3 class="product-title">ZTE Nubia Z50</h3>
-                <p class="product-description">256GB, Starry Black</p>
-                <div
+    </div>
+</div>
