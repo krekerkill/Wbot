@@ -3,51 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Горячие предложения</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4">
+    <title>Каталог смартфонов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <div class="sort-container">
         <select class="sort-select" onchange="sortProducts(this.value)">
-            <option value="">Сортировка</option>
-            <option value="price_asc">Дешевле</option>
-            <option value="price_desc">Дороже</option>
+            <option value="">Сортировать по:</option>
+            <option value="price_asc">Цена (по возрастанию)</option>
+            <option value="price_desc">Цена (по убыванию)</option>
         </select>
     </div>
 
     <div id="products-container" class="products-grid">
         <!-- Товар 1 -->
-        <div class="product-card" onclick="selectProduct('iphone15pro_red')" data-price="104990">
-            <img src="https://i.imgur.com/ykPzK3m.jpg" alt="iPhone 15 Pro" class="product-image">
+        <div class="product-card" onclick="selectProduct('iphone13')" data-price="79990">
+            <img src="https://i.imgur.com/JDyh6Wv.png" alt="iPhone 13" class="product-image">
             <div class="product-details">
-                <h3 class="product-title">iPhone 15 Pro</h3>
-                <p class="product-description">Красный титан</p>
-                <div class="product-price">104 990 ₽</div>
+                <h3 class="product-title">iPhone 13</h3>
+                <p class="product-description">128GB, Midnight</p>
+                <div class="product-price">79 990 ₽</div>
             </div>
         </div>
 
         <!-- Товар 2 -->
-        <div class="product-card" onclick="selectProduct('fold5_red')" data-price="129990">
-            <img src="https://i.imgur.com/JrQZfYh.jpg" alt="Samsung Fold 5" class="product-image">
+        <div class="product-card" onclick="selectProduct('s21fe')" data-price="49990">
+            <img src="https://i.imgur.com/7Qm6kXJ.png" alt="Samsung S21 FE" class="product-image">
             <div class="product-details">
-                <h3 class="product-title">Galaxy Z Fold5</h3>
-                <p class="product-description">Алый градиент</p>
-                <div class="product-price">129 990 ₽</div>
+                <h3 class="product-title">Samsung S21 FE</h3>
+                <p class="product-description">256GB, Graphite</p>
+                <div class="product-price">49 990 ₽</div>
             </div>
         </div>
 
         <!-- Товар 3 -->
-        <div class="product-card" onclick="selectProduct('redmi_k60')" data-price="34990">
-            <img src="https://i.imgur.com/pXWxlEB.jpg" alt="Redmi K60" class="product-image">
+        <div class="product-card" onclick="selectProduct('redminote12')" data-price="21990">
+            <img src="https://i.imgur.com/5v5wD0Q.png" alt="Redmi Note 12" class="product-image">
             <div class="product-details">
-                <h3 class="product-title">Redmi K60 Ultra</h3>
-                <p class="product-description">Racing Red</p>
+                <h3 class="product-title">Redmi Note 12</h3>
+                <p class="product-description">128GB, Onyx Gray</p>
+                <div class="product-price">21 990 ₽</div>
+            </div>
+        </div>
+
+        <!-- Товар 4 -->
+        <div class="product-card" onclick="selectProduct('realme10')" data-price="23990">
+            <img src="https://i.imgur.com/4Z4g1hP.png" alt="Realme 10" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Realme 10</h3>
+                <p class="product-description">128GB, Clash White</p>
+                <div class="product-price">23 990 ₽</div>
+            </div>
+        </div>
+
+        <!-- Товар 5 -->
+        <div class="product-card" onclick="selectProduct('tecnocamon20')" data-price="18990">
+            <img src="https://i.imgur.com/9zJjY7L.png" alt="Tecno Camon 20" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Tecno Camon 20</h3>
+                <p class="product-description">128GB, Dark Welkin</p>
+                <div class="product-price">18 990 ₽</div>
+            </div>
+        </div>
+
+        <!-- Товар 6 -->
+        <div class="product-card" onclick="selectProduct('huaweip60')" data-price="34990">
+            <img src="https://i.imgur.com/3qJQY9W.png" alt="Huawei P60" class="product-image">
+            <div class="product-details">
+                <h3 class="product-title">Huawei P60</h3>
+                <p class="product-description">256GB, Rococo Pearl</p>
                 <div class="product-price">34 990 ₽</div>
             </div>
         </div>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>
