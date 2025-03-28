@@ -1,28 +1,35 @@
+// Обработка выбора товара
 function selectProduct(productId) {
+    const productData = {
+        action: "product_selected",
+        product_id: productId,
+        timestamp: Date.now()
+    };
+    
     if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.sendData(JSON.stringify({
-            action: "product_selected",
-            product_id: productId,
-            timestamp: new Date().getTime()
-        }));
+        Telegram.WebApp.sendData(JSON.stringify(productData));
         Telegram.WebApp.close();
     } else {
-        console.log("Selected product ID:", productId);
+        console.log("Product selected:", productData);
     }
 }
 
+// Сортировка товаров
 function sortProducts(criteria) {
-    const container = document.querySelector('.products');
-    const products = Array.from(document.querySelectorAll('.product'));
+    const container = document.getElementById('products-container');
+    const products = Array.from(container.children);
     
     products.sort((a, b) => {
-        const aPrice = parseFloat(a.getAttribute('data-price'));
-        const bPrice = parseFloat(b.getAttribute('data-price'));
+        const aPrice = parseFloat(a.dataset.price);
+        const bPrice = parseFloat(b.dataset.price);
         
-        if (criteria === 'price_asc') return aPrice - bPrice;
-        if (criteria === 'price_desc') return bPrice - aPrice;
-        return 0;
+        return criteria === 'price_asc' ? aPrice - bPrice : bPrice - aPrice;
     });
     
     products.forEach(product => container.appendChild(product));
 }
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', () => {
+    // Можно добавить дополнительную логику инициализации
+});
