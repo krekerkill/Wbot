@@ -1,40 +1,98 @@
-function selectProduct(productId) {
-    const productData = {
-        action: "product_selected",
-        product_id: productId,
-        timestamp: new Date().toISOString()
-    };
+/* Основные стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 12px;
+    background-color: #e5e5e5;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.sendData(JSON.stringify(productData));
-    } else {
-        console.log("Выбран товар:", productData);
-        alert(`Товар ${productId} добавлен в корзину`);
+/* Сортировка */
+.sort-container {
+    margin: 0 auto 12px auto;
+    max-width: 600px;
+    padding: 0 6px;
+}
+
+.sort-select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    background-color: #ececec;
+    font-size: 14px;
+}
+
+/* Сетка товаров */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 6px;
+}
+
+/* Карточка товара */
+.product-card {
+    background: #ececec;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #d5d5d5;
+    transition: transform 0.2s;
+}
+
+.product-card:active {
+    transform: scale(0.98);
+}
+
+/* Изображение */
+.product-image {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px 10px 0 0; /* Закругление сверху */
+    display: block;
+}
+
+/* Плашка с информацией */
+.product-info-plate {
+    padding: 12px;
+    background: #ececec;
+}
+
+.product-title {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.product-description {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.product-price {
+    font-weight: 600;
+    color: #3a3a3a;
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (min-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
     }
 }
 
-function sortProducts(criteria) {
-    const container = document.getElementById('products-container');
-    const products = Array.from(container.getElementsByClassName('product-card'));
-    
-    products.sort((a, b) => {
-        const priceA = parseFloat(a.getAttribute('data-price'));
-        const priceB = parseFloat(b.getAttribute('data-price'));
-        
-        if (criteria === 'price_asc') return priceA - priceB;
-        if (criteria === 'price_desc') return priceB - priceA;
-        return 0;
-    });
-
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
+@media (min-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
     }
-
-    products.forEach(product => {
-        container.appendChild(product);
-    });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Каталог загружен");
-});
