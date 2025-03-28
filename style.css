@@ -2,16 +2,16 @@
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 8px; /* Изменил с 12px на 8px */
+    padding: 4px; /* Уменьшил до 4px */
     background-color: #e5e5e5;
     -webkit-tap-highlight-color: transparent;
 }
 
 /* Сортировка */
 .sort-container {
-    margin: 8px auto; /* Добавил отступ сверху и снизу 8px */
+    margin: 4px auto; /* Уменьшил до 4px */
     max-width: 600px;
-    padding: 0 8px; /* Изменил с 6px на 8px */
+    padding: 0 4px; /* Уменьшил до 4px */
 }
 
 .sort-select {
@@ -27,16 +27,16 @@ body {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px; /* Изменил с 6px на 8px */
+    gap: 4px; /* Уменьшил до 4px */
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 8px; /* Изменил с 6px на 8px */
+    padding: 0 4px; /* Уменьшил до 4px */
 }
 
 /* Карточка товара */
 .product-card {
     background: #ececec;
-    border-radius: 10px;
+    border-radius: 8px; /* Немного уменьшил скругление */
     overflow: hidden;
     border: 1px solid #d5d5d5;
     transition: transform 0.2s;
@@ -52,14 +52,14 @@ body {
     height: 140px;
     object-fit: contain;
     background: #f5f5f5;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
+    padding: 8px; /* Уменьшил с 10px до 8px */
+    border-radius: 8px 8px 0 0; /* Синхронизировал с карточкой */
     display: block;
 }
 
 /* Плашка с информацией */
 .product-details {
-    padding: 12px;
+    padding: 8px; /* Уменьшил с 12px до 8px */
     background: #ececec;
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 .product-description {
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0; /* Уменьшил с 8px до 4px */
     font-size: 13px;
     color: #555;
 }
@@ -86,13 +86,13 @@ body {
 @media (min-width: 600px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        gap: 4px; /* Оставил 4px */
     }
 }
 
 @media (min-width: 900px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 8px; /* Изменил с 10px на 8px для единообразия */
+        gap: 4px; /* Оставил 4px */
     }
 }
