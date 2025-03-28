@@ -2,16 +2,16 @@
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 12px;
+    padding: 8px; /* Изменил с 12px на 8px */
     background-color: #e5e5e5;
     -webkit-tap-highlight-color: transparent;
 }
 
 /* Сортировка */
 .sort-container {
-    margin: 0 auto 12px auto;
+    margin: 8px auto; /* Добавил отступ сверху и снизу 8px */
     max-width: 600px;
-    padding: 0 6px;
+    padding: 0 8px; /* Изменил с 6px на 8px */
 }
 
 .sort-select {
@@ -27,10 +27,10 @@ body {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 8px; /* Изменил с 6px на 8px */
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 6px;
+    padding: 0 8px; /* Изменил с 6px на 8px */
 }
 
 /* Карточка товара */
@@ -93,6 +93,6 @@ body {
 @media (min-width: 900px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        gap: 8px; /* Изменил с 10px на 8px для единообразия */
     }
 }
