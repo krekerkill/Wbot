@@ -1,53 +1,41 @@
-/* Основные стили */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0; /* Убрали отступы у body */
-    background-color: #e5e5e5;
-    -webkit-tap-highlight-color: transparent;
-}
+<style>
+  /* Контейнер для плашек */
+  .cards-container {
+    margin: 0 24px; /* Отступ от краёв экрана (24px) */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Отступ между плашками (12px — в 2 раза меньше, чем 24px) */
+  }
 
-/* Сортировка */
-.sort-container {
-    margin: 4px auto 8px auto; /* 4px сверху, 8px снизу */
-    max-width: 600px;
-    padding: 0 4px; /* Синхронизировал с gap */
-}
+  /* Стиль плашки */
+  .card {
+    background: #f6f8fa; /* Цвет фона */
+    border: 1px solid #e1e4e8; /* Граница */
+    border-radius: 8px; /* Закругление углов */
+    padding: 16px; /* Внутренний отступ */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень (опционально) */
+  }
 
-/* Сетка товаров */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px; /* Основной промежуток */
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 4px; /* Совпадает с gap */
-}
-
-/* Остальные стили остаются без изменений */
-.product-card {
-    background: #ececec;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #d5d5d5;
-    transition: transform 0.2s;
-}
-
-/* ... остальные стили карточек ... */
-
-/* Адаптивность */
-@media (min-width: 600px) {
-    .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        padding: 0 4px; /* Важно сохранить и здесь */
+  /* Для мобильных устройств — уменьшаем отступы */
+  @media (max-width: 768px) {
+    .cards-container {
+      margin: 0 12px;
+      gap: 6px;
     }
-}
-
-@media (min-width: 900px) {
-    .products-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 4px;
-        padding: 0 4px; /* И здесь */
+    .card {
+      padding: 12px;
     }
-}
+  }
+</style>
+
+<!-- HTML-структура -->
+<div class="cards-container">
+  <div class="card">
+    <h3>Плашка 1</h3>
+    <p>Текст или контент внутри плашки.</p>
+  </div>
+  <div class="card">
+    <h3>Плашка 2</h3>
+    <p>Текст или контент внутри плашки.</p>
+  </div>
+</div>
