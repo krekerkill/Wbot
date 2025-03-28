@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sort-container">
-        <select class="sort-select" onchange="sortProducts(this.value)">
-            <option value="">Сортировать по:</option>
-            <option value="price_asc">Цена (по возрастанию)</option>
-            <option value="price_desc">Цена (по убыванию)</option>
-        </select>
+    <div class="catalog-header">
+        <div class="sort-container">
+            <select class="sort-select" onchange="sortProducts(this.value)">
+                <option value="">Сортировать по:</option>
+                <option value="price_asc">Цена (по возрастанию)</option>
+                <option value="price_desc">Цена (по убыванию)</option>
+            </select>
+        </div>
     </div>
 
     <div id="products-container" class="products-grid">
-        <!-- Все карточки с гарантированно работающими изображениями -->
+        <!-- 1. iPhone 15 -->
         <div class="product-card" data-price="89990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" class="product-image" loading="lazy">
@@ -29,6 +31,7 @@
             </div>
         </div>
 
+        <!-- 2. Samsung S23 Ultra -->
         <div class="product-card" data-price="99990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" class="product-image" loading="lazy">
@@ -40,7 +43,7 @@
             </div>
         </div>
 
-        <!-- Остальные 6 карточек -->
+        <!-- 3. Xiaomi 13 Pro -->
         <div class="product-card" data-price="79990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" class="product-image" loading="lazy">
@@ -52,6 +55,7 @@
             </div>
         </div>
 
+        <!-- 4. Google Pixel 7 Pro -->
         <div class="product-card" data-price="74990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Google+Pixel+7+Pro" alt="Pixel 7 Pro" class="product-image" loading="lazy">
@@ -63,6 +67,7 @@
             </div>
         </div>
 
+        <!-- 5. OnePlus 11 -->
         <div class="product-card" data-price="65990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=OnePlus+11" alt="OnePlus 11" class="product-image" loading="lazy">
@@ -74,6 +79,7 @@
             </div>
         </div>
 
+        <!-- 6. Realme GT 3 -->
         <div class="product-card" data-price="45990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Realme+GT+3" alt="Realme GT 3" class="product-image" loading="lazy">
@@ -85,6 +91,7 @@
             </div>
         </div>
 
+        <!-- 7. Honor Magic 5 Pro -->
         <div class="product-card" data-price="69990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" class="product-image" loading="lazy">
@@ -96,6 +103,7 @@
             </div>
         </div>
 
+        <!-- 8. Nothing Phone 2 -->
         <div class="product-card" data-price="54990">
             <div class="product-image-container">
                 <img src="https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" class="product-image" loading="lazy">
