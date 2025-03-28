@@ -1,17 +1,17 @@
-/* Единая цветовая схема */
+/* Основные стили */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 12px;
-    background-color: #e5e5e5; /* Основной фон */
+    background-color: #e5e5e5;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Центрированный контейнер */
+/* Контейнер сортировки */
 .sort-container {
     margin: 0 auto 8px auto;
     max-width: 600px;
-    padding: 0 6px; /* Боковые отступы */
+    padding: 0 6px;
 }
 
 .sort-select {
@@ -19,42 +19,54 @@ body {
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #d5d5d5;
-    background-color: #ececec; /* Почти как фон */
+    background-color: #ececec;
     color: #333;
     font-size: 14px;
 }
 
-/* Плотная сетка */
+/* Сетка товаров */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 4px; /* Минимальный промежуток */
+    gap: 4px;
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 6px; /* Выравнивание по краям */
+    padding: 0 6px;
 }
 
-/* Плашки, сливающиеся с фоном */
+/* Карточка товара */
 .product-card {
-    background: #ececec; /* Почти идентично фону */
+    background: #ececec;
     border-radius: 10px;
     overflow: hidden;
+    border: 1px solid #d5d5d5;
     transition: transform 0.2s;
-    border: 1px solid #d5d5d5; /* Едва заметная граница */
 }
 
 .product-card:active {
     transform: scale(0.98);
 }
 
-.product-image {
-    width: 100%;
+/* Контейнер изображения */
+.product-image-container {
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    background: #f5f5f5;
     height: 140px;
-    object-fit: contain;
-    background: #f5f5f5; /* Светлее основного фона */
-    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Изображение товара */
+.product-image {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Детали товара */
 .product-details {
     padding: 10px;
 }
@@ -74,7 +86,7 @@ body {
 
 .product-price {
     font-weight: 600;
-    color: #3a3a3a; /* Почти чёрный */
+    color: #3a3a3a;
     font-size: 15px;
 }
 
