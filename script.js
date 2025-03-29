@@ -1,4 +1,3 @@
-// script.js - обновленная версия
 function selectProduct(productId) {
     const productData = {
         action: "product_selected",
@@ -31,29 +30,11 @@ function sortProducts(criteria) {
             return 0;
         });
 
-        while (productsGrid.firstChild) {
-            productsGrid.removeChild(productsGrid.firstChild);
-        }
-
-        products.forEach(product => {
-            productsGrid.appendChild(product);
-        });
+        productsGrid.innerHTML = '';
+        products.forEach(product => productsGrid.appendChild(product));
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Каталог загружен");
-    
-    // Анимация при загрузке
-    const productCards = document.querySelectorAll('.product-card');
-    productCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        
-        setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, 100 + index * 50);
-    });
 });
