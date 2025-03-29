@@ -62,7 +62,7 @@ const productsData = {
     }
 };
 
-// ========== ФИЛЬТРЫ ==========
+// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
 const selectAll = document.getElementById('selectAllBrands');
 const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
 const priceSlider = document.getElementById('priceSlider');
@@ -71,8 +71,10 @@ const filterButton = document.getElementById('filterButton');
 const filterModal = document.getElementById('filterModal');
 const applyBtn = document.getElementById('applyFilters');
 const resetBtn = document.getElementById('resetFilters');
+const quickViewModal = document.getElementById('quickViewModal');
 
-// Открытие/закрытие модалки фильтров
+// ===== ФИЛЬТРЫ =====
+// Открытие/закрытие модалки
 filterButton.addEventListener('click', () => {
     filterModal.style.display = 'block';
     document.body.classList.add('no-scroll');
@@ -101,7 +103,7 @@ resetBtn.addEventListener('click', () => {
     applyFilters();
 });
 
-// Обновление цены в реальном времени
+// Обновление цены
 priceSlider.addEventListener('input', () => {
     priceValue.textContent = `${priceSlider.value} ₽`;
 });
@@ -115,24 +117,18 @@ function applyFilters() {
 
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
-        if (!selectedBrands.includes(brand)) {
-            group.style.display = 'none';
-            return;
+        const isVisible = selectedBrands.includes(brand);
+        group.style.display = isVisible ? 'block' : 'none';
+
+        if (isVisible) {
+            let hasVisibleProducts = false;
+            group.querySelectorAll('.product-card').forEach(card => {
+                const price = parseInt(card.dataset.price);
+                card.style.display = price <= maxPrice ? 'block' : 'none';
+                if (price <= maxPrice) hasVisibleProducts = true;
+            });
+            group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
         }
-        group.style.display = 'block';
-
-        let hasVisibleProducts = false;
-        group.querySelectorAll('.product-card').forEach(card => {
-            const price = parseInt(card.dataset.price);
-            if (price <= maxPrice) {
-                card.style.display = 'block';
-                hasVisibleProducts = true;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
     });
 
     saveFilters();
@@ -164,28 +160,35 @@ function loadFilters() {
     }
 }
 
-// ========== БЫСТРЫЙ ПРОСМОТР ==========
+// ===== БЫСТРЫЙ ПРОСМОТР =====
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
 
-    const modal = document.getElementById('quickViewModal');
-    modal.querySelector('#quickViewImage').src = product.image;
-    modal.querySelector('#quickViewTitle').textContent = product.title;
-    modal.querySelector('#quickViewDescription').textContent = product.description;
-    modal.querySelector('#quickViewPrice').textContent = product.price;
+    document.getElementById('quickViewImage').src = product.image;
+    document.getElementById('quickViewTitle').textContent = product.title;
+    document.getElementById('quickViewDescription').textContent = product.description;
+    document.getElementById('quickViewPrice').textContent = product.price;
 
-    modal.style.display = 'block';
+    quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
 }
 
 // Закрытие quick-view
 document.querySelector('.close-quick-view').addEventListener('click', () => {
-    document.getElementById('quickViewModal').style.display = 'none';
+    quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
 
-// Инициализация
+// Закрытие по клику вне окна
+quickViewModal.addEventListener('click', (e) => {
+    if (e.target === quickViewModal) {
+        quickViewModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+});
+
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
