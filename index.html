@@ -19,7 +19,12 @@
         <div class="modal-content">
             <h3>Фильтры</h3>
             <div class="filter-group">
-                <label>Бренды:</label>
+                <label style="display: flex; justify-content: space-between;">
+                    <span>Бренды:</span>
+                    <label class="select-all">
+                        <input type="checkbox" id="selectAllBrands" checked> Выбрать все
+                    </label>
+                </label>
                 <div class="brand-checkboxes">
                     <label><input type="checkbox" name="brand" value="apple" checked> Apple</label>
                     <label><input type="checkbox" name="brand" value="samsung" checked> Samsung</label>
@@ -31,17 +36,20 @@
                 <label>Цена до: <span id="priceValue">150000 ₽</span></label>
                 <input type="range" id="priceSlider" min="20000" max="150000" step="1000" value="150000">
             </div>
-            <button class="apply-btn" id="applyFilters">Применить</button>
+            <div class="filter-buttons">
+                <button class="reset-btn" id="resetFilters">Сбросить</button>
+                <button class="apply-btn" id="applyFilters">Применить</button>
+            </div>
         </div>
     </div>
 
-    <!-- Каталог товаров - ВСЕ КАРТОЧКИ ПОЛНОСТЬЮ -->
+    <!-- Каталог товаров -->
     <div id="products-container">
         <!-- Apple -->
         <div class="brand-group" data-brand="apple">
             <h2 class="brand-title">Apple</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="89990" onclick="selectProduct('iphone15')">
+                <div class="product-card" data-price="89990" data-id="iphone15" onclick="showQuickView('iphone15')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" loading="lazy">
                     </div>
@@ -51,7 +59,7 @@
                         <div class="price">89 990 ₽</div>
                     </div>
                 </div>
-                <div class="product-card" data-price="119990" onclick="selectProduct('iphone15pro')">
+                <div class="product-card" data-price="119990" data-id="iphone15pro" onclick="showQuickView('iphone15pro')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=iPhone+15+Pro" alt="iPhone 15 Pro" loading="lazy">
                     </div>
@@ -68,7 +76,7 @@
         <div class="brand-group" data-brand="samsung">
             <h2 class="brand-title">Samsung</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="99990" onclick="selectProduct('samsungS23Ultra')">
+                <div class="product-card" data-price="99990" data-id="samsungS23Ultra" onclick="showQuickView('samsungS23Ultra')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" loading="lazy">
                     </div>
@@ -78,7 +86,7 @@
                         <div class="price">99 990 ₽</div>
                     </div>
                 </div>
-                <div class="product-card" data-price="79990" onclick="selectProduct('samsungS23')">
+                <div class="product-card" data-price="79990" data-id="samsungS23" onclick="showQuickView('samsungS23')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Samsung+S23" alt="Samsung S23" loading="lazy">
                     </div>
@@ -95,7 +103,7 @@
         <div class="brand-group" data-brand="xiaomi">
             <h2 class="brand-title">Xiaomi</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="79990" onclick="selectProduct('xiaomi13Pro')">
+                <div class="product-card" data-price="79990" data-id="xiaomi13Pro" onclick="showQuickView('xiaomi13Pro')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" loading="lazy">
                     </div>
@@ -105,7 +113,7 @@
                         <div class="price">79 990 ₽</div>
                     </div>
                 </div>
-                <div class="product-card" data-price="59990" onclick="selectProduct('xiaomi13')">
+                <div class="product-card" data-price="59990" data-id="xiaomi13" onclick="showQuickView('xiaomi13')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Xiaomi+13" alt="Xiaomi 13" loading="lazy">
                     </div>
@@ -122,7 +130,7 @@
         <div class="brand-group" data-brand="tecno">
             <h2 class="brand-title">Tecno</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="34990" onclick="selectProduct('tecnoPhantomX2')">
+                <div class="product-card" data-price="34990" data-id="tecnoPhantomX2" onclick="showQuickView('tecnoPhantomX2')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Tecno+Phantom+X2" alt="Tecno Phantom X2" loading="lazy">
                     </div>
@@ -132,7 +140,7 @@
                         <div class="price">34 990 ₽</div>
                     </div>
                 </div>
-                <div class="product-card" data-price="27990" onclick="selectProduct('tecnoCamon19')">
+                <div class="product-card" data-price="27990" data-id="tecnoCamon19" onclick="showQuickView('tecnoCamon19')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Tecno+Camon+19" alt="Tecno Camon 19" loading="lazy">
                     </div>
@@ -149,7 +157,7 @@
         <div class="brand-group" data-brand="honor">
             <h2 class="brand-title">Honor</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="69990" onclick="selectProduct('honorMagic5Pro')">
+                <div class="product-card" data-price="69990" data-id="honorMagic5Pro" onclick="showQuickView('honorMagic5Pro')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" loading="lazy">
                     </div>
@@ -166,7 +174,7 @@
         <div class="brand-group" data-brand="nothing">
             <h2 class="brand-title">Nothing</h2>
             <div class="products-grid">
-                <div class="product-card" data-price="54990" onclick="selectProduct('nothingPhone2')">
+                <div class="product-card" data-price="54990" data-id="nothingPhone2" onclick="showQuickView('nothingPhone2')">
                     <div class="product-image-container">
                         <img src="https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" loading="lazy">
                     </div>
@@ -176,6 +184,22 @@
                         <div class="price">54 990 ₽</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="quick-view-content">
+            <span class="close-quick-view">&times;</span>
+            <div class="quick-view-image-container">
+                <img id="quickViewImage" src="" alt="">
+            </div>
+            <div class="quick-view-details">
+                <h3 id="quickViewTitle"></h3>
+                <p id="quickViewDescription"></p>
+                <div class="quick-view-price" id="quickViewPrice"></div>
+                <button class="buy-btn">Купить</button>
             </div>
         </div>
     </div>
