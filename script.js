@@ -1,69 +1,53 @@
-// Состояние фильтров
-const filters = {
-    brands: ['apple', 'samsung', 'xiaomi', 'tecno'],
-    minPrice: 0,
-    maxPrice: 150000
-};
+// Управление кнопкой фильтра
+let lastScroll = 0;
+const filterButton = document.getElementById('filterButton');
 
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', () => {
-    // Обработчик кнопки фильтра
-    document.getElementById('filterButton').addEventListener('click', function(e) {
-        e.stopPropagation();
-        document.getElementById('filterModal').style.display = 'block';
-        
-        // Заполняем текущие значения
-        document.querySelectorAll('input[name="brand"]').forEach(checkbox => {
-            checkbox.checked = filters.brands.includes(checkbox.value);
-        });
-        document.getElementById('min-price').value = filters.minPrice;
-        document.getElementById('max-price').value = filters.maxPrice;
-    });
-
-    // Обработчик применения фильтров
-    document.getElementById('applyFilters').addEventListener('click', applyFilters);
-
-    // Закрытие модального окна
-    document.addEventListener('click', function(e) {
-        const modal = document.getElementById('filterModal');
-        if (e.target === modal || e.target.classList.contains('filter-button')) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // Первичная фильтрация
-    applyFilters();
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > lastScroll && currentScroll > 200) {
+        // Скролл вниз - скрываем
+        filterButton.classList.add('hidden');
+    } else {
+        // Скролл вверх - показываем
+        filterButton.classList.remove('hidden');
+    }
+    lastScroll = currentScroll;
 });
 
-// Функция применения фильтров
-function applyFilters() {
-    // Получаем значения
-    filters.brands = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
-                         .map(checkbox => checkbox.value);
-    filters.minPrice = parseInt(document.getElementById('min-price').value) || 0;
-    filters.maxPrice = parseInt(document.getElementById('max-price').value) || 150000;
+// Модальное окно
+const filterModal = document.getElementById('filterModal');
+const applyButton = document.getElementById('applyFilters');
 
-    // Фильтруем товары
+document.getElementById('filterButton').addEventListener('click', () => {
+    filterModal.style.display = 'block';
+});
+
+document.addEventListener('click', (e) => {
+    if (e.target === filterModal) {
+        filterModal.style.display = 'none';
+    }
+});
+
+// Фильтрация
+function applyFilters() {
+    const selectedBrands = Array.from(
+        document.querySelectorAll('input[name="brand"]:checked')
+    ).map(el => el.value);
+    
+    const maxPrice = parseInt(document.getElementById('price-slider').value);
+
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
-        const shouldShowBrand = filters.brands.includes(brand);
-        let hasVisibleProducts = false;
-
-        group.querySelectorAll('.product-card').forEach(card => {
-            const price = parseInt(card.dataset.price);
-            const shouldShowProduct = price >= filters.minPrice && price <= filters.maxPrice;
-            
-            card.style.display = shouldShowBrand && shouldShowProduct ? 'block' : 'none';
-            if (shouldShowBrand && shouldShowProduct) hasVisibleProducts = true;
-        });
-
-        group.style.display = shouldShowBrand ? 'block' : 'none';
-        group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
+        const shouldShow = selectedBrands.includes(brand);
+        
+        group.style.display = shouldShow ? 'block' : 'none';
     });
 
-    // Закрываем модальное окно
-    document.getElementById('filterModal').style.display = 'none';
+    filterModal.style.display = 'none';
 }
+
+applyButton.addEventListener('click', applyFilters);
 
 // Функция выбора товара
 function selectProduct(productId) {
@@ -76,7 +60,6 @@ function selectProduct(productId) {
     if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.sendData(JSON.stringify(productData));
     } else {
-        console.log("Выбран товар:", productData);
         alert(`Товар ${productId} добавлен в корзину`);
     }
 }
