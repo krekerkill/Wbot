@@ -8,17 +8,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sort-container">
-        <select class="sort-select" onchange="sortProducts(this.value)">
-            <option value="">Сортировать по:</option>
-            <option value="price_asc">Цена (по возрастанию)</option>
-            <option value="price_desc">Цена (по убыванию)</option>
-        </select>
+    <!-- Новый блок фильтров -->
+    <div class="filters-container">
+        <div class="filter-group">
+            <label>Бренд:</label>
+            <select class="brand-select" multiple>
+                <option value="apple" selected>Apple</option>
+                <option value="samsung" selected>Samsung</option>
+                <option value="xiaomi" selected>Xiaomi</option>
+                <option value="tecno" selected>Tecno</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label>Цена до: <span id="price-value">150000 ₽</span></label>
+            <input type="range" id="price-slider" min="20000" max="150000" step="5000" value="150000">
+        </div>
     </div>
 
+    <!-- Существующий контент (полностью сохранен) -->
     <div id="products-container">
         <!-- Apple -->
-        <div class="brand-group">
+        <div class="brand-group" data-brand="apple">
             <h2 class="brand-title">Apple</h2>
             <div class="products-grid">
                 <div class="product-card" data-price="89990" onclick="selectProduct('iphone15')">
@@ -45,7 +56,7 @@
         </div>
 
         <!-- Samsung -->
-        <div class="brand-group">
+        <div class="brand-group" data-brand="samsung">
             <h2 class="brand-title">Samsung</h2>
             <div class="products-grid">
                 <div class="product-card" data-price="99990" onclick="selectProduct('samsungS23Ultra')">
@@ -72,7 +83,7 @@
         </div>
 
         <!-- Xiaomi -->
-        <div class="brand-group">
+        <div class="brand-group" data-brand="xiaomi">
             <h2 class="brand-title">Xiaomi</h2>
             <div class="products-grid">
                 <div class="product-card" data-price="79990" onclick="selectProduct('xiaomi13Pro')">
@@ -99,7 +110,7 @@
         </div>
 
         <!-- Tecno -->
-        <div class="brand-group">
+        <div class="brand-group" data-brand="tecno">
             <h2 class="brand-title">Tecno</h2>
             <div class="products-grid">
                 <div class="product-card" data-price="34990" onclick="selectProduct('tecnoPhantomX2')">
