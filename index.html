@@ -3,138 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Попрыжок - Каталог смартфонов</title>
+    <title>Попрыжок – Каталог смартфонов</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="catalog-header">
-        <h1 class="catalog-title">Попрыжок</h1>
-        <div class="sort-container">
-            <select class="sort-select" onchange="sortProducts(this.value)">
-                <option value="">Сортировать по:</option>
-                <option value="price_asc">Цена (по возрастанию)</option>
-                <option value="price_desc">Цена (по убыванию)</option>
-            </select>
-        </div>
+    <div class="sort-container">
+        <select class="sort-select" onchange="sortProducts(this.value)">
+            <option value="">Сортировать по:</option>
+            <option value="price_asc">Цена (по возрастанию)</option>
+            <option value="price_desc">Цена (по убыванию)</option>
+        </select>
     </div>
 
     <div id="products-container">
-        <!-- Группа Apple/Samsung -->
+        <!-- Apple -->
         <div class="brand-group">
-            <h2 class="brand-title">Apple / Samsung</h2>
+            <h2 class="brand-title">Apple</h2>
             <div class="products-grid">
-                <!-- 1. iPhone 15 -->
                 <div class="product-card" data-price="89990" onclick="selectProduct('iphone15')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">iPhone 15</h3>
-                        <p class="product-description">128GB, Black</p>
-                        <div class="product-price">89 990 ₽</div>
+                        <h3>iPhone 15</h3>
+                        <p>128GB, Black</p>
+                        <div class="price">89 990 ₽</div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- 2. Samsung S23 Ultra -->
+        <!-- Samsung -->
+        <div class="brand-group">
+            <h2 class="brand-title">Samsung</h2>
+            <div class="products-grid">
                 <div class="product-card" data-price="99990" onclick="selectProduct('samsungS23Ultra')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">Samsung S23 Ultra</h3>
-                        <p class="product-description">256GB, Green</p>
-                        <div class="product-price">99 990 ₽</div>
+                        <h3>Samsung S23 Ultra</h3>
+                        <p>256GB, Green</p>
+                        <div class="price">99 990 ₽</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Группа Xiaomi/Google -->
+        <!-- Xiaomi -->
         <div class="brand-group">
-            <h2 class="brand-title">Xiaomi / Google</h2>
+            <h2 class="brand-title">Xiaomi</h2>
             <div class="products-grid">
-                <!-- 3. Xiaomi 13 Pro -->
                 <div class="product-card" data-price="79990" onclick="selectProduct('xiaomi13Pro')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">Xiaomi 13 Pro</h3>
-                        <p class="product-description">256GB, White</p>
-                        <div class="product-price">79 990 ₽</div>
+                        <h3>Xiaomi 13 Pro</h3>
+                        <p>256GB, White</p>
+                        <div class="price">79 990 ₽</div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- 4. Google Pixel 7 Pro -->
+        <!-- Google -->
+        <div class="brand-group">
+            <h2 class="brand-title">Google</h2>
+            <div class="products-grid">
                 <div class="product-card" data-price="74990" onclick="selectProduct('pixel7Pro')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Google+Pixel+7+Pro" alt="Pixel 7 Pro" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=Google+Pixel+7+Pro" alt="Pixel 7 Pro" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">Google Pixel 7 Pro</h3>
-                        <p class="product-description">128GB, Black</p>
-                        <div class="product-price">74 990 ₽</div>
+                        <h3>Google Pixel 7 Pro</h3>
+                        <p>128GB, Black</p>
+                        <div class="price">74 990 ₽</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Группа OnePlus/Realme -->
+        <!-- OnePlus -->
         <div class="brand-group">
-            <h2 class="brand-title">OnePlus / Realme</h2>
+            <h2 class="brand-title">OnePlus</h2>
             <div class="products-grid">
-                <!-- 5. OnePlus 11 -->
                 <div class="product-card" data-price="65990" onclick="selectProduct('oneplus11')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=OnePlus+11" alt="OnePlus 11" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=OnePlus+11" alt="OnePlus 11" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">OnePlus 11</h3>
-                        <p class="product-description">256GB, Green</p>
-                        <div class="product-price">65 990 ₽</div>
-                    </div>
-                </div>
-
-                <!-- 6. Realme GT 3 -->
-                <div class="product-card" data-price="45990" onclick="selectProduct('realmeGT3')">
-                    <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Realme+GT+3" alt="Realme GT 3" class="product-image" loading="lazy">
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">Realme GT 3</h3>
-                        <p class="product-description">256GB, Black</p>
-                        <div class="product-price">45 990 ₽</div>
+                        <h3>OnePlus 11</h3>
+                        <p>256GB, Green</p>
+                        <div class="price">65 990 ₽</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Дополнительные группы -->
+        <!-- Realme -->
         <div class="brand-group">
-            <h2 class="brand-title">Другие бренды</h2>
+            <h2 class="brand-title">Realme</h2>
             <div class="products-grid">
-                <!-- 7. Honor Magic 5 Pro -->
-                <div class="product-card" data-price="69990" onclick="selectProduct('honorMagic5Pro')">
+                <div class="product-card" data-price="45990" onclick="selectProduct('realmeGT3')">
                     <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" class="product-image" loading="lazy">
+                        <img src="https://via.placeholder.com/300x300?text=Realme+GT+3" alt="Realme GT 3" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title">Honor Magic 5 Pro</h3>
-                        <p class="product-description">256GB, Blue</p>
-                        <div class="product-price">69 990 ₽</div>
-                    </div>
-                </div>
-
-                <!-- 8. Nothing Phone 2 -->
-                <div class="product-card" data-price="54990" onclick="selectProduct('nothingPhone2')">
-                    <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" class="product-image" loading="lazy">
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">Nothing Phone 2</h3>
-                        <p class="product-description">256GB, White</p>
-                        <div class="product-price">54 990 ₽</div>
+                        <h3>Realme GT 3</h3>
+                        <p>256GB, Black</p>
+                        <div class="price">45 990 ₽</div>
                     </div>
                 </div>
             </div>
