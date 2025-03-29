@@ -1,3 +1,4 @@
+/* style.css - обновленная версия */
 * {
     margin: 0;
     padding: 0;
@@ -8,12 +9,27 @@ body {
     font-family: 'Roboto', sans-serif;
     background: #f5f5f5;
     padding: 0 16px 20px;
+    color: #333;
+}
+
+/* Заголовок каталога */
+.catalog-header {
+    max-width: 600px;
+    margin: 0 auto 16px;
+    padding-top: 16px;
+}
+
+.catalog-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
 /* Строка сортировки */
 .sort-container {
     max-width: 600px;
-    margin: 0 auto 12px;
+    margin: 0 auto 16px;
     position: sticky;
     top: 0;
     z-index: 50;
@@ -21,11 +37,6 @@ body {
     backdrop-filter: blur(5px);
     padding: 12px 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.sort-container.hidden {
-    transform: translateY(-100%);
-    opacity: 0;
 }
 
 .sort-select {
@@ -38,11 +49,24 @@ body {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
+/* Группы товаров */
+.brand-group {
+    margin-bottom: 24px;
+}
+
+.brand-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 16px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
 /* Сетка товаров */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 12px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -51,7 +75,13 @@ body {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .product-image-container {
@@ -65,43 +95,50 @@ body {
 }
 
 .product-image {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
 }
 
 .product-details {
-    padding: 12px;
+    padding: 14px;
 }
 
-.product-details h3 {
+.product-title {
     font-size: 16px;
-    margin-bottom: 4px;
-    color: #333;
+    margin-bottom: 6px;
+    color: #222;
+    font-weight: 500;
 }
 
-.product-details p {
+.product-description {
     font-size: 14px;
     color: #666;
     margin-bottom: 8px;
 }
 
-.price {
+.product-price {
     font-weight: 600;
     color: #2a2a2a;
     font-size: 17px;
+    margin-top: 4px;
 }
 
 @media (min-width: 600px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 16px;
     }
 }
 
 @media (min-width: 900px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
+        gap: 20px;
     }
 }
