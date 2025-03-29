@@ -1,4 +1,3 @@
-/* style.css - обновленная версия */
 * {
     margin: 0;
     padding: 0;
@@ -8,35 +7,17 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: #f5f5f5;
-    padding: 0 16px 20px;
+    padding: 12px;
     color: #333;
 }
 
-/* Заголовок каталога */
-.catalog-header {
-    max-width: 600px;
-    margin: 0 auto 16px;
-    padding-top: 16px;
-}
-
-.catalog-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-/* Строка сортировки */
+/* Сортировка */
 .sort-container {
     max-width: 600px;
     margin: 0 auto 16px;
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 50;
-    background: rgba(245, 245, 245, 0.95);
-    backdrop-filter: blur(5px);
-    padding: 12px 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .sort-select {
@@ -46,27 +27,25 @@ body {
     border: 1px solid #e0e0e0;
     background: white;
     font-size: 15px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Группы товаров */
+/* Группы брендов */
 .brand-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .brand-title {
     font-size: 18px;
-    font-weight: 500;
-    margin: 16px 0 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e0e0e0;
+    font-weight: 600;
+    margin: 0 0 12px 8px;
 }
 
 /* Сетка товаров */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 8px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -75,70 +54,62 @@ body {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
 }
 
-.product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+.product-card:active {
+    transform: scale(0.98);
 }
 
 .product-image-container {
-    height: 150px;
+    height: 180px;
     background: #f9f9f9;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px 12px 0 0;
-    overflow: hidden;
+    padding: 10px;
 }
 
-.product-image {
-    width: 80%;
-    height: 80%;
+.product-image-container img {
+    max-width: 90%;
+    max-height: 90%;
     object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image {
-    transform: scale(1.05);
 }
 
 .product-details {
     padding: 14px;
 }
 
-.product-title {
+.product-details h3 {
     font-size: 16px;
-    margin-bottom: 6px;
-    color: #222;
+    margin-bottom: 4px;
     font-weight: 500;
 }
 
-.product-description {
+.product-details p {
     font-size: 14px;
     color: #666;
     margin-bottom: 8px;
 }
 
-.product-price {
+.price {
     font-weight: 600;
     color: #2a2a2a;
     font-size: 17px;
-    margin-top: 4px;
 }
 
+/* Адаптив */
 @media (min-width: 600px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        gap: 10px;
     }
 }
 
 @media (min-width: 900px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 12px;
     }
 }
