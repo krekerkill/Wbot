@@ -225,8 +225,8 @@ body {
 /* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
-    gap: 4px; /* Уменьшено с 6px */
-    padding: 0 3px; /* Уменьшено с 6px */
+    gap: 6px;
+    padding: 0 6px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 10px auto 0;
 }
@@ -342,7 +342,7 @@ body {
 .quick-view-content {
     position: relative;
     background: white;
-    width: 95%;
+    width: calc(100% - 40px);
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
@@ -437,7 +437,8 @@ body {
     
     .quick-view-content {
         flex-direction: row;
-        max-width: 700px;
+        max-width: calc(700px - 40px);
+        width: calc(100% - 40px);
     }
 }
 
