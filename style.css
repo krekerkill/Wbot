@@ -1,13 +1,13 @@
-/* ========== GLOBAL STYLES ========== */
+/* ========== 1. GLOBAL STYLES ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе */
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
-    scroll-behavior: smooth; /* Плавный скролл */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -25,7 +25,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ========== FILTER BUTTON ========== */
+/* ========== 2. FILTER BUTTON ========== */
 .filter-button {
     position: fixed;
     top: 20px;
@@ -63,7 +63,7 @@ body {
     pointer-events: none;
 }
 
-/* ========== MODAL WINDOW ========== */
+/* ========== 3. MODAL WINDOW ========== */
 .filter-modal {
     display: none;
     position: fixed;
@@ -110,7 +110,7 @@ body {
     border-radius: 3px;
 }
 
-/* ========== FILTER CONTROLS ========== */
+/* ========== 4. FILTER CONTROLS ========== */
 .filter-group {
     margin-bottom: 22px;
 }
@@ -177,6 +177,13 @@ body {
     transform: scale(1.1);
 }
 
+/* ========== 5. FILTER BUTTONS (НОВОЕ) ========== */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 .apply-btn {
     width: 100%;
     padding: 14px;
@@ -188,7 +195,6 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 10px;
 }
 
 .apply-btn:hover {
@@ -200,7 +206,29 @@ body {
     transform: translateY(0);
 }
 
-/* ========== PRODUCT GRID ========== */
+.reset-btn {
+    width: 50%;
+    padding: 14px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reset-btn:hover {
+    background-color: #d32f2f;
+}
+
+.select-all {
+    font-weight: 500;
+    color: #4CAF50;
+    cursor: pointer;
+}
+
+/* ========== 6. PRODUCT GRID ========== */
 .products-grid {
     display: grid;
     gap: 15px;
@@ -235,7 +263,7 @@ body {
     border-radius: 2px;
 }
 
-/* ========== PRODUCT CARD ========== */
+/* ========== 7. PRODUCT CARD ========== */
 .product-card {
     width: 185px;
     min-height: 320px;
@@ -245,6 +273,7 @@ body {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
+    cursor: pointer;
 }
 
 .product-card:hover {
@@ -300,7 +329,101 @@ body {
     margin-top: 10px;
 }
 
-/* ========== ADAPTIVE LAYOUT ========== */
+/* ========== 8. QUICK VIEW MODAL (НОВОЕ) ========== */
+.quick-view-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    animation: fadeIn 0.3s;
+}
+
+.quick-view-content {
+    position: relative;
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    gap: 30px;
+}
+
+.close-quick-view {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-quick-view:hover {
+    color: #333;
+}
+
+.quick-view-image-container {
+    flex: 1;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.quick-view-image-container img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+.quick-view-details {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.quick-view-details h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.quick-view-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.quick-view-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin: 15px 0;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.buy-btn:hover {
+    background-color: #45a049;
+}
+
+/* ========== 9. ADAPTIVE LAYOUT ========== */
 @media (max-width: 767px) {
     .products-grid {
         grid-template-columns: repeat(2, 185px);
@@ -321,6 +444,10 @@ body {
 
     .modal-content {
         padding: 22px;
+    }
+
+    .quick-view-content {
+        flex-direction: column;
     }
 }
 
@@ -356,7 +483,7 @@ body {
     }
 }
 
-/* ========== ANIMATIONS ========== */
+/* ========== 10. ANIMATIONS ========== */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -379,7 +506,7 @@ body {
     }
 }
 
-/* ========== UTILITY CLASSES ========== */
+/* ========== 11. UTILITY CLASSES ========== */
 .hidden {
     display: none !important;
 }
