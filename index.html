@@ -5,28 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог смартфонов</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Новый блок фильтров -->
-    <div class="filters-container">
-        <div class="filter-group">
-            <label>Бренд:</label>
-            <select class="brand-select" multiple>
-                <option value="apple" selected>Apple</option>
-                <option value="samsung" selected>Samsung</option>
-                <option value="xiaomi" selected>Xiaomi</option>
-                <option value="tecno" selected>Tecno</option>
-            </select>
-        </div>
-        
-        <div class="filter-group">
-            <label>Цена до: <span id="price-value">150000 ₽</span></label>
-            <input type="range" id="price-slider" min="20000" max="150000" step="5000" value="150000">
+    <!-- Фильтры (новый блок) -->
+    <div class="filter-button" onclick="toggleFilters()">
+        <i class="fas fa-sliders-h"></i>
+    </div>
+
+    <div class="filter-modal" id="filterModal">
+        <div class="modal-content">
+            <h3>Фильтры</h3>
+            <div class="filter-group">
+                <label>Бренды:</label>
+                <div class="brand-checkboxes">
+                    <label><input type="checkbox" name="brand" value="apple" checked> Apple</label>
+                    <label><input type="checkbox" name="brand" value="samsung" checked> Samsung</label>
+                    <label><input type="checkbox" name="brand" value="xiaomi" checked> Xiaomi</label>
+                    <label><input type="checkbox" name="brand" value="tecno" checked> Tecno</label>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Ценовой диапазон:</label>
+                <div class="price-range">
+                    <input type="number" id="min-price" placeholder="От" min="0" max="150000" value="0">
+                    <span>-</span>
+                    <input type="number" id="max-price" placeholder="До" min="0" max="150000" value="150000">
+                </div>
+            </div>
+            <button class="apply-btn" onclick="applyFilters()">Применить</button>
         </div>
     </div>
 
-    <!-- Существующий контент (полностью сохранен) -->
+    <!-- Каталог (полностью сохранённый контент) -->
     <div id="products-container">
         <!-- Apple -->
         <div class="brand-group" data-brand="apple">
