@@ -225,10 +225,12 @@ body {
 /* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
-    gap: 12px;
-    padding: 0 12px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* ➡️ Было: minmax(0, 1fr) */
+    gap: 12px; /* ➡️ Равно padding */
+    padding: 0 12px; /* ➡️ Отступы от краёв = gap */
     margin: 10px auto 0;
+    width: 100%; /* ➡️ Добавлено */
+    box-sizing: border-box; /* ➡️ Фикс расчётов */
 }
 
 .brand-group {
@@ -422,9 +424,9 @@ body {
 /* ========== ADAPTIVE LAYOUT ========== */
 @media (min-width: 768px) {
     .products-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 15px;
-        padding: 0 15px;
+        grid-template-columns: repeat(3, 1fr); /* ➡️ Было: minmax(0, 1fr) */
+        gap: 15px; /* ➡️ Равно padding */
+        padding: 0 15px; 
     }
     
     .product-card {
@@ -444,9 +446,9 @@ body {
 
 @media (min-width: 1024px) {
     .products-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 20px;
-        padding: 0 20px;
+        grid-template-columns: repeat(4, 1fr); /* ➡️ Было: minmax(0, 1fr) */
+        gap: 20px; /* ➡️ Равно padding */
+        padding: 0 20px; 
     }
     
     .product-card {
