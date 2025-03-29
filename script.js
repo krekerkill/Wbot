@@ -1,3 +1,4 @@
+// script.js - обновленная версия
 function selectProduct(productId) {
     const productData = {
         action: "product_selected",
@@ -15,26 +16,44 @@ function selectProduct(productId) {
 
 function sortProducts(criteria) {
     const container = document.getElementById('products-container');
-    const products = Array.from(container.getElementsByClassName('product-card'));
+    const productGroups = Array.from(container.getElementsByClassName('brand-group'));
     
-    products.sort((a, b) => {
-        const priceA = parseFloat(a.getAttribute('data-price'));
-        const priceB = parseFloat(b.getAttribute('data-price'));
+    productGroups.forEach(group => {
+        const productsGrid = group.querySelector('.products-grid');
+        const products = Array.from(productsGrid.getElementsByClassName('product-card'));
         
-        if (criteria === 'price_asc') return priceA - priceB;
-        if (criteria === 'price_desc') return priceB - priceA;
-        return 0;
-    });
+        products.sort((a, b) => {
+            const priceA = parseFloat(a.getAttribute('data-price'));
+            const priceB = parseFloat(b.getAttribute('data-price'));
+            
+            if (criteria === 'price_asc') return priceA - priceB;
+            if (criteria === 'price_desc') return priceB - priceA;
+            return 0;
+        });
 
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
+        while (productsGrid.firstChild) {
+            productsGrid.removeChild(productsGrid.firstChild);
+        }
 
-    products.forEach(product => {
-        container.appendChild(product);
+        products.forEach(product => {
+            productsGrid.appendChild(product);
+        });
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Каталог загружен");
+    
+    // Анимация при загрузке
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 + index * 50);
+    });
 });
