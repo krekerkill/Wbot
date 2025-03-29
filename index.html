@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Фильтры (новый блок) -->
-    <div class="filter-button" onclick="toggleFilters()">
+    <!-- Кнопка фильтров -->
+    <div class="filter-button" id="filterButton">
         <i class="fas fa-sliders-h"></i>
     </div>
 
+    <!-- Модальное окно фильтров -->
     <div class="filter-modal" id="filterModal">
         <div class="modal-content">
             <h3>Фильтры</h3>
+            
             <div class="filter-group">
                 <label>Бренды:</label>
                 <div class="brand-checkboxes">
@@ -26,6 +28,7 @@
                     <label><input type="checkbox" name="brand" value="tecno" checked> Tecno</label>
                 </div>
             </div>
+            
             <div class="filter-group">
                 <label>Ценовой диапазон:</label>
                 <div class="price-range">
@@ -34,13 +37,14 @@
                     <input type="number" id="max-price" placeholder="До" min="0" max="150000" value="150000">
                 </div>
             </div>
-            <button class="apply-btn" onclick="applyFilters()">Применить</button>
+            
+            <button class="apply-btn" id="applyFilters">Применить</button>
         </div>
     </div>
 
-    <!-- Каталог (полностью сохранённый контент) -->
+    <!-- Каталог товаров -->
     <div id="products-container">
-        <!-- Apple -->
+        <!-- Блок Apple -->
         <div class="brand-group" data-brand="apple">
             <h2 class="brand-title">Apple</h2>
             <div class="products-grid">
@@ -67,7 +71,7 @@
             </div>
         </div>
 
-        <!-- Samsung -->
+        <!-- Блок Samsung -->
         <div class="brand-group" data-brand="samsung">
             <h2 class="brand-title">Samsung</h2>
             <div class="products-grid">
@@ -94,7 +98,7 @@
             </div>
         </div>
 
-        <!-- Xiaomi -->
+        <!-- Блок Xiaomi -->
         <div class="brand-group" data-brand="xiaomi">
             <h2 class="brand-title">Xiaomi</h2>
             <div class="products-grid">
@@ -121,7 +125,7 @@
             </div>
         </div>
 
-        <!-- Tecno -->
+        <!-- Блок Tecno -->
         <div class="brand-group" data-brand="tecno">
             <h2 class="brand-title">Tecno</h2>
             <div class="products-grid">
