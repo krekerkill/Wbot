@@ -1,4 +1,4 @@
-/* Основные стили (без изменений) */
+/* Основные стили */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ body {
     color: #333;
 }
 
-/* Новые стили для фильтров */
+/* Кнопка фильтра */
 .filter-button {
     position: fixed;
     top: 20px;
@@ -29,13 +29,14 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     cursor: pointer;
     z-index: 1000;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .filter-button:hover {
     transform: scale(1.1);
 }
 
+/* Модальное окно */
 .filter-modal {
     display: none;
     position: fixed;
@@ -55,10 +56,10 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: modalFade 0.3s ease;
+    animation: modalOpen 0.3s ease-out;
 }
 
-@keyframes modalFade {
+@keyframes modalOpen {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
@@ -69,6 +70,7 @@ body {
     color: #333;
 }
 
+/* Чекбоксы брендов */
 .brand-checkboxes {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -83,6 +85,7 @@ body {
     cursor: pointer;
 }
 
+/* Поля цены */
 .price-range {
     display: flex;
     align-items: center;
@@ -98,6 +101,7 @@ body {
     font-size: 14px;
 }
 
+/* Кнопка применения */
 .apply-btn {
     width: 100%;
     padding: 12px;
@@ -107,14 +111,14 @@ body {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s;
 }
 
 .apply-btn:hover {
     background: #45a049;
 }
 
-/* Существующие стили каталога (полностью сохранены) */
+/* Стили каталога (полностью сохранены) */
 .brand-group {
     margin-bottom: 25px;
 }
@@ -140,7 +144,7 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s;
 }
 
 .product-card:active {
