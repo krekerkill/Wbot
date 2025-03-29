@@ -1,3 +1,4 @@
+/* Основные стили (без изменений) */
 * {
     margin: 0;
     padding: 0;
@@ -12,77 +13,124 @@ body {
 }
 
 /* Новые стили для фильтров */
-.filters-container {
-    max-width: 600px;
-    margin: 0 auto 16px;
-    padding: 12px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 12px;
-    z-index: 100;
+.filter-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1000;
     transition: transform 0.3s ease;
 }
 
-.filters-container.hidden {
-    transform: translateY(-100%);
+.filter-button:hover {
+    transform: scale(1.1);
 }
 
-.filter-group {
-    margin-bottom: 12px;
-}
-
-.filter-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.brand-select {
+.filter-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
 }
 
-#price-slider {
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: #e0e0e0;
-    outline: none;
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: modalFade 0.3s ease;
 }
 
-#price-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #4CAF50;
+@keyframes modalFade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.brand-checkboxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.brand-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     cursor: pointer;
 }
 
-#price-value {
-    font-weight: 600;
-    color: #4CAF50;
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-/* Существующие стили (без изменений) */
+.price-range input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+    background: #45a049;
+}
+
+/* Существующие стили каталога (полностью сохранены) */
 .brand-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .brand-title {
     font-size: 18px;
     font-weight: 600;
-    margin: 0 0 12px 8px;
+    margin: 0 0 15px 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
 }
 
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 10px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -91,7 +139,12 @@ body {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+.product-card:active {
+    transform: scale(0.98);
 }
 
 .product-image-container {
@@ -100,7 +153,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 15px;
 }
 
 .product-image-container img {
@@ -110,19 +163,19 @@ body {
 }
 
 .product-details {
-    padding: 14px;
+    padding: 15px;
 }
 
 .product-details h3 {
     font-size: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     font-weight: 500;
 }
 
 .product-details p {
     font-size: 14px;
     color: #666;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .price {
@@ -134,13 +187,13 @@ body {
 @media (min-width: 600px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 15px;
     }
 }
 
 @media (min-width: 900px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
+        gap: 20px;
     }
 }
