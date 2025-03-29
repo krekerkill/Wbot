@@ -1,4 +1,4 @@
-/* ========== 1. GLOBAL STYLES ========== */
+/* ========== GLOBAL STYLES ========== */
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +25,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ========== 2. FILTER BUTTON ========== */
+/* ========== FILTER BUTTON ========== */
 .filter-button {
     position: fixed;
     top: 20px;
@@ -63,7 +63,7 @@ body {
     pointer-events: none;
 }
 
-/* ========== 3. MODAL WINDOW ========== */
+/* ========== MODAL WINDOW ========== */
 .filter-modal {
     display: none;
     position: fixed;
@@ -110,7 +110,7 @@ body {
     border-radius: 3px;
 }
 
-/* ========== 4. FILTER CONTROLS ========== */
+/* ========== FILTER CONTROLS ========== */
 .filter-group {
     margin-bottom: 22px;
 }
@@ -177,7 +177,7 @@ body {
     transform: scale(1.1);
 }
 
-/* ========== 5. FILTER BUTTONS (НОВОЕ) ========== */
+/* ========== FILTER BUTTONS ========== */
 .filter-buttons {
     display: flex;
     gap: 10px;
@@ -228,7 +228,7 @@ body {
     cursor: pointer;
 }
 
-/* ========== 6. PRODUCT GRID ========== */
+/* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
     gap: 15px;
@@ -263,7 +263,7 @@ body {
     border-radius: 2px;
 }
 
-/* ========== 7. PRODUCT CARD ========== */
+/* ========== PRODUCT CARD ========== */
 .product-card {
     width: 185px;
     min-height: 320px;
@@ -329,7 +329,7 @@ body {
     margin-top: 10px;
 }
 
-/* ========== 8. QUICK VIEW MODAL (НОВОЕ) ========== */
+/* ========== QUICK VIEW MODAL ========== */
 .quick-view-modal {
     display: none;
     position: fixed;
@@ -423,7 +423,7 @@ body {
     background-color: #45a049;
 }
 
-/* ========== 9. ADAPTIVE LAYOUT ========== */
+/* ========== ADAPTIVE LAYOUT ========== */
 @media (max-width: 767px) {
     .products-grid {
         grid-template-columns: repeat(2, 185px);
@@ -483,7 +483,7 @@ body {
     }
 }
 
-/* ========== 10. ANIMATIONS ========== */
+/* ========== ANIMATIONS ========== */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -506,7 +506,7 @@ body {
     }
 }
 
-/* ========== 11. UTILITY CLASSES ========== */
+/* ========== UTILITY CLASSES ========== */
 .hidden {
     display: none !important;
 }
