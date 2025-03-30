@@ -17,7 +17,7 @@ body {
     line-height: 1.5;
     font-weight: 400;
     min-height: 100vh;
-    padding: 15px;
+    padding: 10px 12px;
     max-width: 1200px;
     margin: 0 auto;
     overflow-x: hidden;
@@ -28,28 +28,28 @@ body {
 /* ========== FILTER BUTTON ========== */
 .filter-button {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
+    top: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
     background-color: #4CAF50;
     color: #ffffff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     z-index: 1000;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
     border: none;
     outline: none;
     user-select: none;
 }
 
 .filter-button:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -77,7 +77,7 @@ body {
     width: calc(100% - 30px);
     max-width: 420px;
     margin: 30px auto;
-    padding: 28px;
+    padding: 25px;
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
@@ -86,10 +86,10 @@ body {
     font-size: 22px;
     font-weight: 600;
     color: #222222;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-align: center;
     position: relative;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
 }
 
 .modal-content h3::after {
@@ -106,7 +106,7 @@ body {
 
 /* ========== FILTER CONTROLS ========== */
 .filter-group {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .filter-group label {
@@ -114,13 +114,13 @@ body {
     font-size: 16px;
     font-weight: 500;
     color: #444444;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .brand-checkboxes {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
 }
 
 .brand-checkboxes label {
@@ -132,7 +132,7 @@ body {
     color: #555555;
     cursor: pointer;
     user-select: none;
-    padding: 6px 0;
+    padding: 5px 0;
 }
 
 .brand-checkboxes input[type="checkbox"] {
@@ -165,10 +165,6 @@ body {
     background: #4CAF50;
     cursor: pointer;
     transition: all 0.2s;
-}
-
-.price-range input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
 }
 
 /* ========== FILTER BUTTONS ========== */
@@ -216,61 +212,21 @@ body {
     background-color: #d32f2f;
 }
 
-.select-all {
-    font-weight: 500;
-    color: #4CAF50;
-    cursor: pointer;
-}
-
 /* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(160px, 1fr)); /* Ширина минимум 160px */
-    gap: 12px;
-    padding: 0 12px;
-    margin: 10px auto 0;
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    gap: 8px;
+    padding: 0;
+    margin: 70px auto 20px;
     width: 100%;
     box-sizing: border-box;
-}
-
-/* Адаптация для узких экранов (<360px) */
-@media (max-width: 359px) {
-    .products-grid {
-        grid-template-columns: repeat(2, minmax(140px, 1fr));
-        gap: 8px;
-        padding: 0 8px;
-    }
-}
-
-/* Планшеты (768px+) */
-@media (min-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(2, minmax(220px, 1fr)); /* 2 колонки, но шире */
-        gap: 16px;
-        padding: 0 16px;
-    }
-}
-
-/* Десктопы (1024px+) */
-@media (min-width: 1024px) {
-    .products-grid {
-        grid-template-columns: repeat(3, minmax(240px, 1fr)); /* 3 колонки с широкими карточками */
-        gap: 20px;
-        padding: 0 20px;
-    }
-}
-
-/* Широкие экраны (1200px+) */
-@media (min-width: 1200px) {
-    .products-grid {
-        grid-template-columns: repeat(3, minmax(280px, 1fr)); /* Максимально широкие карточки */
-    }
 }
 
 /* ========== PRODUCT CARD ========== */
 .product-card {
     width: 100%;
-    min-height: 300px; /* Увеличенная высота */
+    min-height: 280px; /* Уменьшено после удаления бренда */
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
@@ -280,17 +236,12 @@ body {
     cursor: pointer;
 }
 
-.product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-}
-
 .product-image-container {
-    height: 180px; /* Увеличенная высота */
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px; /* Больше воздуха */
+    padding: 12px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #eeeeee;
 }
@@ -307,35 +258,48 @@ body {
 }
 
 .product-details {
-    padding: 16px; /* Больше отступов */
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Больше расстояния между элементами */
+    gap: 8px;
 }
 
 .product-details h3 {
-    font-size: 16px; /* Крупнее текст */
+    font-size: 16px;
     font-weight: 600;
     color: #222222;
     line-height: 1.3;
+    margin: 0;
 }
 
 .product-details p {
-    font-size: 14px; /* Чуть крупнее */
+    font-size: 14px;
     color: #666666;
     line-height: 1.4;
+    margin: 0;
 }
 
 .price {
     font-size: 18px;
     font-weight: 700;
     color: #2a2a2a;
+    margin-top: 5px;
 }
 
-/* Адаптация высоты для планшетов/десктопов */
+/* ========== ADAPTIVE ========== */
+@media (max-width: 359px) {
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+    }
+}
+
 @media (min-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+        gap: 10px;
+    }
     .product-card {
-        min-height: 340px;
+        min-height: 320px; /* Уменьшено после удаления бренда */
     }
     .product-image-container {
         height: 200px;
@@ -343,11 +307,21 @@ body {
 }
 
 @media (min-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(240px, 1fr));
+        gap: 12px;
+    }
     .product-card {
-        min-height: 360px;
+        min-height: 340px; /* Уменьшено после удаления бренда */
     }
     .product-image-container {
         height: 220px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(280px, 1fr));
     }
 }
 
@@ -459,4 +433,4 @@ body {
 /* ========== UTILITY CLASSES ========== */
 .no-scroll {
     overflow: hidden;
-}
+        }
