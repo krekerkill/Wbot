@@ -17,7 +17,7 @@ body {
     line-height: 1.5;
     font-weight: 400;
     min-height: 100vh;
-    padding: 20px 16px; /* Изменено: увеличены отступы от краёв */
+    padding: 8px 8px; /* Изменено: увеличены отступы от краёв */
     max-width: 1200px;
     margin: 0 auto;
     overflow-x: hidden;
@@ -226,7 +226,7 @@ body {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(160px, 1fr));
-    gap: 16px; /* Изменено: увеличен отступ между карточками */
+    gap: 8px; /* Изменено: увеличен отступ между карточками */
     padding: 0; /* Изменено: убраны боковые отступы, так как они есть у body */
     margin: 80px auto 20px; /* Изменено: добавлен отступ сверху для кнопки фильтра */
     width: 100%;
@@ -237,7 +237,7 @@ body {
 @media (max-width: 359px) {
     .products-grid {
         grid-template-columns: repeat(2, minmax(140px, 1fr));
-        gap: 12px; /* Изменено: увеличен отступ */
+        gap: 8px; /* Изменено: увеличен отступ */
     }
 }
 
