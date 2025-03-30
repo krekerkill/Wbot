@@ -226,7 +226,7 @@ body {
 /* ========== PRODUCT CARD ========== */
 .product-card {
     width: 100%;
-    min-height: 300px;
+    min-height: 280px; /* Уменьшено после удаления бренда */
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
@@ -236,20 +236,12 @@ body {
     cursor: pointer;
 }
 
-.product-brand {
-    font-size: 15px;
-    font-weight: 600;
-    color: #555;
-    padding: 8px 12px 0; /* Уменьшен верхний отступ */
-    margin: 0;
-}
-
 .product-image-container {
     height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px; /* Уменьшен отступ */
+    padding: 12px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #eeeeee;
 }
@@ -266,10 +258,10 @@ body {
 }
 
 .product-details {
-    padding: 12px 12px 15px; /* Уменьшен верхний отступ */
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Уменьшен отступ между элементами */
+    gap: 8px;
 }
 
 .product-details h3 {
@@ -291,7 +283,7 @@ body {
     font-size: 18px;
     font-weight: 700;
     color: #2a2a2a;
-    margin-top: 4px; /* Уменьшен отступ */
+    margin-top: 5px;
 }
 
 /* ========== ADAPTIVE ========== */
@@ -307,13 +299,10 @@ body {
         gap: 10px;
     }
     .product-card {
-        min-height: 340px;
+        min-height: 320px; /* Уменьшено после удаления бренда */
     }
     .product-image-container {
         height: 200px;
-    }
-    .product-brand {
-        padding: 10px 12px 0; /* Адаптивный отступ */
     }
 }
 
@@ -323,7 +312,7 @@ body {
         gap: 12px;
     }
     .product-card {
-        min-height: 360px;
+        min-height: 340px; /* Уменьшено после удаления бренда */
     }
     .product-image-container {
         height: 220px;
