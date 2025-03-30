@@ -17,8 +17,8 @@ body {
     line-height: 1.5;
     font-weight: 400;
     min-height: 100vh;
-    padding: 4px; /* Уменьшил отступы body */
-    max-width: 100%; /* Растягиваем на всю ширину */
+    padding: 4px;
+    max-width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
@@ -234,7 +234,7 @@ body {
 .products-grid {
     display: grid;
     gap: 4px;
-    padding: 4px; /* Отступы по краям */
+    padding: 4px;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     margin: 0 auto;
@@ -276,7 +276,9 @@ body {
     transition: all 0.3s ease;
     position: relative;
     cursor: pointer;
-    margin: 2px; /* Дополнительные отступы */
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -285,13 +287,15 @@ body {
 }
 
 .product-image-container {
-    height: 220px;
+    height: 75%;
+    min-height: 285px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #eeeeee;
+    flex-shrink: 0;
 }
 
 .product-image-container img {
@@ -306,11 +310,13 @@ body {
 }
 
 .product-details {
-    height: 160px; /* Увеличил высоту */
-    padding: 15px; /* Увеличил отступы */
+    height: 25%;
+    min-height: 95px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 .product-details h3 {
@@ -433,8 +439,6 @@ body {
 @media (min-width: 768px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        padding: 4px;
     }
     
     .product-card {
@@ -442,7 +446,13 @@ body {
     }
     
     .product-image-container {
-        height: 240px;
+        height: 75%;
+        min-height: 300px;
+    }
+    
+    .product-details {
+        height: 25%;
+        min-height: 100px;
     }
     
     .quick-view-content {
@@ -461,7 +471,13 @@ body {
     }
     
     .product-image-container {
-        height: 260px;
+        height: 75%;
+        min-height: 315px;
+    }
+    
+    .product-details {
+        height: 25%;
+        min-height: 105px;
     }
 }
 
@@ -480,4 +496,4 @@ body {
 /* ========== UTILITY CLASSES ========== */
 .no-scroll {
     overflow: hidden;
-    }
+}
