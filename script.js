@@ -73,8 +73,8 @@ const applyBtn = document.getElementById('applyFilters');
 const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== НАСТРОЙКА ФОНА ДЛЯ TELEGRAM WEB APP =====
-const BACKGROUND_IMAGE_URL = 'https://sun9-34.userapi.com/s/v1/ig2/MwX7Qo-GtH57DgoWmxKBTwDPSTca3ncQuzYNmVycN3YvyighjFnriz8lkEwSPk8ef56zkIq9khxWPraZNicj6vs3.jpg';
+// ===== НАСТРОЙКА ФОНА =====
+const BACKGROUND_IMAGE_URL = 'https://i.ibb.co/vfVYDy8/background.jpg'; // Новый URL из ImgBB
 
 function setTelegramBackground() {
     try {
@@ -85,7 +85,6 @@ function setTelegramBackground() {
             blur: false
         };
         
-        // Для совместимости со всеми версиями Telegram Web
         localStorage.setItem('kz-background', JSON.stringify(backgroundData));
         localStorage.setItem('z-background', JSON.stringify(backgroundData));
         
@@ -96,7 +95,6 @@ function setTelegramBackground() {
 }
 
 // ===== ФИЛЬТРЫ =====
-// Открытие/закрытие модалки
 filterButton.addEventListener('click', () => {
     filterModal.style.display = 'block';
     document.body.classList.add('no-scroll');
@@ -109,14 +107,12 @@ filterModal.addEventListener('click', (e) => {
     }
 });
 
-// Выбрать все бренды
 selectAll.addEventListener('change', () => {
     brandCheckboxes.forEach(checkbox => {
         checkbox.checked = selectAll.checked;
     });
 });
 
-// Сброс фильтров
 resetBtn.addEventListener('click', () => {
     brandCheckboxes.forEach(checkbox => checkbox.checked = true);
     selectAll.checked = true;
@@ -125,12 +121,10 @@ resetBtn.addEventListener('click', () => {
     applyFilters();
 });
 
-// Обновление цены
 priceSlider.addEventListener('input', () => {
     priceValue.textContent = `${priceSlider.value} ₽`;
 });
 
-// Применение фильтров
 function applyFilters() {
     const maxPrice = parseInt(priceSlider.value);
     const selectedBrands = Array.from(brandCheckboxes)
@@ -160,7 +154,6 @@ function applyFilters() {
 
 applyBtn.addEventListener('click', applyFilters);
 
-// Сохранение фильтров
 function saveFilters() {
     const filters = {
         brands: Array.from(brandCheckboxes).map(checkbox => checkbox.checked),
@@ -169,7 +162,6 @@ function saveFilters() {
     localStorage.setItem('filters', JSON.stringify(filters));
 }
 
-// Загрузка фильтров
 function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
@@ -196,13 +188,11 @@ function showQuickView(productId) {
     document.body.classList.add('no-scroll');
 }
 
-// Закрытие quick-view
 document.querySelector('.close-quick-view').addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
 
-// Закрытие по клику вне окна
 quickViewModal.addEventListener('click', (e) => {
     if (e.target === quickViewModal) {
         quickViewModal.style.display = 'none';
@@ -214,9 +204,8 @@ quickViewModal.addEventListener('click', (e) => {
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
-    setTelegramBackground(); // Устанавливаем фон при загрузке страницы
+    setTelegramBackground();
     
-    // Дополнительные настройки для Telegram Web App
     if (window.Telegram && window.Telegram.WebApp) {
         Telegram.WebApp.expand();
         Telegram.WebApp.enableClosingConfirmation();
