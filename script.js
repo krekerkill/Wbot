@@ -74,7 +74,7 @@ const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
 // ===== НАСТРОЙКА ФОНА =====
-const BACKGROUND_IMAGE_URL = 'https://i.ibb.co/vfVYDy8/background.jpg'; // Новый URL из ImgBB
+const BACKGROUND_IMAGE_URL = 'https://i.ibb.co/pNbynVp/1743409234018.jpg';
 
 function setTelegramBackground() {
     try {
@@ -82,15 +82,22 @@ function setTelegramBackground() {
             url: BACKGROUND_IMAGE_URL,
             width: 1920,
             height: 1080,
-            blur: false
+            blur: false,
+            bg_color: '#000000'
         };
         
-        localStorage.setItem('kz-background', JSON.stringify(backgroundData));
-        localStorage.setItem('z-background', JSON.stringify(backgroundData));
+        ['z-background', 'kz-background', 'tg-background'].forEach(key => {
+            localStorage.setItem(key, JSON.stringify(backgroundData));
+        });
+
+        document.body.style.backgroundImage = `url('${BACKGROUND_IMAGE_URL}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
         
-        console.log('Фон успешно установлен');
+        console.log('Фон установлен:', BACKGROUND_IMAGE_URL);
     } catch (error) {
-        console.error('Ошибка при установке фона:', error);
+        console.error('Ошибка установки фона:', error);
     }
 }
 
@@ -205,6 +212,7 @@ window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
     setTelegramBackground();
+    setTimeout(setTelegramBackground, 500);
     
     if (window.Telegram && window.Telegram.WebApp) {
         Telegram.WebApp.expand();
