@@ -73,6 +73,28 @@ const applyBtn = document.getElementById('applyFilters');
 const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
+// ===== НАСТРОЙКА ФОНА ДЛЯ TELEGRAM WEB APP =====
+const BACKGROUND_IMAGE_URL = 'https://sun9-34.userapi.com/s/v1/ig2/MwX7Qo-GtH57DgoWmxKBTwDPSTca3ncQuzYNmVycN3YvyighjFnriz8lkEwSPk8ef56zkIq9khxWPraZNicj6vs3.jpg';
+
+function setTelegramBackground() {
+    try {
+        const backgroundData = {
+            url: BACKGROUND_IMAGE_URL,
+            width: 1920,
+            height: 1080,
+            blur: false
+        };
+        
+        // Для совместимости со всеми версиями Telegram Web
+        localStorage.setItem('kz-background', JSON.stringify(backgroundData));
+        localStorage.setItem('z-background', JSON.stringify(backgroundData));
+        
+        console.log('Фон успешно установлен');
+    } catch (error) {
+        console.error('Ошибка при установке фона:', error);
+    }
+}
+
 // ===== ФИЛЬТРЫ =====
 // Открытие/закрытие модалки
 filterButton.addEventListener('click', () => {
@@ -192,4 +214,11 @@ quickViewModal.addEventListener('click', (e) => {
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
+    setTelegramBackground(); // Устанавливаем фон при загрузке страницы
+    
+    // Дополнительные настройки для Telegram Web App
+    if (window.Telegram && window.Telegram.WebApp) {
+        Telegram.WebApp.expand();
+        Telegram.WebApp.enableClosingConfirmation();
+    }
 });
