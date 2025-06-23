@@ -73,76 +73,28 @@ const applyBtn = document.getElementById('applyFilters');
 const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== СИСТЕМА ФОНА =====
-const BACKGROUND_CONFIG = {
-    url: 'https://i.ibb.co/fdrrxLg4/1743423420984.jpg',
-    backupUrl: 'https://i.ibb.co/fdrrxLg4/1743423420984.jpg',
-    settings: {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        blur: 50, // Увеличено размытие до 50%
-        bgColor: '#111111',
-        version: '2.0'
-    }
-};
+// ===== ОТКЛЮЧАЕМ СИСТЕМУ ФОНА =====
+document.body.style.background = '#f5f5f5'; // Однотонный фон 
 
-function initBackground() {
-    // Основная установка
-    setBackground(BACKGROUND_CONFIG.url);
-    
-    // Резервная через 1 секунду
-    setTimeout(() => {
-        if (!checkBackgroundApplied()) {
-            setBackground(BACKGROUND_CONFIG.backupUrl);
-        }
-    }, 1000);
-    
-    // Обновление при ресайзе
-    window.addEventListener('resize', () => {
-        BACKGROUND_CONFIG.settings.width = window.innerWidth;
-        BACKGROUND_CONFIG.settings.height = window.innerHeight;
-        setBackground(BACKGROUND_CONFIG.url);
-    });
-}
-
-function setBackground(url) {
-    try {
-        const config = { ...BACKGROUND_CONFIG.settings, url };
-        
-        // Для всех версий Telegram
-        ['z-background', 'kz-background', 'tg-background'].forEach(key => {
-            localStorage.setItem(key, JSON.stringify(config));
-        });
-        
-        // CSS с размытием
-        document.body.style.background = `
-            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-            url('${url}')
-            center/cover
-            no-repeat
-            fixed
-        `;
-        document.body.style.backdropFilter = 'blur(5px)'; // Эффект размытия
-        
-        console.log('Фон установлен с размытием 50%:', url);
-        return true;
-    } catch (e) {
-        console.error('Ошибка установки фона:', e);
-        return false;
+// ===== ЦЕНТРИРОВАНИЕ МОДАЛЬНЫХ ОКОН =====
+function centerModal(modalElement) {
+    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
+    if (modalContent) {
+        modalContent.style.position = 'fixed';
+        modalContent.style.top = '50%';
+        modalContent.style.left = '50%';
+        modalContent.style.transform = 'translate(-50%, -50%)';
     }
 }
 
-function checkBackgroundApplied() {
-    return document.body.style.backgroundImage.includes(BACKGROUND_CONFIG.url) ||
-           Object.keys(localStorage).some(key => key.includes('background'));
-}
-
-// ===== ФИЛЬТРЫ =====
+// Открытие фильтров с центрированием
 filterButton.addEventListener('click', () => {
     filterModal.style.display = 'block';
     document.body.classList.add('no-scroll');
+    centerModal(filterModal);
 });
 
+// Закрытие кликом вне окна
 filterModal.addEventListener('click', (e) => {
     if (e.target === filterModal) {
         filterModal.style.display = 'none';
@@ -150,6 +102,32 @@ filterModal.addEventListener('click', (e) => {
     }
 });
 
+// Открытие товара с центрированием
+function showQuickView(productId) {
+    const product = productsData[productId];
+    if (!product) return;
+    document.getElementById('quickViewImage').src = product.image;
+    document.getElementById('quickViewTitle').textContent = product.title;
+    document.getElementById('quickViewDescription').textContent = product.description;
+    document.getElementById('quickViewPrice').textContent = product.price;
+    quickViewModal.style.display = 'block';
+    document.body.classList.add('no-scroll');
+    centerModal(quickViewModal);
+}
+
+// Закрытие кликом вне окна или на крестик
+document.querySelector('.close-quick-view').addEventListener('click', () => {
+    quickViewModal.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+});
+quickViewModal.addEventListener('click', (e) => {
+    if (e.target === quickViewModal) {
+        quickViewModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+});
+
+// ===== ФИЛЬТРЫ =====
 selectAll.addEventListener('change', () => {
     brandCheckboxes.forEach(checkbox => {
         checkbox.checked = selectAll.checked;
@@ -173,12 +151,10 @@ function applyFilters() {
     const selectedBrands = Array.from(brandCheckboxes)
         .filter(checkbox => checkbox.checked)
         .map(checkbox => checkbox.value);
-
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
         const isVisible = selectedBrands.includes(brand);
         group.style.display = isVisible ? 'block' : 'none';
-
         if (isVisible) {
             let hasVisibleProducts = false;
             group.querySelectorAll('.product-card').forEach(card => {
@@ -189,7 +165,6 @@ function applyFilters() {
             group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
         }
     });
-
     saveFilters();
     filterModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -217,62 +192,14 @@ function loadFilters() {
     }
 }
 
-// ===== БЫСТРЫЙ ПРОСМОТР =====
-function showQuickView(productId) {
-    const product = productsData[productId];
-    if (!product) return;
-
-    document.getElementById('quickViewImage').src = product.image;
-    document.getElementById('quickViewTitle').textContent = product.title;
-    document.getElementById('quickViewDescription').textContent = product.description;
-    document.getElementById('quickViewPrice').textContent = product.price;
-
-    quickViewModal.style.display = 'block';
-    document.body.classList.add('no-scroll');
-}
-
-document.querySelector('.close-quick-view').addEventListener('click', () => {
-    quickViewModal.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-});
-
-quickViewModal.addEventListener('click', (e) => {
-    if (e.target === quickViewModal) {
-        quickViewModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
-    }
-});
-
 // ===== ИНИЦИАЛИЗАЦИЯ =====
 window.addEventListener('DOMContentLoaded', () => {
-    // Инициализация системы фона
-    initBackground();
-    
-    // Ваша существующая инициализация
     loadFilters();
     applyFilters();
-    
-    // Интеграция с Telegram WebApp
+
+    // Telegram WebApp
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
         Telegram.WebApp.enableClosingConfirmation();
-        
-        // Дополнительная проверка фона для Telegram
-        Telegram.WebApp.onEvent('viewportChanged', () => {
-            setTimeout(initBackground, 300);
-        });
     }
-    
-    // Финалная проверка через 3 секунды
-    setTimeout(() => {
-        if (!checkBackgroundApplied()) {
-            console.warn('Фон не применился, пробуем резервный метод');
-            document.body.style.background = `
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('${BACKGROUND_CONFIG.backupUrl}')
-                center/cover
-            `;
-            document.body.style.backdropFilter = 'blur(5px)';
-        }
-    }, 3000);
 });
