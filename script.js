@@ -53,7 +53,7 @@ function loadTheme() {
     }
 }
 
-themeToggle.addEventListener('click', () => {
+themeToggle?.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
     localStorage.setItem('darkMode', isDark);
@@ -65,22 +65,23 @@ const filterButton = document.getElementById('filterButton');
 const filterModal = document.getElementById('filterModal');
 const quickViewModal = document.getElementById('quickViewModal');
 
-if (filterButton && filterModal) {
-    filterButton.addEventListener('click', () => {
-        filterModal.style.display = 'block';
-        document.body.classList.add('no-scroll');
-        centerModal(filterModal);
-    });
+// Открытие фильтра
+filterButton?.addEventListener('click', () => {
+    filterModal.style.display = 'block';
+    document.body.classList.add('no-scroll');
+    centerModal(filterModal);
+});
 
-    filterModal.addEventListener('click', (e) => {
-        const modalContent = filterModal.querySelector('.modal-content');
-        if (!modalContent || !modalContent.contains(e.target)) {
-            filterModal.style.display = 'none';
-            document.body.classList.remove('no-scroll');
-        }
-    });
-}
+// Закрытие фильтра
+filterModal?.addEventListener('click', (e) => {
+    const modalContent = filterModal.querySelector('.modal-content');
+    if (!modalContent || !modalContent.contains(e.target)) {
+        filterModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+});
 
+// Открытие товара
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -99,12 +100,12 @@ function showQuickView(productId) {
     centerModal(quickViewModal);
 }
 
+// Закрытие товара
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
-
-quickViewModal.addEventListener('click', (e) => {
+quickViewModal?.addEventListener('click', (e) => {
     const modalContent = quickViewModal.querySelector('.quick-view-content');
     if (!modalContent || !modalContent.contains(e.target)) {
         quickViewModal.style.display = 'none';
@@ -112,7 +113,7 @@ quickViewModal.addEventListener('click', (e) => {
     }
 });
 
-// ===== CENTER MODALS =====
+// Центрирование окон
 function centerModal(modalElement) {
     const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -123,7 +124,7 @@ function centerModal(modalElement) {
     }
 }
 
-// ===== FILTER LOGIC =====
+// ===== ФИЛЬТРЫ =====
 const selectAll = document.getElementById('selectAllBrands');
 const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
 const priceSlider = document.getElementById('priceSlider');
@@ -135,14 +136,12 @@ if (selectAll && brandCheckboxes.length > 0) {
     });
 }
 
-if (priceSlider && priceValue) {
-    priceSlider.addEventListener('input', () => {
-        priceValue.textContent = `${priceSlider.value} ₽`;
-    });
-}
+priceSlider?.addEventListener('input', () => {
+    priceValue.textContent = `${priceSlider.value} ₽`;
+});
 
 function applyFilters() {
-    const maxPrice = parseInt(priceSlider?.value || 150000);
+    const maxPrice = parseInt(priceSlider.value);
     const selectedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
 
     document.querySelectorAll('.brand-group').forEach(group => {
