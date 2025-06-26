@@ -1,7 +1,7 @@
 // Данные для быстрого просмотра
 const productsData = {
     'iphone15': {
-        image: ' https://via.placeholder.com/500x500?text=iPhone+15',
+        image: 'https://via.placeholder.com/500x500?text=iPhone+15',
         title: 'iPhone 15',
         description: '6.1" Super Retina XDR, 128GB, Black, 48MP камера, A16 Bionic',
         price: '89 990 ₽'
@@ -59,30 +59,6 @@ const productsData = {
         title: 'Nothing Phone 2',
         description: '6.7" OLED, 256GB, White, 50MP камера, Snapdragon 8+ Gen 1',
         price: '54 990 ₽'
-    },
-    'ipadAir': {
-        image: ' https://via.placeholder.com/500x500?text=iPad+Air',
-        title: 'iPad Air',
-        description: '10.9", 64GB, Wi-Fi, Space Grey, A15 Bionic',
-        price: '59 990 ₽'
-    },
-    'ipadPro': {
-        image: ' https://via.placeholder.com/500x500?text=iPad+Pro',
-        title: 'iPad Pro',
-        description: '12.9", M2, 128GB, Silver, Liquid Retina XDR',
-        price: '89 990 ₽'
-    },
-    'samsungTabS9': {
-        image: ' https://via.placeholder.com/500x500?text=Samsung+Tab+S9',
-        title: 'Samsung Galaxy Tab S9',
-        description: '11", Snapdragon 8+, 128GB, Graphite, AMOLED',
-        price: '49 990 ₽'
-    },
-    'xiaomiPad6': {
-        image: ' https://via.placeholder.com/500x500?text=Xiaomi+Pad+6',
-        title: 'Xiaomi Pad 6',
-        description: '11", Snapdragon 870, 128GB, Black, 2.8K IPS',
-        price: '39 990 ₽'
     }
 };
 
@@ -94,6 +70,7 @@ const priceValue = document.getElementById('priceValue');
 const filterButton = document.getElementById('filterButton');
 const filterModal = document.getElementById('filterModal');
 const applyBtn = document.getElementById('applyFilters');
+const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
 // THEME TOGGLE
@@ -130,56 +107,76 @@ function centerModal(modalElement) {
 }
 
 // FILTER MODAL
-filterButton.addEventListener('click', () => {
-    filterModal.style.display = 'block';
-    document.body.classList.add('no-scroll');
-    centerModal(filterModal);
-});
-filterModal.addEventListener('click', (e) => {
-    if (e.target === filterModal) {
-        filterModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
-    }
-});
+if (filterButton && filterModal) {
+    filterButton.addEventListener('click', () => {
+        filterModal.style.display = 'block';
+        document.body.classList.add('no-scroll');
+        centerModal(filterModal);
+    });
+
+    filterModal.addEventListener('click', (e) => {
+        const modalContent = filterModal.querySelector('.modal-content');
+        if (!modalContent || !modalContent.contains(e.target)) {
+            filterModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
+    });
+}
 
 // QUICK VIEW MODAL
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
-    document.getElementById('quickViewImage').src = product.image;
-    document.getElementById('quickViewTitle').textContent = product.title;
-    document.getElementById('quickViewDescription').textContent = product.description;
-    document.getElementById('quickViewPrice').textContent = product.price;
+    const imgEl = document.getElementById('quickViewImage');
+    const titleEl = document.getElementById('quickViewTitle');
+    const descEl = document.getElementById('quickViewDescription');
+    const priceEl = document.getElementById('quickViewPrice');
+
+    if (imgEl) imgEl.src = product.image;
+    if (titleEl) titleEl.textContent = product.title;
+    if (descEl) descEl.textContent = product.description;
+    if (priceEl) priceEl.textContent = product.price;
+
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
     centerModal(quickViewModal);
 }
-document.querySelector('.close-quick-view').addEventListener('click', () => {
+
+document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
+
 quickViewModal.addEventListener('click', (e) => {
-    if (e.target === quickViewModal) {
+    const modalContent = quickViewModal.querySelector('.quick-view-content');
+    if (!modalContent || !modalContent.contains(e.target)) {
         quickViewModal.style.display = 'none';
         document.body.classList.remove('no-scroll');
     }
 });
 
 // FILTER LOGIC
-selectAll.addEventListener('change', () => {
-    brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
-});
-priceSlider.addEventListener('input', () => {
+if (selectAll && brandCheckboxes.length > 0) {
+    selectAll.addEventListener('change', () => {
+        brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
+    });
+}
+
+priceSlider?.addEventListener('input', () => {
     priceValue.textContent = `${priceSlider.value} ₽`;
 });
+
 function applyFilters() {
-    const maxPrice = parseInt(priceSlider.value);
-    const selectedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+    const maxPrice = parseInt(priceSlider?.value || 150000);
+    const selectedBrands = Array.from(brandCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
 
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
         const isVisible = selectedBrands.includes(brand);
         group.style.display = isVisible ? 'block' : 'none';
+
         if (isVisible) {
             let hasVisibleProducts = false;
             group.querySelectorAll('.product-card').forEach(card => {
@@ -187,32 +184,33 @@ function applyFilters() {
                 card.style.display = price <= maxPrice ? 'block' : 'none';
                 if (price <= maxPrice) hasVisibleProducts = true;
             });
-            group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
+            const title = group.querySelector('.brand-title');
+            if (title) title.style.display = hasVisibleProducts ? 'block' : 'none';
         }
     });
+
     saveFilters();
-    filterModal.style.display = 'none';
+    if (filterModal) filterModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 }
-applyBtn.addEventListener('click', applyFilters);
 
-// SAVE & LOAD FILTERS
 function saveFilters() {
     const filters = {
         brands: Array.from(brandCheckboxes).map(cb => cb.checked),
-        maxPrice: priceSlider.value
+        maxPrice: priceSlider?.value || 150000,
     };
     localStorage.setItem('filters', JSON.stringify(filters));
 }
+
 function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
         brandCheckboxes.forEach((cb, i) => {
-            cb.checked = savedFilters.brands[i] || true;
+            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
-        priceSlider.value = savedFilters.maxPrice || 150000;
-        priceValue.textContent = `${priceSlider.value} ₽`;
+        if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
+        if (priceValue) priceValue.textContent = `${priceSlider?.value || 150000} ₽`;
     }
 }
 
@@ -221,6 +219,8 @@ window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
     loadTheme();
+
+    // Telegram Mini App
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
         Telegram.WebApp.enableClosingConfirmation();
