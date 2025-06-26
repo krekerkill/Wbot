@@ -38,7 +38,7 @@ const productsData = {
     }
 };
 
-// ===== DOM Elements =====
+// DOM Elements
 const selectAll = document.getElementById('selectAllBrands');
 const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
 const priceSlider = document.getElementById('priceSlider');
@@ -48,7 +48,7 @@ const filterModal = document.getElementById('filterModal');
 const applyBtn = document.getElementById('applyFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== THEME TOGGLE =====
+// THEME TOGGLE
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
@@ -70,7 +70,7 @@ themeToggle.addEventListener('click', () => {
     themeToggle.textContent = isDark ? '☀️' : '🌙';
 });
 
-// ===== MODAL LOGIC =====
+// CENTER MODALS
 function centerModal(modalElement) {
     const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -81,12 +81,12 @@ function centerModal(modalElement) {
     }
 }
 
+// FILTER MODAL
 filterButton.addEventListener('click', () => {
     filterModal.style.display = 'block';
     document.body.classList.add('no-scroll');
     centerModal(filterModal);
 });
-
 filterModal.addEventListener('click', (e) => {
     if (e.target === filterModal) {
         filterModal.style.display = 'none';
@@ -94,6 +94,7 @@ filterModal.addEventListener('click', (e) => {
     }
 });
 
+// QUICK VIEW MODAL
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -105,12 +106,10 @@ function showQuickView(productId) {
     document.body.classList.add('no-scroll');
     centerModal(quickViewModal);
 }
-
 document.querySelector('.close-quick-view').addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
-
 quickViewModal.addEventListener('click', (e) => {
     if (e.target === quickViewModal) {
         quickViewModal.style.display = 'none';
@@ -118,22 +117,18 @@ quickViewModal.addEventListener('click', (e) => {
     }
 });
 
-// ===== FILTERS =====
+// FILTER LOGIC
 selectAll.addEventListener('change', () => {
-    brandCheckboxes.forEach(checkbox => {
-        checkbox.checked = selectAll.checked;
-    });
+    brandCheckboxes.forEach(checkbox => checkbox.checked = selectAll.checked);
 });
-
 priceSlider.addEventListener('input', () => {
     priceValue.textContent = `${priceSlider.value} ₽`;
 });
-
 function applyFilters() {
     const maxPrice = parseInt(priceSlider.value);
     const selectedBrands = Array.from(brandCheckboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
 
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
@@ -149,14 +144,13 @@ function applyFilters() {
             group.querySelector('.brand-title').style.display = hasVisibleProducts ? 'block' : 'none';
         }
     });
-
     saveFilters();
     filterModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 }
-
 applyBtn.addEventListener('click', applyFilters);
 
+// SAVE & LOAD FILTERS
 function saveFilters() {
     const filters = {
         brands: Array.from(brandCheckboxes).map(cb => cb.checked),
@@ -164,12 +158,11 @@ function saveFilters() {
     };
     localStorage.setItem('filters', JSON.stringify(filters));
 }
-
 function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
-        brandCheckboxes.forEach((checkbox, i) => {
-            checkbox.checked = savedFilters.brands[i] || true;
+        brandCheckboxes.forEach((cb, i) => {
+            cb.checked = savedFilters.brands[i] || true;
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
         priceSlider.value = savedFilters.maxPrice || 150000;
@@ -177,7 +170,7 @@ function loadFilters() {
     }
 }
 
-// ===== INITIALIZATION =====
+// INIT
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
