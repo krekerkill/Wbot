@@ -1,10 +1,16 @@
 // Данные для быстрого просмотра
 const productsData = {
     'iphone15': {
-        image: ' https://via.placeholder.com/500x500?text=iPhone+15',
+        image: 'https://via.placeholder.com/500x500?text=iPhone+15',
         title: 'iPhone 15',
         description: '6.1" Super Retina XDR, 128GB, Black, 48MP камера, A16 Bionic',
         price: '89 990 ₽'
+    },
+    'iphone15pro': {
+        image: ' https://via.placeholder.com/500x500?text=iPhone+15+Pro',
+        title: 'iPhone 15 Pro',
+        description: '6.1" Super Retina XDR, 256GB, Titanium, 48MP камера, A17 Pro',
+        price: '119 990 ₽'
     },
     'samsungS23Ultra': {
         image: ' https://via.placeholder.com/500x500?text=Samsung+S23+Ultra',
@@ -12,17 +18,35 @@ const productsData = {
         description: '6.8" Dynamic AMOLED, 256GB, Green, 200MP камера, Snapdragon 8 Gen 2',
         price: '99 990 ₽'
     },
+    'samsungS23': {
+        image: ' https://via.placeholder.com/500x500?text=Samsung+S23',
+        title: 'Samsung Galaxy S23',
+        description: '6.1" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 2',
+        price: '79 990 ₽'
+    },
     'xiaomi13Pro': {
         image: ' https://via.placeholder.com/500x500?text=Xiaomi+13+Pro',
         title: 'Xiaomi 13 Pro',
         description: '6.73" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 2',
         price: '79 990 ₽'
     },
+    'xiaomi13': {
+        image: ' https://via.placeholder.com/500x500?text=Xiaomi+13',
+        title: 'Xiaomi 13',
+        description: '6.36" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 2',
+        price: '59 990 ₽'
+    },
     'tecnoPhantomX2': {
         image: ' https://via.placeholder.com/500x500?text=Tecno+Phantom+X2',
         title: 'Tecno Phantom X2',
         description: '6.8" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000',
         price: '34 990 ₽'
+    },
+    'tecnoCamon19': {
+        image: ' https://via.placeholder.com/500x500?text=Tecno+Camon+19',
+        title: 'Tecno Camon 19',
+        description: '6.8" IPS, 128GB, Black, 64MP камера, Helio G85',
+        price: '27 990 ₽'
     },
     'honorMagic5Pro': {
         image: ' https://via.placeholder.com/500x500?text=Honor+Magic+5+Pro',
@@ -38,41 +62,36 @@ const productsData = {
     }
 };
 
-// ===== THEME TOGGLE =====
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
+// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
+const selectAll = document.getElementById('selectAllBrands');
+const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
+const priceSlider = document.getElementById('priceSlider');
+const priceValue = document.getElementById('priceValue');
+const filterButton = document.getElementById('filterButton');
+const filterModal = document.getElementById('filterModal');
+const applyBtn = document.getElementById('applyFilters');
+const resetBtn = document.getElementById('resetFilters');
+const quickViewModal = document.getElementById('quickViewModal');
 
-function loadTheme() {
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
-        body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
-    } else {
-        body.classList.remove('dark-mode');
-        themeToggle.textContent = '🌙';
+// ===== ЦЕНТРИРОВАНИЕ МОДАЛЬНЫХ ОКОН =====
+function centerModal(modalElement) {
+    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
+    if (modalContent) {
+        modalContent.style.position = 'fixed';
+        modalContent.style.top = '50%';
+        modalContent.style.left = '50%';
+        modalContent.style.transform = 'translate(-50%, -50%)';
     }
 }
 
-themeToggle?.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-    themeToggle.textContent = isDark ? '☀️' : '🌙';
-});
-
-// ===== MODAL LOGIC =====
-const filterButton = document.getElementById('filterButton');
-const filterModal = document.getElementById('filterModal');
-const quickViewModal = document.getElementById('quickViewModal');
-
-// Открытие фильтра
+// ===== ОТКРЫТИЕ ФИЛЬТРА =====
 filterButton?.addEventListener('click', () => {
     filterModal.style.display = 'block';
     document.body.classList.add('no-scroll');
     centerModal(filterModal);
 });
 
-// Закрытие фильтра
+// ===== ЗАКРЫТИЕ ПО КЛИКУ ВНЕ ОБЛАСТИ =====
 filterModal?.addEventListener('click', (e) => {
     const modalContent = filterModal.querySelector('.modal-content');
     if (!modalContent || !modalContent.contains(e.target)) {
@@ -81,7 +100,7 @@ filterModal?.addEventListener('click', (e) => {
     }
 });
 
-// Открытие товара
+// ===== QUICK VIEW =====
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -100,11 +119,11 @@ function showQuickView(productId) {
     centerModal(quickViewModal);
 }
 
-// Закрытие товара
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
+
 quickViewModal?.addEventListener('click', (e) => {
     const modalContent = quickViewModal.querySelector('.quick-view-content');
     if (!modalContent || !modalContent.contains(e.target)) {
@@ -113,23 +132,7 @@ quickViewModal?.addEventListener('click', (e) => {
     }
 });
 
-// Центрирование окон
-function centerModal(modalElement) {
-    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
-    if (modalContent) {
-        modalContent.style.position = 'fixed';
-        modalContent.style.top = '50%';
-        modalContent.style.left = '50%';
-        modalContent.style.transform = 'translate(-50%, -50%)';
-    }
-}
-
-// ===== ФИЛЬТРЫ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
-
+// ===== ФИЛЬТРАЦИЯ =====
 if (selectAll && brandCheckboxes.length > 0) {
     selectAll.addEventListener('change', () => {
         brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
@@ -137,12 +140,14 @@ if (selectAll && brandCheckboxes.length > 0) {
 }
 
 priceSlider?.addEventListener('input', () => {
-    priceValue.textContent = `${priceSlider.value} ₽`;
+    if (priceValue) priceValue.textContent = `${priceSlider.value} ₽`;
 });
 
 function applyFilters() {
-    const maxPrice = parseInt(priceSlider.value);
-    const selectedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+    const maxPrice = parseInt(priceSlider?.value || 150000);
+    const selectedBrands = Array.from(brandCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
 
     document.querySelectorAll('.brand-group').forEach(group => {
         const brand = group.dataset.brand;
@@ -151,13 +156,19 @@ function applyFilters() {
 
         if (isVisible) {
             let hasVisibleProducts = false;
-            group.querySelectorAll('.product-card').forEach(card => {
+            const cards = group.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
                 const price = parseInt(card.dataset.price);
                 card.style.display = price <= maxPrice ? 'block' : 'none';
                 if (price <= maxPrice) hasVisibleProducts = true;
             });
+
+            // Исправление: теперь не пытаемся скрыть .brand-title, если его нет
             const title = group.querySelector('.brand-title');
-            if (title) title.style.display = hasVisibleProducts ? 'block' : 'none';
+            if (title) {
+                title.style.display = hasVisibleProducts ? 'block' : 'none';
+            }
         }
     });
 
@@ -186,11 +197,22 @@ function loadFilters() {
     }
 }
 
-// ===== INITIALIZATION =====
+// Сброс фильтров
+resetBtn?.addEventListener('click', () => {
+    brandCheckboxes.forEach(cb => cb.checked = true);
+    selectAll.checked = true;
+    priceSlider.value = 150000;
+    priceValue.textContent = '150000 ₽';
+    applyFilters();
+});
+
+// Привязываем кнопку "Применить"
+applyBtn?.addEventListener('click', applyFilters);
+
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
-    loadTheme();
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
