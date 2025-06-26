@@ -1,228 +1,192 @@
-// Данные для быстрого просмотра
-const productsData = {
-    'iphone15': {
-        image: 'https://via.placeholder.com/500x500?text=iPhone+15',
-        title: 'iPhone 15',
-        description: '6.1" Super Retina XDR, 128GB, Black, 48MP камера, A16 Bionic',
-        price: '89 990 ₽'
-    },
-    'iphone15pro': {
-        image: ' https://via.placeholder.com/500x500?text=iPhone+15+Pro',
-        title: 'iPhone 15 Pro',
-        description: '6.1" Super Retina XDR, 256GB, Titanium, 48MP камера, A17 Pro',
-        price: '119 990 ₽'
-    },
-    'samsungS23Ultra': {
-        image: ' https://via.placeholder.com/500x500?text=Samsung+S23+Ultra',
-        title: 'Samsung Galaxy S23 Ultra',
-        description: '6.8" Dynamic AMOLED, 256GB, Green, 200MP камера, Snapdragon 8 Gen 2',
-        price: '99 990 ₽'
-    },
-    'samsungS23': {
-        image: ' https://via.placeholder.com/500x500?text=Samsung+S23',
-        title: 'Samsung Galaxy S23',
-        description: '6.1" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 2',
-        price: '79 990 ₽'
-    },
-    'xiaomi13Pro': {
-        image: ' https://via.placeholder.com/500x500?text=Xiaomi+13+Pro',
-        title: 'Xiaomi 13 Pro',
-        description: '6.73" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 2',
-        price: '79 990 ₽'
-    },
-    'xiaomi13': {
-        image: ' https://via.placeholder.com/500x500?text=Xiaomi+13',
-        title: 'Xiaomi 13',
-        description: '6.36" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 2',
-        price: '59 990 ₽'
-    },
-    'tecnoPhantomX2': {
-        image: ' https://via.placeholder.com/500x500?text=Tecno+Phantom+X2',
-        title: 'Tecno Phantom X2',
-        description: '6.8" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000',
-        price: '34 990 ₽'
-    },
-    'tecnoCamon19': {
-        image: ' https://via.placeholder.com/500x500?text=Tecno+Camon+19',
-        title: 'Tecno Camon 19',
-        description: '6.8" IPS, 128GB, Black, 64MP камера, Helio G85',
-        price: '27 990 ₽'
-    },
-    'honorMagic5Pro': {
-        image: ' https://via.placeholder.com/500x500?text=Honor+Magic+5+Pro',
-        title: 'Honor Magic 5 Pro',
-        description: '6.81" OLED, 256GB, Blue, 50MP камера, Snapdragon 8 Gen 2',
-        price: '69 990 ₽'
-    },
-    'nothingPhone2': {
-        image: ' https://via.placeholder.com/500x500?text=Nothing+Phone+2',
-        title: 'Nothing Phone 2',
-        description: '6.7" OLED, 256GB, White, 50MP камера, Snapdragon 8+ Gen 1',
-        price: '54 990 ₽'
-    }
-};
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог смартфонов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css ">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-// ===== DOM Elements =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
-const filterButton = document.getElementById('filterButton');
-const filterModal = document.getElementById('filterModal');
-const applyBtn = document.getElementById('applyFilters');
-const resetBtn = document.getElementById('resetFilters');
-const quickViewModal = document.getElementById('quickViewModal');
+<!-- Кнопка фильтра -->
+<div class="filter-button" id="filterButton">
+    <i class="fas fa-sliders-h"></i>
+</div>
 
-// THEME TOGGLE
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
+<!-- Модальное окно фильтров -->
+<div class="filter-modal" id="filterModal">
+    <div class="modal-content">
+        <h3>Фильтры</h3>
+        <div class="filter-group">
+            <label style="display: flex; justify-content: space-between;">
+                <span>Бренды:</span>
+                <label class="select-all">
+                    <input type="checkbox" id="selectAllBrands" checked> Выбрать все
+                </label>
+            </label>
+            <div class="brand-checkboxes">
+                <label><input type="checkbox" name="brand" value="apple" checked> Apple</label>
+                <label><input type="checkbox" name="brand" value="samsung" checked> Samsung</label>
+                <label><input type="checkbox" name="brand" value="xiaomi" checked> Xiaomi</label>
+                <label><input type="checkbox" name="brand" value="tecno" checked> Tecno</label>
+                <label><input type="checkbox" name="brand" value="honor" checked> Honor</label>
+                <label><input type="checkbox" name="brand" value="nothing" checked> Nothing</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <label>Цена до: <span id="priceValue">150000 ₽</span></label>
+            <input type="range" id="priceSlider" min="20000" max="150000" step="1000" value="150000">
+        </div>
+        <div class="filter-buttons">
+            <button class="reset-btn" id="resetFilters">Сбросить</button>
+            <button class="apply-btn" id="applyFilters">Применить</button>
+        </div>
+    </div>
+</div>
 
-function loadTheme() {
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
-        body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
-    } else {
-        body.classList.remove('dark-mode');
-        themeToggle.textContent = '🌙';
-    }
-}
+<!-- Каталог товаров -->
+<div id="products-container">
 
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-    themeToggle.textContent = isDark ? '☀️' : '🌙';
-});
+    <!-- Apple -->
+    <div class="brand-group" data-brand="apple">
+        <h2 class="brand-title">Apple</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="89990" data-id="iphone15" onclick="showQuickView('iphone15')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>iPhone 15</h3>
+                        <p>128GB, Black</p>
+                        <div class="price">89 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// CENTER MODALS
-function centerModal(modalElement) {
-    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
-    if (modalContent) {
-        modalContent.style.position = 'fixed';
-        modalContent.style.top = '50%';
-        modalContent.style.left = '50%';
-        modalContent.style.transform = 'translate(-50%, -50%)';
-    }
-}
+    <!-- Samsung -->
+    <div class="brand-group" data-brand="samsung">
+        <h2 class="brand-title">Samsung</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="99990" data-id="samsungS23Ultra" onclick="showQuickView('samsungS23Ultra')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src=" https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Samsung Galaxy S23 Ultra</h3>
+                        <p>256GB, Green</p>
+                        <div class="price">99 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// FILTER MODAL
-if (filterButton && filterModal) {
-    filterButton.addEventListener('click', () => {
-        filterModal.style.display = 'block';
-        document.body.classList.add('no-scroll');
-        centerModal(filterModal);
-    });
+    <!-- Xiaomi -->
+    <div class="brand-group" data-brand="xiaomi">
+        <h2 class="brand-title">Xiaomi</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="79990" data-id="xiaomi13Pro" onclick="showQuickView('xiaomi13Pro')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src=" https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Xiaomi 13 Pro</h3>
+                        <p>256GB, White</p>
+                        <div class="price">79 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    filterModal.addEventListener('click', (e) => {
-        const modalContent = filterModal.querySelector('.modal-content');
-        if (!modalContent || !modalContent.contains(e.target)) {
-            filterModal.style.display = 'none';
-            document.body.classList.remove('no-scroll');
-        }
-    });
-}
+    <!-- Tecno -->
+    <div class="brand-group" data-brand="tecno">
+        <h2 class="brand-title">Tecno</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="34990" data-id="tecnoPhantomX2" onclick="showQuickView('tecnoPhantomX2')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src=" https://via.placeholder.com/300x300?text=Tecno+Phantom+X2" alt="Tecno Phantom X2" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Tecno Phantom X2</h3>
+                        <p>256GB, Silver</p>
+                        <div class="price">34 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// QUICK VIEW MODAL
-function showQuickView(productId) {
-    const product = productsData[productId];
-    if (!product) return;
-    const imgEl = document.getElementById('quickViewImage');
-    const titleEl = document.getElementById('quickViewTitle');
-    const descEl = document.getElementById('quickViewDescription');
-    const priceEl = document.getElementById('quickViewPrice');
+    <!-- Honor -->
+    <div class="brand-group" data-brand="honor">
+        <h2 class="brand-title">Honor</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="69990" data-id="honorMagic5Pro" onclick="showQuickView('honorMagic5Pro')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src=" https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Honor Magic 5 Pro</h3>
+                        <p>256GB, Blue</p>
+                        <div class="price">69 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    if (imgEl) imgEl.src = product.image;
-    if (titleEl) titleEl.textContent = product.title;
-    if (descEl) descEl.textContent = product.description;
-    if (priceEl) priceEl.textContent = product.price;
+    <!-- Nothing -->
+    <div class="brand-group" data-brand="nothing">
+        <h2 class="brand-title">Nothing</h2>
+        <div class="products-grid">
+            <div class="product-card full-width-card" data-price="54990" data-id="nothingPhone2" onclick="showQuickView('nothingPhone2')">
+                <div class="product-row">
+                    <div class="product-image-container">
+                        <img src=" https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Nothing Phone 2</h3>
+                        <p>256GB, White</p>
+                        <div class="price">54 990 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    quickViewModal.style.display = 'block';
-    document.body.classList.add('no-scroll');
-    centerModal(quickViewModal);
-}
+<!-- Quick View Modal -->
+<div class="quick-view-modal" id="quickViewModal">
+    <div class="quick-view-content">
+        <span class="close-quick-view">&times;</span>
+        <div class="quick-view-row">
+            <div class="quick-view-image-container">
+                <img id="quickViewImage" src="" alt="">
+            </div>
+            <div class="quick-view-info">
+                <h3 id="quickViewTitle"></h3>
+                <p id="quickViewDescription"></p>
+                <div class="quick-view-price" id="quickViewPrice"></div>
+                <ul class="features-list">
+                    <li><strong>Память:</strong> 256GB</li>
+                    <li><strong>Камера:</strong> 50MP</li>
+                    <li><strong>Процессор:</strong> Snapdragon 8 Gen 2</li>
+                </ul>
+                <button class="buy-btn">Купить сейчас</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-document.querySelector('.close-quick-view')?.addEventListener('click', () => {
-    quickViewModal.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-});
-
-quickViewModal.addEventListener('click', (e) => {
-    const modalContent = quickViewModal.querySelector('.quick-view-content');
-    if (!modalContent || !modalContent.contains(e.target)) {
-        quickViewModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
-    }
-});
-
-// FILTER LOGIC
-if (selectAll && brandCheckboxes.length > 0) {
-    selectAll.addEventListener('change', () => {
-        brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
-    });
-}
-
-priceSlider?.addEventListener('input', () => {
-    priceValue.textContent = `${priceSlider.value} ₽`;
-});
-
-function applyFilters() {
-    const maxPrice = parseInt(priceSlider?.value || 150000);
-    const selectedBrands = Array.from(brandCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    document.querySelectorAll('.brand-group').forEach(group => {
-        const brand = group.dataset.brand;
-        const isVisible = selectedBrands.includes(brand);
-        group.style.display = isVisible ? 'block' : 'none';
-
-        if (isVisible) {
-            let hasVisibleProducts = false;
-            group.querySelectorAll('.product-card').forEach(card => {
-                const price = parseInt(card.dataset.price);
-                card.style.display = price <= maxPrice ? 'block' : 'none';
-                if (price <= maxPrice) hasVisibleProducts = true;
-            });
-            const title = group.querySelector('.brand-title');
-            if (title) title.style.display = hasVisibleProducts ? 'block' : 'none';
-        }
-    });
-
-    saveFilters();
-    if (filterModal) filterModal.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-}
-
-function saveFilters() {
-    const filters = {
-        brands: Array.from(brandCheckboxes).map(cb => cb.checked),
-        maxPrice: priceSlider?.value || 150000,
-    };
-    localStorage.setItem('filters', JSON.stringify(filters));
-}
-
-function loadFilters() {
-    const savedFilters = JSON.parse(localStorage.getItem('filters'));
-    if (savedFilters) {
-        brandCheckboxes.forEach((cb, i) => {
-            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
-        });
-        selectAll.checked = brandCheckboxes.every(cb => cb.checked);
-        if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
-        if (priceValue) priceValue.textContent = `${priceSlider?.value || 150000} ₽`;
-    }
-}
-
-// INIT
-window.addEventListener('DOMContentLoaded', () => {
-    loadFilters();
-    applyFilters();
-    loadTheme();
-
-    // Telegram Mini App
-    if (window.Telegram?.WebApp) {
-        Telegram.WebApp.expand();
-        Telegram.WebApp.enableClosingConfirmation();
-    }
-});
+<script src="script.js"></script>
+</body>
+</html>
