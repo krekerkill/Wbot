@@ -139,7 +139,7 @@ function showQuickView(productId) {
     centerModal(quickViewModal);
 }
 
-// Закрытие Quick View
+// Закрытие кликом вне окна
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -211,7 +211,7 @@ function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
         brandCheckboxes.forEach((cb, i) => {
-            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
+            cb.checked = savedFilters.brands[i] ?? true;
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
         if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
@@ -219,11 +219,11 @@ function loadFilters() {
     }
 }
 
-// ===== INITIALIZATION =====
+// ===== TELEGRAM WEBAPP =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
-    loadTheme(); // Загрузка темы
+    loadTheme(); // Поддержка тёмной темы
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
