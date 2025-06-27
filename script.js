@@ -1,4 +1,4 @@
-// Данные для быстрого просмотра
+// Данные для быстрого просмотра товаров
 const productsData = {
     'iphone15': {
         image: 'https://via.placeholder.com/500x500?text=iPhone+15',
@@ -68,7 +68,7 @@ const body = document.body;
 
 function loadTheme() {
     const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
+    if (isDark && body) {
         body.classList.add('dark-mode');
         if (themeToggle) themeToggle.textContent = '☀️';
     } else {
@@ -92,7 +92,7 @@ const filterModal = document.getElementById('filterModal');
 const quickViewModal = document.getElementById('quickViewModal');
 
 function centerModal(modalElement) {
-    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
+    const modalContent = modalElement?.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
         modalContent.style.position = 'fixed';
         modalContent.style.top = '50%';
@@ -141,7 +141,7 @@ function showQuickView(productId) {
 
 // Закрытие Quick View
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
-    quickViewModal.style.display = 'none';
+    if (quickViewModal) quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
 quickViewModal?.addEventListener('click', (e) => {
@@ -210,7 +210,7 @@ function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
         brandCheckboxes.forEach((cb, i) => {
-            cb.checked = savedFilters.brands[i] ?? true;
+            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
         if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
@@ -224,8 +224,10 @@ window.addEventListener('DOMContentLoaded', () => {
     applyFilters();
     loadTheme(); // Загрузка темы
 
+    // Telegram WebApp поддержка
     if (window.Telegram?.WebApp) {
-        Telegram.WebApp.expand();
-        Telegram.WebApp.enableClosingConfirmation();
+        Telegram.WebApp.expand(); // Расширяем на весь экран
+        Telegram.WebApp.enableClosingConfirmation(); // Подтверждение закрытия
+        console.log("Telegram WebApp инициализирован");
     }
 });
