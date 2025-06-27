@@ -62,18 +62,35 @@ const productsData = {
     }
 };
 
-// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+function loadTheme() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
+        body.classList.add('dark-mode');
+        if (themeToggle) themeToggle.textContent = '☀️';
+    } else {
+        body.classList.remove('dark-mode');
+        if (themeToggle) themeToggle.textContent = '🌙';
+    }
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+}
+
+// ===== MODAL LOGIC =====
 const filterButton = document.getElementById('filterButton');
 const filterModal = document.getElementById('filterModal');
-const applyBtn = document.getElementById('applyFilters');
-const resetBtn = document.getElementById('resetFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== ЦЕНТРИРОВАНИЕ МОДАЛЬНЫХ ОКОН =====
 function centerModal(modalElement) {
     const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -84,26 +101,29 @@ function centerModal(modalElement) {
     }
 }
 
-// ===== ОТКРЫТИЕ ФИЛЬТРА =====
-filterButton?.addEventListener('click', () => {
-    filterModal.style.display = 'block';
-    document.body.classList.add('no-scroll');
-    centerModal(filterModal);
-});
+// Открытие фильтра
+if (filterButton && filterModal) {
+    filterButton.addEventListener('click', () => {
+        filterModal.style.display = 'block';
+        document.body.classList.add('no-scroll');
+        centerModal(filterModal);
+    });
 
-// ===== ЗАКРЫТИЕ ПО КЛИКУ ВНЕ ОБЛАСТИ =====
-filterModal?.addEventListener('click', (e) => {
-    const modalContent = filterModal.querySelector('.modal-content');
-    if (!modalContent || !modalContent.contains(e.target)) {
-        filterModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
-    }
-});
+    // Закрытие кликом вне окна
+    filterModal.addEventListener('click', (e) => {
+        const modalContent = filterModal.querySelector('.modal-content');
+        if (!modalContent || !modalContent.contains(e.target)) {
+            filterModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
+    });
+}
 
-// ===== QUICK VIEW =====
+// Показ карточки товара
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
+
     const imgEl = document.getElementById('quickViewImage');
     const titleEl = document.getElementById('quickViewTitle');
     const descEl = document.getElementById('quickViewDescription');
@@ -119,11 +139,11 @@ function showQuickView(productId) {
     centerModal(quickViewModal);
 }
 
+// Закрытие Quick View
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
-
 quickViewModal?.addEventListener('click', (e) => {
     const modalContent = quickViewModal.querySelector('.quick-view-content');
     if (!modalContent || !modalContent.contains(e.target)) {
@@ -133,15 +153,22 @@ quickViewModal?.addEventListener('click', (e) => {
 });
 
 // ===== ФИЛЬТРАЦИЯ =====
+const selectAll = document.getElementById('selectAllBrands');
+const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
+const priceSlider = document.getElementById('priceSlider');
+const priceValue = document.getElementById('priceValue');
+
 if (selectAll && brandCheckboxes.length > 0) {
     selectAll.addEventListener('change', () => {
         brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
     });
 }
 
-priceSlider?.addEventListener('input', () => {
-    if (priceValue) priceValue.textContent = `${priceSlider.value} ₽`;
-});
+if (priceSlider && priceValue) {
+    priceSlider.addEventListener('input', () => {
+        priceValue.textContent = `${priceSlider.value} ₽`;
+    });
+}
 
 function applyFilters() {
     const maxPrice = parseInt(priceSlider?.value || 150000);
@@ -156,19 +183,13 @@ function applyFilters() {
 
         if (isVisible) {
             let hasVisibleProducts = false;
-            const cards = group.querySelectorAll('.product-card');
-
-            cards.forEach(card => {
+            group.querySelectorAll('.product-card').forEach(card => {
                 const price = parseInt(card.dataset.price);
                 card.style.display = price <= maxPrice ? 'block' : 'none';
                 if (price <= maxPrice) hasVisibleProducts = true;
             });
-
-            // Исправление: теперь не пытаемся скрыть .brand-title, если его нет
             const title = group.querySelector('.brand-title');
-            if (title) {
-                title.style.display = hasVisibleProducts ? 'block' : 'none';
-            }
+            if (title) title.style.display = hasVisibleProducts ? 'block' : 'none';
         }
     });
 
@@ -189,7 +210,7 @@ function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
         brandCheckboxes.forEach((cb, i) => {
-            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
+            cb.checked = savedFilters.brands[i] ?? true;
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
         if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
@@ -197,22 +218,11 @@ function loadFilters() {
     }
 }
 
-// Сброс фильтров
-resetBtn?.addEventListener('click', () => {
-    brandCheckboxes.forEach(cb => cb.checked = true);
-    selectAll.checked = true;
-    priceSlider.value = 150000;
-    priceValue.textContent = '150000 ₽';
-    applyFilters();
-});
-
-// Привязываем кнопку "Применить"
-applyBtn?.addEventListener('click', applyFilters);
-
-// ===== ИНИЦИАЛИЗАЦИЯ =====
+// ===== INITIALIZATION =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
+    loadTheme(); // Загрузка темы
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
