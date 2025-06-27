@@ -1,16 +1,10 @@
-// Данные для быстрого просмотра товаров
+// Данные для быстрого просмотра
 const productsData = {
     'iphone15': {
-        image: 'https://via.placeholder.com/500x500?text=iPhone+15',
+        image: ' https://via.placeholder.com/500x500?text=iPhone+15',
         title: 'iPhone 15',
         description: '6.1" Super Retina XDR, 128GB, Black, 48MP камера, A16 Bionic',
         price: '89 990 ₽'
-    },
-    'iphone15pro': {
-        image: ' https://via.placeholder.com/500x500?text=iPhone+15+Pro',
-        title: 'iPhone 15 Pro',
-        description: '6.1" Super Retina XDR, 256GB, Titanium, 48MP камера, A17 Pro',
-        price: '119 990 ₽'
     },
     'samsungS23Ultra': {
         image: ' https://via.placeholder.com/500x500?text=Samsung+S23+Ultra',
@@ -18,35 +12,17 @@ const productsData = {
         description: '6.8" Dynamic AMOLED, 256GB, Green, 200MP камера, Snapdragon 8 Gen 2',
         price: '99 990 ₽'
     },
-    'samsungS23': {
-        image: ' https://via.placeholder.com/500x500?text=Samsung+S23',
-        title: 'Samsung Galaxy S23',
-        description: '6.1" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 2',
-        price: '79 990 ₽'
-    },
     'xiaomi13Pro': {
         image: ' https://via.placeholder.com/500x500?text=Xiaomi+13+Pro',
         title: 'Xiaomi 13 Pro',
         description: '6.73" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 2',
         price: '79 990 ₽'
     },
-    'xiaomi13': {
-        image: ' https://via.placeholder.com/500x500?text=Xiaomi+13',
-        title: 'Xiaomi 13',
-        description: '6.36" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 2',
-        price: '59 990 ₽'
-    },
     'tecnoPhantomX2': {
         image: ' https://via.placeholder.com/500x500?text=Tecno+Phantom+X2',
         title: 'Tecno Phantom X2',
         description: '6.8" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000',
         price: '34 990 ₽'
-    },
-    'tecnoCamon19': {
-        image: ' https://via.placeholder.com/500x500?text=Tecno+Camon+19',
-        title: 'Tecno Camon 19',
-        description: '6.8" IPS, 128GB, Black, 64MP камера, Helio G85',
-        price: '27 990 ₽'
     },
     'honorMagic5Pro': {
         image: ' https://via.placeholder.com/500x500?text=Honor+Magic+5+Pro',
@@ -70,10 +46,10 @@ function loadTheme() {
     const isDark = localStorage.getItem('darkMode') === 'true';
     if (isDark) {
         body.classList.add('dark-mode');
-        if (themeToggle) themeToggle.textContent = '☀️';
+        themeToggle.textContent = '☀️';
     } else {
         body.classList.remove('dark-mode');
-        if (themeToggle) themeToggle.textContent = '🌙';
+        themeToggle.textContent = '🌙';
     }
 }
 
@@ -92,7 +68,7 @@ const filterModal = document.getElementById('filterModal');
 const quickViewModal = document.getElementById('quickViewModal');
 
 function centerModal(modalElement) {
-    const modalContent = modalElement?.querySelector('.modal-content, .quick-view-content');
+    const modalContent = modalElement.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
         modalContent.style.position = 'fixed';
         modalContent.style.top = '50%';
@@ -144,7 +120,7 @@ document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 });
-quickViewModal?.addEventListener('click', (e) => {
+quickViewModal.addEventListener('click', (e) => {
     const modalContent = quickViewModal.querySelector('.quick-view-content');
     if (!modalContent || !modalContent.contains(e.target)) {
         quickViewModal.style.display = 'none';
@@ -164,14 +140,12 @@ if (selectAll && brandCheckboxes.length > 0) {
     });
 }
 
-if (priceSlider && priceValue) {
-    priceSlider.addEventListener('input', () => {
-        priceValue.textContent = `${priceSlider.value} ₽`;
-    });
-}
+priceSlider?.addEventListener('input', () => {
+    priceValue.textContent = `${priceSlider.value} ₽`;
+});
 
 function applyFilters() {
-    const maxPrice = parseInt(priceSlider?.value || 150000);
+    const maxPrice = parseInt(priceSlider.value);
     const selectedBrands = Array.from(brandCheckboxes)
         .filter(cb => cb.checked)
         .map(cb => cb.value);
@@ -195,7 +169,7 @@ function applyFilters() {
     });
 
     saveFilters();
-    if (filterModal) filterModal.style.display = 'none';
+    filterModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
 }
 
@@ -211,19 +185,19 @@ function loadFilters() {
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
         brandCheckboxes.forEach((cb, i) => {
-            cb.checked = savedFilters.brands[i] ?? true;
+            if (savedFilters.brands[i] !== undefined) cb.checked = savedFilters.brands[i];
         });
         selectAll.checked = brandCheckboxes.every(cb => cb.checked);
-        if (priceSlider) priceSlider.value = savedFilters.maxPrice || 150000;
-        if (priceValue) priceValue.textContent = `${priceSlider?.value || 150000} ₽`;
+        priceSlider.value = savedFilters.maxPrice || 150000;
+        priceValue.textContent = `${priceSlider.value} ₽`;
     }
 }
 
-// ===== TELEGRAM WEBAPP =====
+// ===== TELEGRAM INITIALIZATION =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
-    loadTheme(); // Поддержка тёмной темы
+    loadTheme();
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
