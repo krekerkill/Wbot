@@ -8,7 +8,7 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css ">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-mode">
+<body>
 
 <!-- Кнопка переключения темы -->
 <button class="theme-toggle" id="themeToggle">🌙</button>
@@ -56,16 +56,24 @@
     <div class="brand-group" data-brand="apple">
         <h2 class="brand-title">Apple</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="89990" data-id="iphone15" onclick="showQuickView('iphone15')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>iPhone 15</h3>
-                        <p>128GB, Black</p>
-                        <div class="price">89 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="89990" data-id="iphone15" onclick="showQuickView('iphone15')">
+                <div class="product-image-container">
+                    <img src="https://via.placeholder.com/300x300?text=iPhone+15" alt="iPhone 15" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>iPhone 15</h3>
+                    <p>128GB, Black</p>
+                    <div class="price">89 990 ₽</div>
+                </div>
+            </div>
+            <div class="product-card" data-price="119990" data-id="iphone15pro" onclick="showQuickView('iphone15pro')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=iPhone+15+Pro" alt="iPhone 15 Pro" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>iPhone 15 Pro</h3>
+                    <p>256GB, Titanium</p>
+                    <div class="price">119 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -75,16 +83,24 @@
     <div class="brand-group" data-brand="samsung">
         <h2 class="brand-title">Samsung</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="99990" data-id="samsungS23Ultra" onclick="showQuickView('samsungS23Ultra')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src=" https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>Samsung Galaxy S23 Ultra</h3>
-                        <p>256GB, Green</p>
-                        <div class="price">99 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="99990" data-id="samsungS23Ultra" onclick="showQuickView('samsungS23Ultra')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Samsung+S23+Ultra" alt="Samsung S23 Ultra" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Samsung Galaxy S23 Ultra</h3>
+                    <p>256GB, Green</p>
+                    <div class="price">99 990 ₽</div>
+                </div>
+            </div>
+            <div class="product-card" data-price="79990" data-id="samsungS23" onclick="showQuickView('samsungS23')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Samsung+S23" alt="Samsung S23" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Samsung Galaxy S23</h3>
+                    <p>128GB, Lavender</p>
+                    <div class="price">79 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -94,16 +110,24 @@
     <div class="brand-group" data-brand="xiaomi">
         <h2 class="brand-title">Xiaomi</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="79990" data-id="xiaomi13Pro" onclick="showQuickView('xiaomi13Pro')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src=" https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>Xiaomi 13 Pro</h3>
-                        <p>256GB, White</p>
-                        <div class="price">79 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="79990" data-id="xiaomi13Pro" onclick="showQuickView('xiaomi13Pro')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Xiaomi+13+Pro" alt="Xiaomi 13 Pro" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Xiaomi 13 Pro</h3>
+                    <p>256GB, White</p>
+                    <div class="price">79 990 ₽</div>
+                </div>
+            </div>
+            <div class="product-card" data-price="59990" data-id="xiaomi13" onclick="showQuickView('xiaomi13')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Xiaomi+13" alt="Xiaomi 13" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Xiaomi 13</h3>
+                    <p>128GB, Black</p>
+                    <div class="price">59 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -113,16 +137,24 @@
     <div class="brand-group" data-brand="tecno">
         <h2 class="brand-title">Tecno</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="34990" data-id="tecnoPhantomX2" onclick="showQuickView('tecnoPhantomX2')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src=" https://via.placeholder.com/300x300?text=Tecno+Phantom+X2" alt="Tecno Phantom X2" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>Tecno Phantom X2</h3>
-                        <p>256GB, Silver</p>
-                        <div class="price">34 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="34990" data-id="tecnoPhantomX2" onclick="showQuickView('tecnoPhantomX2')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Tecno+Phantom+X2" alt="Tecno Phantom X2" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Tecno Phantom X2</h3>
+                    <p>256GB, Silver</p>
+                    <div class="price">34 990 ₽</div>
+                </div>
+            </div>
+            <div class="product-card" data-price="27990" data-id="tecnoCamon19" onclick="showQuickView('tecnoCamon19')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Tecno+Camon+19" alt="Tecno Camon 19" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Tecno Camon 19</h3>
+                    <p>128GB, Black</p>
+                    <div class="price">27 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -132,16 +164,14 @@
     <div class="brand-group" data-brand="honor">
         <h2 class="brand-title">Honor</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="69990" data-id="honorMagic5Pro" onclick="showQuickView('honorMagic5Pro')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src=" https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>Honor Magic 5 Pro</h3>
-                        <p>256GB, Blue</p>
-                        <div class="price">69 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="69990" data-id="honorMagic5Pro" onclick="showQuickView('honorMagic5Pro')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro" alt="Honor Magic 5 Pro" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Honor Magic 5 Pro</h3>
+                    <p>256GB, Blue</p>
+                    <div class="price">69 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -151,16 +181,14 @@
     <div class="brand-group" data-brand="nothing">
         <h2 class="brand-title">Nothing</h2>
         <div class="products-grid">
-            <div class="product-card full-width-card" data-price="54990" data-id="nothingPhone2" onclick="showQuickView('nothingPhone2')">
-                <div class="product-row">
-                    <div class="product-image-container">
-                        <img src=" https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3>Nothing Phone 2</h3>
-                        <p>256GB, White</p>
-                        <div class="price">54 990 ₽</div>
-                    </div>
+            <div class="product-card" data-price="54990" data-id="nothingPhone2" onclick="showQuickView('nothingPhone2')">
+                <div class="product-image-container">
+                    <img src=" https://via.placeholder.com/300x300?text=Nothing+Phone+2" alt="Nothing Phone 2" loading="lazy">
+                </div>
+                <div class="product-details">
+                    <h3>Nothing Phone 2</h3>
+                    <p>256GB, White</p>
+                    <div class="price">54 990 ₽</div>
                 </div>
             </div>
         </div>
@@ -171,21 +199,14 @@
 <div class="quick-view-modal" id="quickViewModal">
     <div class="quick-view-content">
         <span class="close-quick-view">&times;</span>
-        <div class="quick-view-row">
-            <div class="quick-view-image-container">
-                <img id="quickViewImage" src="" alt="">
-            </div>
-            <div class="quick-view-info">
-                <h3 id="quickViewTitle"></h3>
-                <p id="quickViewDescription"></p>
-                <div class="quick-view-price" id="quickViewPrice"></div>
-                <ul class="features-list">
-                    <li><strong>Память:</strong> 256GB</li>
-                    <li><strong>Камера:</strong> 50MP</li>
-                    <li><strong>Процессор:</strong> Snapdragon 8 Gen 2</li>
-                </ul>
-                <button class="buy-btn">Купить сейчас</button>
-            </div>
+        <div class="quick-view-image-container">
+            <img id="quickViewImage" src="" alt="">
+        </div>
+        <div class="quick-view-details">
+            <h3 id="quickViewTitle"></h3>
+            <p id="quickViewDescription"></p>
+            <div class="quick-view-price" id="quickViewPrice"></div>
+            <button class="buy-btn">Купить</button>
         </div>
     </div>
 </div>
