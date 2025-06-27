@@ -19,8 +19,6 @@ body {
     max-width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
 }
 
 /* ========== DARK MODE ========== */
@@ -53,7 +51,6 @@ body {
 }
 .dark-mode .product-image-container {
     background-color: #2c2c2c;
-    border-bottom: none;
 }
 .dark-mode .product-card:hover {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
@@ -109,7 +106,6 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     backdrop-filter: blur(4px);
-    animation: fadeIn 0.3s ease-out forwards;
 }
 .modal-content,
 .quick-view-content {
@@ -148,113 +144,7 @@ body {
     border-radius: 3px;
 }
 
-/* ========== FILTER CONTROLS ========== */
-.filter-group {
-    margin-bottom: 22px;
-}
-.filter-group label {
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    color: #444444;
-    margin-bottom: 12px;
-}
-.brand-checkboxes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-.brand-checkboxes label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 400;
-    color: #555555;
-    cursor: pointer;
-    user-select: none;
-    padding: 6px 0;
-}
-.brand-checkboxes input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #4CAF50;
-    cursor: pointer;
-}
-
-.price-range {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.price-range input[type="range"] {
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: #e0e0e0;
-    outline: none;
-    -webkit-appearance: none;
-}
-.price-range input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.price-range input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
-}
-
-/* ========== FILTER BUTTONS ========== */
-.filter-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-.apply-btn {
-    width: 100%;
-    padding: 14px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.apply-btn:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-}
-.apply-btn:active {
-    transform: translateY(0);
-}
-.reset-btn {
-    width: 50%;
-    padding: 14px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.reset-btn:hover {
-    background-color: #d32f2f;
-}
-
-.select-all {
-    font-weight: 500;
-    color: #4CAF50;
-    cursor: pointer;
-}
-
-/* ========== PRODUCT GRID ========== */
+/* ========== PRODUCT CARD ========== */
 .products-grid {
     display: grid;
     gap: 4px;
@@ -265,70 +155,42 @@ body {
 }
 @media (min-width: 768px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшете */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 @media (min-width: 1024px) {
     .products-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 колонки на десктопе */
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-.brand-group {
-    margin-bottom: 20px;
-    animation: fadeIn 0.5s ease-out;
-}
-.brand-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333333;
-    margin: 10px 5px;
-    position: relative;
-    padding-left: 10px;
-}
-.brand-title::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 3px;
-    height: 80%;
-    width: 3px;
-    background-color: #4CAF50;
-    border-radius: 2px;
-}
-
-/* ========== PRODUCT CARD ========== */
 .product-card {
     width: 100%;
-    min-height: 304px;
     background-color: #ffffff;
     border-radius: 12px;
-    overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    position: relative;
-    cursor: pointer;
-    margin: 2px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.3s ease;
+    padding: 12px;
 }
 .product-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* ========== IMAGE CONTAINER ========== */
 .product-image-container {
-    height: 70%;
-    min-height: 213px;
+    flex: 0 0 100px;
+    height: 100px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #eeeeee;
-    flex-shrink: 0;
-    border-radius: 12px 12px 0 0;
 }
 .product-image-container img {
     max-width: 100%;
@@ -340,42 +202,26 @@ body {
     transform: scale(1.05);
 }
 
-/* ========== PRODUCT DETAILS ========== */
 .product-details {
-    background: transparent !important;
-    position: absolute;
-    bottom: 15px;
-    left: 12px;
-    right: 12px;
-    padding: 0;
-    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
 }
 .product-details h3 {
-    color: #000000;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 4px;
-    line-height: 1.2;
+    color: #2a2a2a;
 }
 .product-details p {
-    color: #333333;
     font-size: 14px;
-    margin-bottom: 4px;
-    line-height: 1.3;
+    color: #555;
 }
 .product-details .price {
-    color: #000000;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
-    display: block;
-    margin-top: 6px;
-}
-
-/* Dark image variant */
-.product-card.dark-image .product-details h3,
-.product-card.dark-image .product-details p,
-.product-card.dark-image .product-details .price {
-    color: #ffffff;
+    color: #000;
 }
 
 /* ========== QUICK VIEW MODAL ========== */
@@ -383,7 +229,6 @@ body {
     z-index: 1001;
 }
 .quick-view-content {
-    position: relative;
     background: white;
     width: 95%;
     max-width: 500px;
@@ -417,15 +262,15 @@ body {
     max-height: 250px;
     object-fit: contain;
 }
-.quick-view-details {
+.quick-view-info {
     padding: 0 5px;
 }
-.quick-view-details h3 {
+.quick-view-info h3 {
     font-size: 20px;
     margin-bottom: 8px;
     color: #222;
 }
-.quick-view-details p {
+.quick-view-info p {
     font-size: 15px;
     color: #666;
     margin-bottom: 15px;
@@ -452,76 +297,33 @@ body {
     background-color: #45a049;
 }
 
-/* ========== ADAPTIVE LAYOUT ========== */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    .product-card {
-        min-height: auto;
-        flex-direction: row;
-        align-items: center;
-    }
-    .product-image-container {
-        height: 100px;
-        min-height: 100px;
-    }
-    .product-details {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        right: auto;
-        padding: 0 12px;
-    }
+/* ========== BRAND TITLE ========== */
+.brand-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 5px;
+    position: relative;
+    padding-left: 10px;
 }
-@media (min-width: 769px) and (max-width: 1024px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .product-card {
-        min-height: auto;
-        flex-direction: row;
-    }
-    .product-image-container {
-        height: 100px;
-        min-height: 100px;
-    }
-    .product-details {
-        flex: 1;
-        padding-left: 12px;
-    }
-}
-@media (min-width: 1024px) {
-    .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .product-card {
-        min-height: 336px;
-    }
-    .product-image-container {
-        min-height: 235px;
-    }
-    .product-details {
-        position: absolute;
-        bottom: 15px;
-        left: 12px;
-        right: 12px;
-    }
-}
-
-/* ========== ANIMATIONS ========== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.brand-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    height: 80%;
+    width: 3px;
+    background-color: #4CAF50;
+    border-radius: 2px;
 }
 
 /* ========== UTILITY CLASSES ========== */
 .no-scroll {
     overflow: hidden;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
