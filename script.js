@@ -1,4 +1,4 @@
-// Данные для быстрого просмотра товаров
+// Данные для быстрого просмотра
 const productsData = {
     'iphone15': {
         image: ' https://via.placeholder.com/500x500?text=iPhone+15',
@@ -62,41 +62,35 @@ const productsData = {
     }
 };
 
-// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
-const filterButton = document.getElementById('filterButton');
-const filterModal = document.getElementById('filterModal');
-const applyBtn = document.getElementById('applyFilters');
-const resetBtn = document.getElementById('resetFilters');
-const quickViewModal = document.getElementById('quickViewModal');
-
 // ===== THEME TOGGLE =====
 const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
 
 function loadTheme() {
     const isDark = localStorage.getItem('darkMode') === 'true';
     if (isDark) {
-        document.body.classList.add('dark-mode');
+        body.classList.add('dark-mode');
         if (themeToggle) themeToggle.textContent = '☀️';
     } else {
-        document.body.classList.remove('dark-mode');
+        body.classList.remove('dark-mode');
         if (themeToggle) themeToggle.textContent = '🌙';
     }
 }
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', isDark);
         themeToggle.textContent = isDark ? '☀️' : '🌙';
     });
 }
 
 // ===== MODAL LOGIC =====
+const filterButton = document.getElementById('filterButton');
+const filterModal = document.getElementById('filterModal');
+const quickViewModal = document.getElementById('quickViewModal');
+
 function centerModal(modalElement) {
     const modalContent = modalElement?.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -125,7 +119,7 @@ if (filterButton && filterModal) {
     });
 }
 
-// Показ карточки товара
+// Показ товара
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -159,6 +153,11 @@ quickViewModal?.addEventListener('click', (e) => {
 });
 
 // ===== ФИЛЬТРАЦИЯ =====
+const selectAll = document.getElementById('selectAllBrands');
+const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
+const priceSlider = document.getElementById('priceSlider');
+const priceValue = document.getElementById('priceValue');
+
 if (selectAll && brandCheckboxes.length > 0) {
     selectAll.addEventListener('change', () => {
         brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
@@ -186,7 +185,7 @@ function applyFilters() {
             let hasVisibleProducts = false;
             group.querySelectorAll('.product-card').forEach(card => {
                 const price = parseInt(card.dataset.price);
-                card.style.display = price <= maxPrice ? 'block' : 'none';
+                card.style.display = price <= maxPrice ? 'flex' : 'none';
                 if (price <= maxPrice) hasVisibleProducts = true;
             });
 
@@ -220,7 +219,6 @@ function loadFilters() {
     }
 }
 
-// Сброс фильтров
 function resetFilters() {
     brandCheckboxes.forEach(cb => cb.checked = true);
     selectAll.checked = true;
@@ -230,14 +228,14 @@ function resetFilters() {
 }
 
 // Привязка кнопок
-if (applyBtn) applyBtn.addEventListener('click', applyFilters);
-if (resetBtn) resetBtn.addEventListener('click', resetFilters);
+document.getElementById('applyFilters')?.addEventListener('click', applyFilters);
+document.getElementById('resetFilters')?.addEventListener('click', resetFilters);
 
 // ===== TELEGRAM INITIALIZATION =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
-    loadTheme(); // Поддержка темы
+    loadTheme();
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
