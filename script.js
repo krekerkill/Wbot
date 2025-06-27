@@ -1,7 +1,7 @@
 // Данные для быстрого просмотра товаров
 const productsData = {
     'iphone15': {
-        image: 'https://via.placeholder.com/500x500?text=iPhone+15',
+        image: ' https://via.placeholder.com/500x500?text=iPhone+15',
         title: 'iPhone 15',
         description: '6.1" Super Retina XDR, 128GB, Black, 48MP камера, A16 Bionic',
         price: '89 990 ₽'
@@ -62,35 +62,41 @@ const productsData = {
     }
 };
 
+// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
+const selectAll = document.getElementById('selectAllBrands');
+const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
+const priceSlider = document.getElementById('priceSlider');
+const priceValue = document.getElementById('priceValue');
+const filterButton = document.getElementById('filterButton');
+const filterModal = document.getElementById('filterModal');
+const applyBtn = document.getElementById('applyFilters');
+const resetBtn = document.getElementById('resetFilters');
+const quickViewModal = document.getElementById('quickViewModal');
+
 // ===== THEME TOGGLE =====
 const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
 
 function loadTheme() {
     const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark && body) {
-        body.classList.add('dark-mode');
+    if (isDark) {
+        document.body.classList.add('dark-mode');
         if (themeToggle) themeToggle.textContent = '☀️';
     } else {
-        body.classList.remove('dark-mode');
+        document.body.classList.remove('dark-mode');
         if (themeToggle) themeToggle.textContent = '🌙';
     }
 }
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDark = body.classList.contains('dark-mode');
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', isDark);
         themeToggle.textContent = isDark ? '☀️' : '🌙';
     });
 }
 
 // ===== MODAL LOGIC =====
-const filterButton = document.getElementById('filterButton');
-const filterModal = document.getElementById('filterModal');
-const quickViewModal = document.getElementById('quickViewModal');
-
 function centerModal(modalElement) {
     const modalContent = modalElement?.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -153,11 +159,6 @@ quickViewModal?.addEventListener('click', (e) => {
 });
 
 // ===== ФИЛЬТРАЦИЯ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
-
 if (selectAll && brandCheckboxes.length > 0) {
     selectAll.addEventListener('change', () => {
         brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
@@ -229,13 +230,14 @@ function resetFilters() {
 }
 
 // Привязка кнопок
-document.getElementById('applyFilters')?.addEventListener('click', applyFilters);
-document.getElementById('resetFilters')?.addEventListener('click', resetFilters);
+if (applyBtn) applyBtn.addEventListener('click', applyFilters);
+if (resetBtn) resetBtn.addEventListener('click', resetFilters);
 
-// ===== TELEGRAM WEBAPP INITIALIZATION =====
+// ===== TELEGRAM INITIALIZATION =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
+    loadTheme(); // Поддержка темы
 
     if (window.Telegram?.WebApp) {
         Telegram.WebApp.expand();
