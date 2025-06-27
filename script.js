@@ -62,17 +62,35 @@ const productsData = {
     }
 };
 
-// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+function loadTheme() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
+        body.classList.add('dark-mode');
+        if (themeToggle) themeToggle.textContent = '☀️';
+    } else {
+        body.classList.remove('dark-mode');
+        if (themeToggle) themeToggle.textContent = '🌙';
+    }
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+}
+
+// ===== MODAL LOGIC =====
 const filterButton = document.getElementById('filterButton');
 const filterModal = document.getElementById('filterModal');
-const applyBtn = document.getElementById('applyFilters');
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== ЦЕНТРИРОВАНИЕ МОДАЛЬНЫХ ОКОН =====
 function centerModal(modalElement) {
     const modalContent = modalElement?.querySelector('.modal-content, .quick-view-content');
     if (modalContent) {
@@ -83,7 +101,7 @@ function centerModal(modalElement) {
     }
 }
 
-// Открытие фильтров
+// Открытие фильтра
 if (filterButton && filterModal) {
     filterButton.addEventListener('click', () => {
         filterModal.style.display = 'block';
@@ -121,7 +139,7 @@ function showQuickView(productId) {
     centerModal(quickViewModal);
 }
 
-// Закрытие кликом вне окна
+// Закрытие Quick View
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -135,6 +153,11 @@ quickViewModal?.addEventListener('click', (e) => {
 });
 
 // ===== ФИЛЬТРАЦИЯ =====
+const selectAll = document.getElementById('selectAllBrands');
+const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
+const priceSlider = document.getElementById('priceSlider');
+const priceValue = document.getElementById('priceValue');
+
 if (selectAll && brandCheckboxes.length > 0) {
     selectAll.addEventListener('change', () => {
         brandCheckboxes.forEach(cb => cb.checked = selectAll.checked);
@@ -196,15 +219,14 @@ function loadFilters() {
     }
 }
 
-// ===== TELEGRAM WEBAPP =====
+// ===== INITIALIZATION =====
 window.addEventListener('DOMContentLoaded', () => {
     loadFilters();
     applyFilters();
+    loadTheme(); // Загрузка темы
 
-    // Telegram WebApp поддержка
     if (window.Telegram?.WebApp) {
-        Telegram.WebApp.expand(); // Расширяем на весь экран
-        Telegram.WebApp.enableClosingConfirmation(); // Подтверждение закрытия
-        console.log("Telegram WebApp инициализирован");
+        Telegram.WebApp.expand();
+        Telegram.WebApp.enableClosingConfirmation();
     }
 });
