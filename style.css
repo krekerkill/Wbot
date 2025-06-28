@@ -83,6 +83,11 @@ body {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
+.filter-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
 .filter-button:hover {
     transform: scale(1.08);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -121,7 +126,6 @@ body {
     background-color: #ffffff;
     z-index: 1002;
 }
-
 .modal-content h3 {
     font-size: 22px;
     font-weight: 600;
@@ -165,14 +169,14 @@ body {
 
 .product-card {
     width: 100%;
-    min-height: 25vh; /* Занимает 1/4 экрана по вертикали */
+    min-height: 25vh; /* Занимает ~1/4 экрана по вертикали */
     background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
+    flex-direction: row; /* фото + текст рядом */
+    align-items: center;
     gap: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 16px;
@@ -186,21 +190,20 @@ body {
 
 /* ========== IMAGE CONTAINER ========== */
 .product-image-container {
-    flex: 0 0 40%; /* Оптимальная ширина — 40% от карточки */
-    height: 100%;
+    flex: 0 0 140px;
+    height: 140px;
     background-color: #f9f9f9;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    position: relative;
-    min-width: 140px;
+    flex-shrink: 0;
 }
 .product-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Фото заполняет всю область */
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 .product-card:hover .product-image-container img {
@@ -213,9 +216,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-left: 16px;
     height: 100%;
-    justify-self: center;
+    padding-right: 8px;
 }
 .product-details h3 {
     font-size: 16px;
@@ -341,25 +343,48 @@ body {
 
 /* ========== ADAPTIVE LAYOUT ========== */
 @media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
     .product-card {
+        min-height: 25vh; /* 1/4 экрана */
         flex-direction: row;
-        min-height: 25vh;
-        align-items: stretch;
+        align-items: center;
     }
     .product-image-container {
-        flex: 0 0 40%;
-        min-width: 100px;
+        flex: 0 0 100px;
+        height: 100px;
     }
     .product-details {
-        flex: 1;
-        justify-content: center;
-        padding-left: 12px;
+        padding: 0 12px;
     }
-    .product-details h3 {
-        font-size: 15px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-    .product-details p,
-    .product-details .price {
-        font-size: 13px;
+    .product-card {
+        min-height: 27vh;
+        flex-direction: row;
+    }
+    .product-image-container {
+        flex: 0 0 110px;
+        height: 110px;
+    }
+    .product-details {
+        padding: 0 12px;
+    }
+}
+@media (min-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-card {
+        min-height: 28vh;
+        flex-direction: row;
+    }
+    .product-image-container {
+        flex: 0 0 120px;
+        height: 120px;
     }
 }
