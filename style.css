@@ -53,7 +53,6 @@ body {
 }
 .dark-mode .product-image-container {
     background-color: #2c2c2c;
-    border-bottom: none;
 }
 .dark-mode .product-card:hover {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
@@ -170,17 +169,18 @@ body {
 
 .product-card {
     width: 100%;
+    min-height: 25vh; /* Занимает ~1/4 экрана по вертикали */
     background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* фото + текст рядом */
     align-items: center;
     gap: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 16px;
-    min-height: 140px;
+    margin: 8px 0;
     position: relative;
 }
 .product-card:hover {
@@ -190,8 +190,8 @@ body {
 
 /* ========== IMAGE CONTAINER ========== */
 .product-image-container {
-    flex: 0 0 130px;
-    height: 130px;
+    flex: 0 0 140px;
+    height: 140px;
     background-color: #f9f9f9;
     border-radius: 12px;
     display: flex;
@@ -347,19 +347,44 @@ body {
         grid-template-columns: repeat(1, 1fr);
     }
     .product-card {
-        min-height: 120px;
+        min-height: 25vh; /* 1/4 экрана */
         flex-direction: row;
         align-items: center;
-        gap: 12px;
     }
     .product-image-container {
         flex: 0 0 100px;
         height: 100px;
     }
     .product-details {
-        font-size: 14px;
+        padding: 0 12px;
     }
-    .product-details .price {
-        font-size: 15px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card {
+        min-height: 27vh;
+        flex-direction: row;
+    }
+    .product-image-container {
+        flex: 0 0 110px;
+        height: 110px;
+    }
+    .product-details {
+        padding: 0 12px;
+    }
+}
+@media (min-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-card {
+        min-height: 28vh;
+        flex-direction: row;
+    }
+    .product-image-container {
+        flex: 0 0 120px;
+        height: 120px;
     }
 }
