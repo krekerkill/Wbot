@@ -1,72 +1,79 @@
 {
-    "iphone16": {
-        "title": "iPhone 16",
-        "description": "6.1\" Super Retina XDR, 128GB, Black, 48MP камера, A17 Bionic",
-        "price": "99 990 ₽",
-        "image": "https://via.placeholder.com/500x500?text=iPhone+16",
-        "brand": "apple"
-    },
-    "iphone16pro": {
-        "title": "iPhone 16 Pro",
-        "description": "6.3\" Super Retina XDR, 256GB, Titanium, 48MP камера, A18 Pro",
-        "price": "129 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=iPhone+16+Pro",
-        "brand": "apple"
-    },
-    "samsungS24Ultra": {
-        "title": "Samsung Galaxy S24 Ultra",
-        "description": "6.8\" Dynamic AMOLED, 512GB, Titanium Gray, 200MP камера, Snapdragon 8 Gen 3",
-        "price": "119 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
-        "brand": "samsung"
-    },
-    "samsungS24": {
-        "title": "Samsung Galaxy S24",
-        "description": "6.2\" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 3",
-        "price": "89 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Samsung+S24",
-        "brand": "samsung"
-    },
-    "xiaomi14Pro": {
-        "title": "Xiaomi 14 Pro",
-        "description": "6.73\" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 3",
-        "price": "89 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Xiaomi+14+Pro",
-        "brand": "xiaomi"
-    },
-    "xiaomi14": {
-        "title": "Xiaomi 14",
-        "description": "6.36\" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 3",
-        "price": "69 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Xiaomi+14",
-        "brand": "xiaomi"
-    },
-    "tecnoPhantomX3": {
-        "title": "Tecno Phantom X3",
-        "description": "6.8\" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000",
-        "price": "39 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Tecno+Phantom+X3",
-        "brand": "tecno"
-    },
-    "tecnoCamon20": {
-        "title": "Tecno Camon 20",
-        "description": "6.6\" IPS, 128GB, Blue, 64MP камера, Helio G85",
-        "price": "29 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Tecno+Camon+20",
-        "brand": "tecno"
-    },
-    "honorMagic6": {
-        "title": "Honor Magic 6",
-        "description": "6.81\" OLED, 256GB, Green, 50MP камера, Snapdragon 8 Gen 3",
-        "price": "79 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Honor+Magic+6",
-        "brand": "honor"
-    },
-    "nothingPhone3": {
-        "title": "Nothing Phone 3",
-        "description": "6.7\" OLED, 256GB, Black, 50MP камера, Snapdragon 8 Gen 2",
-        "price": "64 990 ₽",
-        "image": " https://via.placeholder.com/500x500?text=Nothing+Phone+3",
-        "brand": "nothing"
-    }
+  "iphone16": {
+    "title": "iPhone 16",
+    "description": "6.1\" Super Retina XDR, 128GB, Black, 48MP камера, A17 Bionic",
+    "price": "99 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=iPhone+16",
+    "brand": "apple"
+  },
+  "iphone16pro": {
+    "title": "iPhone 16 Pro",
+    "description": "6.3\" Super Retina XDR, 256GB, Titanium, 48MP камера, A18 Pro",
+    "price": "129 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=iPhone+16+Pro",
+    "brand": "apple"
+  },
+  "samsungS24Ultra": {
+    "title": "Samsung Galaxy S24 Ultra",
+    "description": "6.8\" Dynamic AMOLED, 512GB, Titanium Gray, 200MP камера, Snapdragon 8 Gen 3",
+    "price": "119 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
+    "brand": "samsung"
+  },
+  "samsungS24": {
+    "title": "Samsung Galaxy S24",
+    "description": "6.2\" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 3",
+    "price": "89 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Samsung+S24",
+    "brand": "samsung"
+  },
+  "xiaomi14Pro": {
+    "title": "Xiaomi 14 Pro",
+    "description": "6.73\" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 3",
+    "price": "89 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Xiaomi+14+Pro",
+    "brand": "xiaomi"
+  },
+  "xiaomi14": {
+    "title": "Xiaomi 14",
+    "description": "6.36\" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 3",
+    "price": "69 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Xiaomi+14",
+    "brand": "xiaomi"
+  },
+  "tecnoPhantomX3": {
+    "title": "Tecno Phantom X3",
+    "description": "6.8\" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000",
+    "price": "39 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Tecno+Phantom+X3",
+    "brand": "tecno"
+  },
+  "tecnoCamon20": {
+    "title": "Tecno Camon 20",
+    "description": "6.6\" IPS, 128GB, Blue, 64MP камера, Helio G85",
+    "price": "29 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
+    "brand": "tecno"
+  },
+  "honorMagic6": {
+    "title": "Honor Magic 6",
+    "description": "6.81\" OLED, 256GB, Green, 50MP камера, Snapdragon 8 Gen 3",
+    "price": "79 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Honor+Magic+6",
+    "brand": "honor"
+  },
+  "nothingPhone3": {
+    "title": "Nothing Phone 3",
+    "description": "6.7\" OLED, 256GB, Black, 50MP камера, Snapdragon 8 Gen 2",
+    "price": "64 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
+    "brand": "nothing"
+  },
+  "Hdhdjdj": {
+    "title": "Айфоня",
+    "description": "Члпногональ 3000",
+    "price": "30303 ₽",
+    "image": "https://ibb.co/v6bzM2td",
+    "brand": "Ifonya"
+  }
 }
