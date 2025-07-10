@@ -1,4 +1,11 @@
 {
+  "iphone16": {
+    "title": "iPhone 16",
+    "description": "6.1\" Super Retina XDR, 128GB, Black, 48MP камера, A17 Bionic",
+    "price": "99 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=iPhone+16",
+    "brand": "apple"
+  },
   "iphone16pro": {
     "title": "iPhone 16 Pro",
     "description": "6.3\" Super Retina XDR, 256GB, Titanium, 48MP камера, A18 Pro",
@@ -40,13 +47,6 @@
     "price": "29 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
     "brand": "tecno"
-  },
-  "honorMagic6": {
-    "title": "Honor Magic 6",
-    "description": "6.81\" OLED, 256GB, Green, 50MP камера, Snapdragon 8 Gen 3",
-    "price": "79 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Honor+Magic+6",
-    "brand": "honor"
   },
   "nothingPhone3": {
     "title": "Nothing Phone 3",
