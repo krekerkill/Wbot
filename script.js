@@ -1,108 +1,69 @@
-// === URL к products.json с параметром избежания кэширования ===
-const PRODUCTS_JSON_URL = `https://raw.githubusercontent.com/krekerkill/Wbot/main/products.json?t=${Date.now()}`;
+// URL к products.json
+const PRODUCTS_JSON_URL = 'https://raw.githubusercontent.com/krekerkill/Wbot/refs/heads/main/products.json';
 
-// === Глобальный объект для хранения данных о товарах ===
+// Глобальный объект для хранения данных о товарах
 const productsData = {};
 
-// ===== ОСНОВНЫЕ ЭЛЕМЕНТЫ =====
-const selectAll = document.getElementById('selectAllBrands');
-const brandCheckboxes = document.querySelectorAll('.brand-checkboxes input[type="checkbox"]');
-const priceSlider = document.getElementById('priceSlider');
-const priceValue = document.getElementById('priceValue');
-const filterButton = document.getElementById('filterButton');
-const filterModal = document.getElementById('filterModal');
+// Основные элементы
 const quickViewModal = document.getElementById('quickViewModal');
 
-// ===== THEME TOGGLE =====
-const themeToggle = document.getElementById('themeToggle');
-function loadTheme() {
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
-        document.body.classList.add('dark-mode');
-        if (themeToggle) themeToggle.textContent = '☀️';
-    } else {
-        document.body.classList.remove('dark-mode');
-        if (themeToggle) themeToggle.textContent = '🌙';
-    }
+// Показ карточки товара
+function showQuickView(productId) {
+    const product = productsData[productId];
+    if (!product) return;
+
+    document.getElementById('quickViewImage').src = product.image.trim();
+    document.getElementById('quickViewTitle').textContent = product.title;
+    document.getElementById('quickViewDescription').textContent = product.description;
+    document.getElementById('quickViewPrice').textContent = product.price;
+    quickViewModal.style.display = 'block';
+    document.body.classList.add('no-scroll');
 }
 
-// ... (остальной код темы остается без изменений) ...
+// Закрытие модального окна
+document.querySelector('.close-quick-view')?.addEventListener('click', () => {
+    quickViewModal.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+});
 
-// ===== ЗАГРУЗКА ТОВАРОВ С GITHUB =====
+quickViewModal?.addEventListener('click', (e) => {
+    if (e.target === quickViewModal) {
+        quickViewModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+});
+
+// Загрузка товаров с GitHub
 async function loadProductsFromGitHub() {
     try {
-        // Показываем индикатор загрузки
-        document.getElementById('products-container').innerHTML = `
-            <div class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Загрузка товаров...</p>
-            </div>
-        `;
-        
-        const response = await fetch(PRODUCTS_JSON_URL, {
-            headers: {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0'
-            }
-        });
-        
+        const response = await fetch(PRODUCTS_JSON_URL);
         if (!response.ok) throw new Error('Не могу загрузить JSON');
 
         const data = await response.json();
-
-        // Очищаем старые данные
-        for (const id in productsData) delete productsData[id];
-
-        // Добавляем новые с проверкой изображений
-        for (const id in data) {
-            productsData[id] = data[id];
-            // Проверяем и корректируем URL изображения
-            if (!productsData[id].image.startsWith('http')) {
-                productsData[id].image = 'https://via.placeholder.com/500x500?text=No+Image';
-            }
-            productsData[id].image = productsData[id].image.trim();
-        }
-
-        renderCatalog(); // рисуем каталог
-        startAutoRefresh(); // запускаем автообновление
+        Object.assign(productsData, data);
+        renderCatalog();
     } catch (e) {
-        console.error('❌ Ошибка загрузки:', e.message);
+        console.error('Ошибка загрузки:', e);
         document.getElementById('products-container').innerHTML = `
             <div class="error-message">
                 ❗ Не удалось загрузить товары. Проверьте интернет или файл products.json
-                <button onclick="loadProductsFromGitHub()">Повторить попытку</button>
             </div>
         `;
     }
 }
 
-// ===== АВТООБНОВЛЕНИЕ ДАННЫХ =====
-let refreshInterval;
-function startAutoRefresh() {
-    // Очищаем предыдущий интервал, если был
-    if (refreshInterval) clearInterval(refreshInterval);
-    
-    // Устанавливаем новый интервал (каждые 30 секунд)
-    refreshInterval = setInterval(() => {
-        loadProductsFromGitHub();
-    }, 30000);
-}
-
-// ===== ОТОБРАЖЕНИЕ КАТАЛОГА =====
+// Отрисовка каталога
 function renderCatalog() {
     const container = document.getElementById('products-container');
-    if (!container) return;
-    
-    container.innerHTML = ''; // очищаем
+    container.innerHTML = '';
 
     const brandsMap = {};
     for (const id in productsData) {
-        const p = productsData[id];
-        const brand = p.brand?.toLowerCase() || 'other'; // нормализуем бренд
-
+        const product = productsData[id];
+        const brand = product.brand || 'other';
+        
         if (!brandsMap[brand]) brandsMap[brand] = [];
-        brandsMap[brand].push({ id, ...p });
+        brandsMap[brand].push({ id, ...product });
     }
 
     for (const brand in brandsMap) {
@@ -112,7 +73,7 @@ function renderCatalog() {
 
         const title = document.createElement('h2');
         title.className = 'brand-title';
-        title.textContent = capitalize(brand);
+        title.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
         group.appendChild(title);
 
         const grid = document.createElement('div');
@@ -121,19 +82,11 @@ function renderCatalog() {
         brandsMap[brand].forEach(product => {
             const card = document.createElement('div');
             card.className = 'product-card';
-            card.setAttribute('data-id', product.id);
-            
-            // Обрабатываем цену для фильтрации
-            const priceNum = parseInt(product.price.replace(/\D/g, '')) || 0;
-            card.setAttribute('data-price', priceNum);
-            
             card.onclick = () => showQuickView(product.id);
 
             card.innerHTML = `
                 <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.title}" 
-                         loading="lazy" 
-                         onerror="this.src='https://via.placeholder.com/500x500?text=No+Image'">
+                    <img src="${product.image.trim()}" alt="${product.title}" loading="lazy">
                 </div>
                 <div class="product-details">
                     <h3>${product.title}</h3>
@@ -148,15 +101,9 @@ function renderCatalog() {
         group.appendChild(grid);
         container.appendChild(group);
     }
-
-    applyFilters(); // применяем фильтры
 }
 
-// ... (остальной код остается без изменений) ...
-
-// Инициализация при загрузке страницы
+// Инициализация
 window.addEventListener('DOMContentLoaded', () => {
-    loadProductsFromGitHub(); // загружаем товары с GitHub
-    loadFilters();           // восстанавливаем сохранённые фильтры
-    loadTheme();             // тема из localStorage
+    loadProductsFromGitHub();
 });
