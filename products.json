@@ -13,13 +13,6 @@
     "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
     "brand": "samsung"
   },
-  "xiaomi14Pro": {
-    "title": "Xiaomi 14 Pro",
-    "description": "6.73\" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 3",
-    "price": "89 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Xiaomi+14+Pro",
-    "brand": "xiaomi"
-  },
   "xiaomi14": {
     "title": "Xiaomi 14",
     "description": "6.36\" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 3",
@@ -40,5 +33,12 @@
     "price": "29 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
     "brand": "tecno"
+  },
+  "Jsjdd": {
+    "title": "Jdhdjd",
+    "description": "29393",
+    "price": "38 383 ₽",
+    "image": "https://i.ibb.co/9HYz1MCr/order-qr.png",
+    "brand": "samsung"
   }
 }
