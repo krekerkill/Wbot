@@ -54,19 +54,5 @@
     "price": "79 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Honor+Magic+6",
     "brand": "honor"
-  },
-  "nothingPhone3": {
-    "title": "Nothing Phone 3",
-    "description": "6.7\" OLED, 256GB, Black, 50MP камера, Snapdragon 8 Gen 2",
-    "price": "64 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
-    "brand": "nothing"
-  },
-  "Jdjdjd": {
-    "title": "Oooo",
-    "description": "Oooop",
-    "price": "919 191 ₽",
-    "image": "https://i.ibb.co/9HYz1MCr/order-qr.png",
-    "brand": "samsung"
   }
 }
