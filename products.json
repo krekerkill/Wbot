@@ -1,11 +1,4 @@
 {
-  "iphone16": {
-    "title": "iPhone 16",
-    "description": "6.1\" Super Retina XDR, 128GB, Black, 48MP камера, A17 Bionic",
-    "price": "99 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=iPhone+16",
-    "brand": "apple"
-  },
   "iphone16pro": {
     "title": "iPhone 16 Pro",
     "description": "6.3\" Super Retina XDR, 256GB, Titanium, 48MP камера, A18 Pro",
@@ -47,6 +40,13 @@
     "price": "29 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
     "brand": "tecno"
+  },
+  "Jsjdd": {
+    "title": "Jdhdjd",
+    "description": "29393",
+    "price": "38 383 ₽",
+    "image": "https://i.ibb.co/9HYz1MCr/order-qr.png",
+    "brand": "samsung"
   },
   "Yyyyy": {
     "title": "Yyyyy",
