@@ -48,11 +48,11 @@
     "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
     "brand": "tecno"
   },
-  "nothingPhone3": {
-    "title": "Nothing Phone 3",
-    "description": "6.7\" OLED, 256GB, Black, 50MP камера, Snapdragon 8 Gen 2",
-    "price": "64 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
-    "brand": "nothing"
+  "honorMagic6": {
+    "title": "Honor Magic 6",
+    "description": "6.81\" OLED, 256GB, Green, 50MP камера, Snapdragon 8 Gen 3",
+    "price": "79 990 ₽",
+    "image": "https://via.placeholder.com/500x500?text=Honor+Magic+6",
+    "brand": "honor"
   }
 }
