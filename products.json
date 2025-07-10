@@ -68,5 +68,12 @@
     "price": "64 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
     "brand": "nothing"
+  },
+  "Rori": {
+    "title": "Ifonya",
+    "description": "Членогональ 3000",
+    "price": "50000 ₽",
+    "image": "https://ibb.co/hFCvhHTC",
+    "brand": "samsung"
   }
 }
