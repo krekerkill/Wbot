@@ -47,12 +47,5 @@
     "price": "29 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Tecno+Camon+20",
     "brand": "tecno"
-  },
-  "nothingPhone3": {
-    "title": "Nothing Phone 3",
-    "description": "6.7\" OLED, 256GB, Black, 50MP камера, Snapdragon 8 Gen 2",
-    "price": "64 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
-    "brand": "nothing"
   }
 }
