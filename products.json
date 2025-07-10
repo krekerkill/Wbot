@@ -33,5 +33,12 @@
     "price": "99 999 ₽",
     "image": "https://i.supaimg.com/2cfed2c7-aab2-4f62-bfb6-65aba2758e93.avif",
     "brand": "Iphone"
+  },
+  "Mario": {
+    "title": "Super pro 19",
+    "description": "60 градусов фарингейта",
+    "price": "7 777 ₽",
+    "image": "https://i.supaimg.com/1533c2af-e643-4189-b2b9-8e5ee1f8ce66.png",
+    "brand": "Xiaomi"
   }
 }
