@@ -20,13 +20,6 @@
     "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
     "brand": "samsung"
   },
-  "samsungS24": {
-    "title": "Samsung Galaxy S24",
-    "description": "6.2\" Dynamic AMOLED, 128GB, Lavender, 50MP камера, Snapdragon 8 Gen 3",
-    "price": "89 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Samsung+S24",
-    "brand": "samsung"
-  },
   "xiaomi14Pro": {
     "title": "Xiaomi 14 Pro",
     "description": "6.73\" AMOLED, 256GB, White, 50MP камера, Snapdragon 8 Gen 3",
@@ -68,6 +61,13 @@
     "price": "64 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Nothing+Phone+3",
     "brand": "nothing"
+  },
+  "Uuyyt": {
+    "title": "Ifon",
+    "description": "Членогональ 33333",
+    "price": "33 333 ₽",
+    "image": "https://ibb.co/tPpqvZVW",
+    "brand": "samsung"
   },
   "Jdjd": {
     "title": "Dndjd",
