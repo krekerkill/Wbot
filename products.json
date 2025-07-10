@@ -1,16 +1,9 @@
 {
-  "iphone16pro": {
-    "title": "iPhone 16 Pro",
-    "description": "6.3\" Super Retina XDR, 256GB, Titanium, 48MP камера, A18 Pro",
-    "price": "129 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=iPhone+16+Pro",
-    "brand": "apple"
-  },
-  "samsungS24Ultra": {
-    "title": "Samsung Galaxy S24 Ultra",
-    "description": "6.8\" Dynamic AMOLED, 512GB, Titanium Gray, 200MP камера, Snapdragon 8 Gen 3",
-    "price": "119 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
+  "Ifone": {
+    "title": "Айфоня",
+    "description": "Членогональ 2500",
+    "price": "33 000 ₽",
+    "image": "https://i.supaimg.com/a2a4b8cb-b679-43f2-add6-1ff71e3a9ab2.jpg",
     "brand": "samsung"
   }
 }
