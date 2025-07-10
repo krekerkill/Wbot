@@ -4,82 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог смартфонов</title>
-
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css ">
-
-    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-mode">
+<body>
+    <!-- Контейнер товаров -->
+    <div id="products-container">
+        <!-- Бренды будут добавляться динамически -->
+    </div>
 
-<!-- Кнопка переключения темы -->
-<button class="theme-toggle" id="themeToggle">🌙</button>
-
-<!-- Кнопка фильтрации -->
-<div class="filter-button" id="filterButton">
-    <i class="fas fa-sliders-h"></i>
-</div>
-
-<!-- Модальное окно фильтров -->
-<div class="filter-modal" id="filterModal">
-    <div class="modal-content">
-        <h3>Фильтры</h3>
-        
-        <div class="filter-group">
-            <label style="display: flex; justify-content: space-between;">
-                <span>Бренды:</span>
-                <label class="select-all">
-                    <input type="checkbox" id="selectAllBrands" checked> Выбрать все
-                </label>
-            </label>
-            <div class="brand-checkboxes">
-                <label><input type="checkbox" name="brand" value="apple" checked> Apple</label>
-                <label><input type="checkbox" name="brand" value="samsung" checked> Samsung</label>
-                <label><input type="checkbox" name="brand" value="xiaomi" checked> Xiaomi</label>
-                <label><input type="checkbox" name="brand" value="tecno" checked> Tecno</label>
-                <label><input type="checkbox" name="brand" value="honor" checked> Honor</label>
-                <label><input type="checkbox" name="brand" value="nothing" checked> Nothing</label>
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="quick-view-content">
+            <span class="close-quick-view">&times;</span>
+            <div class="quick-view-image-container">
+                <img id="quickViewImage" src="" alt="">
+            </div>
+            <div class="quick-view-details">
+                <h3 id="quickViewTitle"></h3>
+                <p id="quickViewDescription"></p>
+                <div class="quick-view-price" id="quickViewPrice"></div>
+                <button class="buy-btn">Купить</button>
             </div>
         </div>
-
-        <div class="filter-group">
-            <label>Цена до: <span id="priceValue">150000 ₽</span></label>
-            <input type="range" id="priceSlider" min="20000" max="150000" step="1000" value="150000">
-        </div>
-
-        <div class="filter-buttons">
-            <button class="reset-btn" id="resetFilters">Сбросить</button>
-            <button class="apply-btn" id="applyFilters">Применить</button>
-        </div>
     </div>
-</div>
 
-<!-- Контейнер товаров -->
-<div id="products-container">
-    <!-- Бренды будут добавляться динамически -->
-</div>
-
-<!-- Quick View Modal -->
-<div class="quick-view-modal" id="quickViewModal">
-    <div class="quick-view-content">
-        <span class="close-quick-view">&times;</span>
-        <div class="quick-view-image-container">
-            <img id="quickViewImage" src="" alt="">
-        </div>
-        <div class="quick-view-details">
-            <h3 id="quickViewTitle"></h3>
-            <p id="quickViewDescription"></p>
-            <div class="quick-view-price" id="quickViewPrice"></div>
-            <button class="buy-btn">Купить</button>
-        </div>
-    </div>
-</div>
-
-<!-- JS -->
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
