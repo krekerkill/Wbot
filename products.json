@@ -12,12 +12,5 @@
     "price": "119 990 ₽",
     "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
     "brand": "samsung"
-  },
-  "tecnoPhantomX3": {
-    "title": "Tecno Phantom X3",
-    "description": "6.8\" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000",
-    "price": "39 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Tecno+Phantom+X3",
-    "brand": "tecno"
   }
 }
