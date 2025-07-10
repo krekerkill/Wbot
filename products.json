@@ -26,5 +26,12 @@
     "price": "2 022 ₽",
     "image": "https://i.supaimg.com/a2a4b8cb-b679-43f2-add6-1ff71e3a9ab2.jpg",
     "brand": "samsung"
+  },
+  "77777": {
+    "title": "Айфоня",
+    "description": "Хреноганаль 70",
+    "price": "99 999 ₽",
+    "image": "https://i.supaimg.com/2cfed2c7-aab2-4f62-bfb6-65aba2758e93.avif",
+    "brand": "Iphone"
   }
 }
