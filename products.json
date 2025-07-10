@@ -13,13 +13,6 @@
     "image": "https://via.placeholder.com/500x500?text=Samsung+S24+Ultra",
     "brand": "samsung"
   },
-  "xiaomi14": {
-    "title": "Xiaomi 14",
-    "description": "6.36\" AMOLED, 128GB, Black, 50MP камера, Snapdragon 8 Gen 3",
-    "price": "69 990 ₽",
-    "image": "https://via.placeholder.com/500x500?text=Xiaomi+14",
-    "brand": "xiaomi"
-  },
   "tecnoPhantomX3": {
     "title": "Tecno Phantom X3",
     "description": "6.8\" AMOLED, 256GB, Silver, 64MP камера, Dimensity 9000",
