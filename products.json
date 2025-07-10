@@ -19,5 +19,12 @@
     "price": "9 878 ₽",
     "image": "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
     "brand": "xiaomi"
+  },
+  "9999": {
+    "title": "Членогональ 3000",
+    "description": "Членогональ 5000",
+    "price": "2 022 ₽",
+    "image": "https://i.supaimg.com/a2a4b8cb-b679-43f2-add6-1ff71e3a9ab2.jpg",
+    "brand": "samsung"
   }
 }
