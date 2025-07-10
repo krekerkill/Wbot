@@ -5,5 +5,12 @@
     "price": "99 999 ₽",
     "image": "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
     "brand": "ifone"
+  },
+  "28282": {
+    "title": "Samsung Galaxy S24 Ultra",
+    "description": "6.9\" Dynamic AMOLED 2X 144Hz, Snapdragon 8 Gen 3, камера 220MP, аккумулятор 5500mAh с S Pen. Защита IP68 и Gorilla Glass Victus 3.",
+    "price": "929 292 ₽",
+    "image": "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
+    "brand": "samsung"
   }
 }
