@@ -1,9 +1,9 @@
 {
-  "Ifone": {
-    "title": "Айфоня",
-    "description": "Членогональ 2500",
-    "price": "33 000 ₽",
-    "image": "https://i.supaimg.com/a2a4b8cb-b679-43f2-add6-1ff71e3a9ab2.jpg",
-    "brand": "samsung"
+  "7576": {
+    "title": "iPhone 16 Pro Max",
+    "description": "Флагман Apple 2024 года с процессором A18 Pro, 6.7\" LTPO OLED 120Hz, тройной камерой 48MP+12MP+12MP с улучшенной ночной съемкой",
+    "price": "99 999 ₽",
+    "image": "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
+    "brand": "ifone"
   }
 }
