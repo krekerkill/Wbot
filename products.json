@@ -12,5 +12,12 @@
     "price": "929 292 ₽",
     "image": "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
     "brand": "samsung"
+  },
+  "9293": {
+    "title": "Xiaomi 14 pro",
+    "description": "6.73\" AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP с 4-кратным зумом, аккумулятор 4880mAh с зарядкой 120W. Стеклянный корпус с защитой IP68",
+    "price": "9 878 ₽",
+    "image": "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
+    "brand": "xiaomi"
   }
 }
