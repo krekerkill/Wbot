@@ -19,15 +19,28 @@
         <div class="quick-view-content">
             <span class="close-quick-view">&times;</span>
             <div class="quick-view-image-container">
-                <img id="quickViewImage" src="" alt="">
+                <div class="image-slider">
+                    <!-- Изображения будут добавляться динамически -->
+                </div>
+                <button class="slider-prev">&lt;</button>
+                <button class="slider-next">&gt;</button>
             </div>
             <div class="quick-view-details">
                 <h3 id="quickViewTitle"></h3>
                 <p id="quickViewDescription"></p>
-                <div class="quick-view-price" id="quickViewPrice"></div>
+                <div class="price-container" id="quickViewPrice"></div>
                 <button class="buy-btn">Купить</button>
+                <button class="add-to-cart-btn quick-view-cart-btn">
+                    <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                </button>
             </div>
         </div>
+    </div>
+
+    <!-- Корзина (будет дорабатываться) -->
+    <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
     </div>
 
     <script src="script.js"></script>
