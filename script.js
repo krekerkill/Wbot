@@ -1,49 +1,4 @@
-// URL к products.json
-const PRODUCTS_JSON_URL = 'products.json';
-
-// Глобальные переменные
-const productsData = {};
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartCountElement = document.querySelector('.cart-count');
-
-// Основные элементы
-const quickViewModal = document.getElementById('quickViewModal');
-const productsContainer = document.getElementById('products-container');
-
-// Инициализация
-document.addEventListener('DOMContentLoaded', () => {
-    loadProductsFromGitHub();
-    updateCartCount();
-    
-    // Обработчик для иконки корзины
-    document.querySelector('.cart-icon').addEventListener('click', () => {
-        alert('Корзина будет реализована в следующем шаге!');
-        // Здесь будет открытие модального окна корзины
-    });
-});
-
-// Загрузка товаров
-async function loadProductsFromGitHub() {
-    try {
-        const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error('Не могу загрузить JSON');
-
-        const data = await response.json();
-        Object.assign(productsData, data);
-        renderCatalog();
-        initImageSliders();
-        initAddToCartButtons();
-    } catch (e) {
-        console.error('Ошибка загрузки:', e);
-        productsContainer.innerHTML = `
-            <div class="error-message">
-                ❗ Не удалось загрузить товары. Проверьте интернет или файл products.json
-            </div>
-        `;
-    }
-}
-
-// Отрисовка каталога
+// Функция renderCatalog() - обновлённая версия
 function renderCatalog() {
     productsContainer.innerHTML = '';
 
@@ -79,13 +34,20 @@ function renderCatalog() {
             card.className = 'product-card';
             card.dataset.id = product.id;
 
+            // Гарантируем минимум 3 изображения
+            const images = product.images || [product.image];
+            while (images.length < 3) {
+                images.push(images[0]); // Дублируем первое изображение
+            }
+
             card.innerHTML = `
                 <div class="product-image-container">
                     <div class="image-slider">
-                        ${(product.images || [product.image]).map((img, i) => 
+                        ${images.slice(0, 3).map((img, i) => 
                             `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} loading="lazy" alt="${product.title}">`
                         ).join('')}
                     </div>
+                    <span class="image-counter">1/${images.length}</span>
                     <button class="slider-prev">&lt;</button>
                     <button class="slider-next">&gt;</button>
                     <button class="add-to-cart-btn" title="Добавить в корзину">
@@ -113,20 +75,24 @@ function renderCatalog() {
     }
 }
 
-// Инициализация слайдеров изображений
+// Обновлённая функция initImageSliders()
 function initImageSliders() {
     document.querySelectorAll('.product-card').forEach(card => {
         const slider = card.querySelector('.image-slider');
         const images = slider.querySelectorAll('img');
+        const counter = card.querySelector('.image-counter');
         let currentIndex = 0;
-        
-        const prevBtn = card.querySelector('.slider-prev');
-        const nextBtn = card.querySelector('.slider-next');
         
         function showImage(index) {
             images.forEach(img => img.classList.remove('active'));
             images[index].classList.add('active');
+            if (counter) {
+                counter.textContent = `${index + 1}/${images.length}`;
+            }
         }
+        
+        const prevBtn = card.querySelector('.slider-prev');
+        const nextBtn = card.querySelector('.slider-next');
         
         prevBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -142,58 +108,7 @@ function initImageSliders() {
     });
 }
 
-// Инициализация кнопок "Добавить в корзину"
-function initAddToCartButtons() {
-    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const productId = btn.closest('.product-card').dataset.id;
-            addToCart(productId);
-            
-            // Анимация добавления
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-shopping-cart"></i>';
-            }, 1000);
-        });
-    });
-}
-
-// Добавление товара в корзину
-function addToCart(productId) {
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            id: productId,
-            quantity: 1,
-            ...productsData[productId]
-        });
-    }
-    
-    updateCartCount();
-    saveCartToLocalStorage();
-}
-
-// Обновление счетчика корзины
-function updateCartCount() {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.textContent = totalItems;
-}
-
-// Сохранение корзины в localStorage
-function saveCartToLocalStorage() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-// Парсинг цены в число
-function parsePrice(priceStr) {
-    return parseFloat(priceStr.replace(/[^\d]/g, ''));
-}
-
-// Quick View Modal
+// Обновлённая функция showQuickView()
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -203,9 +118,14 @@ function showQuickView(productId) {
         ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
         : 0;
 
-    // Установка изображений
+    // Установка изображений (гарантируем 3 фото)
+    const images = product.images || [product.image];
+    while (images.length < 3) {
+        images.push(images[0]);
+    }
+
     const sliderContainer = quickViewModal.querySelector('.image-slider');
-    sliderContainer.innerHTML = (product.images || [product.image]).map((img, i) => 
+    sliderContainer.innerHTML = images.slice(0, 3).map((img, i) => 
         `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} alt="${product.title}">`
     ).join('');
 
@@ -222,7 +142,7 @@ function showQuickView(productId) {
         ` : ''}
     `;
 
-    // Обработчик для кнопки "Добавить в корзину" в quick view
+    // Обработчик для кнопки "Добавить в корзину"
     const quickViewCartBtn = quickViewModal.querySelector('.quick-view-cart-btn');
     quickViewCartBtn.onclick = (e) => {
         e.stopPropagation();
@@ -235,25 +155,4 @@ function showQuickView(productId) {
 
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
-}
-
-// Закрытие модального окна
-document.querySelector('.close-quick-view')?.addEventListener('click', () => {
-    quickViewModal.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-});
-
-quickViewModal?.addEventListener('click', (e) => {
-    if (e.target === quickViewModal) {
-        quickViewModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
-    }
-});
-
-// Обработчик кликов по карточкам товаров
-productsContainer.addEventListener('click', (e) => {
-    const productCard = e.target.closest('.product-card');
-    if (productCard && !e.target.closest('.add-to-cart-btn')) {
-        showQuickView(productCard.dataset.id);
-    }
-});
+                }
