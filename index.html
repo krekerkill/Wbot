@@ -9,16 +9,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Контейнер товаров -->
     <div id="products-container">
-        <!-- Товары загружаются через JS -->
+        <!-- Бренды будут добавляться динамически -->
     </div>
 
-    <!-- Модальное окно быстрого просмотра -->
+    <!-- Quick View Modal -->
     <div class="quick-view-modal" id="quickViewModal">
         <div class="quick-view-content">
             <span class="close-quick-view">&times;</span>
             <div class="quick-view-image-container">
-                <div class="image-slider"></div>
+                <div class="image-slider">
+                    <!-- Изображения будут добавляться динамически -->
+                </div>
                 <button class="slider-prev">&lt;</button>
                 <button class="slider-next">&gt;</button>
             </div>
@@ -26,6 +29,7 @@
                 <h3 id="quickViewTitle"></h3>
                 <p id="quickViewDescription"></p>
                 <div class="price-container" id="quickViewPrice"></div>
+                <button class="buy-btn">Купить</button>
                 <button class="add-to-cart-btn quick-view-cart-btn">
                     <i class="fas fa-shopping-cart"></i> Добавить в корзину
                 </button>
@@ -33,7 +37,7 @@
         </div>
     </div>
 
-    <!-- Иконка корзины -->
+    <!-- Корзина (будет дорабатываться) -->
     <div class="cart-icon">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count">0</span>
