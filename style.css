@@ -108,6 +108,21 @@ body {
     opacity: 1;
 }
 
+/* ========== IMAGE COUNTER ========== */
+.image-counter {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    z-index: 10;
+}
+
+/* ========== SLIDER CONTROLS ========== */
 .slider-prev, .slider-next {
     position: absolute;
     top: 50%;
@@ -196,7 +211,7 @@ body {
 }
 
 .price {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     color: #2a2a2a;
 }
@@ -210,9 +225,9 @@ body {
 .discount-badge {
     background: #f44336;
     color: white;
-    padding: 3px 6px;
+    padding: 4px 8px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -298,7 +313,7 @@ body {
 }
 
 .quick-view-price .price {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .quick-view-price .old-price {
@@ -306,26 +321,8 @@ body {
 }
 
 .quick-view-price .discount-badge {
-    font-size: 16px;
-    padding: 5px 10px;
-}
-
-.buy-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 10px;
-}
-
-.buy-btn:hover {
-    background-color: #45a049;
+    font-size: 18px;
+    padding: 6px 12px;
 }
 
 .quick-view-cart-btn {
