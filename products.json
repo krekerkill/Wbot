@@ -6,8 +6,8 @@
     "old_price": "119 999 ₽",
     "images": [
       "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
-      "https://example.com/iphone_back.jpg",
-      "https://example.com/iphone_side.jpg"
+      "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
+      "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg"
     ],
     "brand": "apple"
   },
@@ -15,9 +15,23 @@
     "title": "Samsung Galaxy S24 Ultra",
     "description": "6.9\" Dynamic AMOLED 2X 144Hz, Snapdragon 8 Gen 3, камера 220MP, аккумулятор 5500mAh с S Pen. Защита IP68 и Gorilla Glass Victus 3.",
     "price": "92 999 ₽",
+    "old_price": "99 999 ₽",
     "images": [
+      "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
+      "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
       "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg"
     ],
     "brand": "samsung"
+  },
+  "9293": {
+    "title": "Xiaomi 14 Pro",
+    "description": "6.73\" AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP с 4-кратным зумом, аккумулятор 4880mAh с зарядкой 120W. Стеклянный корпус с защитой IP68",
+    "price": "79 999 ₽",
+    "images": [
+      "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
+      "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
+      "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg"
+    ],
+    "brand": "xiaomi"
   }
 }
