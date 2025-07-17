@@ -1,33 +1,48 @@
-<div class="product-card" data-id="${product.id}">
-  <div class="gallery">
-    <!-- Основное изображение -->
-    <img src="${product.images[0]}" class="main-img" loading="lazy">
-    
-    <!-- Миниатюры (только если больше 1 изображения) -->
-    ${product.images.length > 1 ? `
-      <div class="thumbnails">
-        ${product.images.map((img, i) => `
-          <img src="${img}" data-index="${i}" class="${i === 0 ? 'active' : ''}">
-        `).join('')}
-      </div>
-    ` : ''}
-    
-    <!-- Кнопка корзины -->
-    <button class="cart-btn" aria-label="Добавить в корзину">
-      <i class="fas fa-shopping-cart"></i>
-    </button>
-  </div>
-  
-  <div class="info">
-    <h3>${product.title}</h3>
-    <p class="description">${product.description}</p>
-    
-    <div class="pricing">
-      <span class="price">${product.price}</span>
-      ${product.old_price ? `
-        <span class="old-price">${product.old_price}</span>
-        <span class="discount-badge">−${calculateDiscount(product)}%</span>
-      ` : ''}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог смартфонов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Контейнер товаров -->
+    <div id="products-container">
+        <!-- Бренды будут добавляться динамически -->
     </div>
-  </div>
-</div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="quick-view-content">
+            <span class="close-quick-view">&times;</span>
+            <div class="quick-view-image-container">
+                <div class="image-slider">
+                    <!-- Изображения будут добавляться динамически -->
+                </div>
+                <button class="slider-prev">&lt;</button>
+                <button class="slider-next">&gt;</button>
+            </div>
+            <div class="quick-view-details">
+                <h3 id="quickViewTitle"></h3>
+                <p id="quickViewDescription"></p>
+                <div class="price-container" id="quickViewPrice"></div>
+                <button class="buy-btn">Купить</button>
+                <button class="add-to-cart-btn quick-view-cart-btn">
+                    <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Корзина (будет дорабатываться) -->
+    <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
