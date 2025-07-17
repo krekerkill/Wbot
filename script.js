@@ -155,4 +155,4 @@ function showQuickView(productId) {
 
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
-                }
+}
