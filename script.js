@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Обработчик для иконки корзины
     document.querySelector('.cart-icon').addEventListener('click', () => {
         alert('Корзина будет реализована в следующем шаге!');
-        // Здесь будет открытие модального окна корзины
     });
 });
 
@@ -120,13 +119,69 @@ function initImageSliders() {
         const images = slider.querySelectorAll('img');
         let currentIndex = 0;
         
-        const prevBtn = card.querySelector('.slider-prev');
-        const nextBtn = card.querySelector('.slider-next');
+        // Создаем индикатор точек
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'image-dots';
         
+        images.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = `image-dot ${index === 0 ? 'active' : ''}`;
+            dot.dataset.index = index;
+            dotsContainer.appendChild(dot);
+        });
+        
+        slider.appendChild(dotsContainer);
+        
+        // Функция показа изображения
         function showImage(index) {
             images.forEach(img => img.classList.remove('active'));
             images[index].classList.add('active');
+            
+            // Обновляем точки
+            const dots = slider.querySelectorAll('.image-dot');
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentIndex = index;
         }
+        
+        // Обработчики для точек
+        dotsContainer.querySelectorAll('.image-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showImage(parseInt(dot.dataset.index));
+            });
+        });
+        
+        // Добавляем обработчики свайпов
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        slider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        slider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) {
+                // Свайп влево - следующее изображение
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            } else if (touchEndX - touchStartX > threshold) {
+                // Свайп вправо - предыдущее изображение
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            }
+        }
+        
+        // Оставляем кнопки для десктопов
+        const prevBtn = card.querySelector('.slider-prev');
+        const nextBtn = card.querySelector('.slider-next');
         
         prevBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -209,6 +264,19 @@ function showQuickView(productId) {
         `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} alt="${product.title}">`
     ).join('');
 
+    // Добавляем точки для quick view
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'image-dots';
+    
+    (product.images || [product.image]).forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = `image-dot ${index === 0 ? 'active' : ''}`;
+        dot.dataset.index = index;
+        dotsContainer.appendChild(dot);
+    });
+    
+    sliderContainer.appendChild(dotsContainer);
+
     // Установка деталей
     document.getElementById('quickViewTitle').textContent = product.title;
     document.getElementById('quickViewDescription').textContent = product.description;
@@ -232,6 +300,53 @@ function showQuickView(productId) {
             quickViewCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Добавить в корзину';
         }, 2000);
     };
+
+    // Добавляем свайпы для quick view
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let currentIndex = 0;
+    const images = sliderContainer.querySelectorAll('img');
+    const dots = sliderContainer.querySelectorAll('.image-dot');
+
+    function showQuickViewImage(index) {
+        images.forEach(img => img.classList.remove('active'));
+        images[index].classList.add('active');
+        
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+        
+        currentIndex = index;
+    }
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleQuickViewSwipe();
+    }, { passive: true });
+
+    function handleQuickViewSwipe() {
+        const threshold = 50;
+        if (touchStartX - touchEndX > threshold) {
+            // Свайп влево - следующее изображение
+            currentIndex = (currentIndex + 1) % images.length;
+            showQuickViewImage(currentIndex);
+        } else if (touchEndX - touchStartX > threshold) {
+            // Свайп вправо - предыдущее изображение
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showQuickViewImage(currentIndex);
+        }
+    }
+
+    // Обработчики для точек в quick view
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showQuickViewImage(parseInt(dot.dataset.index));
+        });
+    });
 
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
