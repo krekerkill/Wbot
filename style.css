@@ -108,18 +108,30 @@ body {
     opacity: 1;
 }
 
-/* ========== IMAGE COUNTER ========== */
-.image-counter {
+/* ========== IMAGE DOTS INDICATOR ========== */
+.image-dots {
     position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.7);
-    color: white;
-    padding: 3px 12px;
-    border-radius: 12px;
-    font-size: 12px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
     z-index: 10;
+}
+
+.image-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-dot.active {
+    background-color: white;
+    transform: scale(1.2);
 }
 
 /* ========== SLIDER CONTROLS ========== */
@@ -401,6 +413,10 @@ body {
     
     .product-card:hover {
         transform: none;
+    }
+    
+    .slider-prev, .slider-next {
+        display: none;
     }
     
     .quick-view-content {
