@@ -34,8 +34,14 @@ class Cart {
     }
 
     removeItem(productId) {
-        this.cart = this.cart.filter(item => item.id !== productId);
-        this.updateCart();
+        const itemElement = document.querySelector(`.cart-item[data-id="${productId}"]`);
+        if (itemElement) {
+            itemElement.classList.add('removing');
+            setTimeout(() => {
+                this.cart = this.cart.filter(item => item.id !== productId);
+                this.updateCart();
+            }, 300);
+        }
     }
 
     updateQuantity(productId, newQuantity) {
@@ -132,17 +138,17 @@ class Cart {
         container.innerHTML = this.cart.map(item => `
             <div class="cart-item" data-id="${item.id}">
                 <div class="cart-item-image">
-                    <img src="${item.images?.[0] || item.image}" alt="${item.title}">
+                    <img src="${item.images?.[0] || item.image}" alt="${item.title}" loading="lazy">
                 </div>
                 <div class="cart-item-details">
                     <h3>${item.title}</h3>
                     <div class="cart-item-price">${item.price}</div>
-                    <div class="cart-item-controls">
-                        <button class="quantity-btn minus">−</button>
-                        <input type="number" value="${item.quantity}" min="1">
-                        <button class="quantity-btn plus">+</button>
-                        <button class="remove-item-btn">Удалить</button>
-                    </div>
+                </div>
+                <div class="cart-item-controls">
+                    <button class="quantity-btn minus">−</button>
+                    <input type="number" value="${item.quantity}" min="1">
+                    <button class="quantity-btn plus">+</button>
+                    <button class="remove-item-btn">Удалить</button>
                 </div>
             </div>
         `).join('');
@@ -168,7 +174,12 @@ class Cart {
         container.querySelectorAll('input').forEach(input => {
             input.addEventListener('change', (e) => {
                 const itemId = e.target.closest('.cart-item').dataset.id;
-                this.updateQuantity(itemId, parseInt(e.target.value));
+                const newQuantity = parseInt(e.target.value);
+                if (!isNaN(newQuantity)) {
+                    this.updateQuantity(itemId, newQuantity);
+                } else {
+                    e.target.value = 1;
+                }
             });
         });
 
