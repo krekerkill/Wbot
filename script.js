@@ -116,7 +116,7 @@ function renderCatalog() {
         }
     }
 
-    if (brandCounter % 2 !== 0 && productsData.sim_cards) {
+    if ((brandCounter % 2 !== 0 || brandCounter === 0) && productsData.sim_cards) {
         simCards.renderSimContainer(productsContainer);
     }
 }
