@@ -33,5 +33,55 @@
       "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg"
     ],
     "brand": "xiaomi"
+  },
+  "sim_cards": {
+    "mts": {
+      "title": "MTS",
+      "color": "#e30613",
+      "tariffs": {
+        "smart": {
+          "name": "Smart",
+          "price": "300 ₽/мес",
+          "description": "10 ГБ интернета, 500 минут, безлимитные SMS"
+        },
+        "ultra": {
+          "name": "Ultra",
+          "price": "500 ₽/мес",
+          "description": "30 ГБ интернета, 1000 минут, безлимитные SMS"
+        }
+      }
+    },
+    "megafon": {
+      "title": "МегаФон",
+      "color": "#85c226",
+      "tariffs": {
+        "goset": {
+          "name": "Включайся!",
+          "price": "350 ₽/мес",
+          "description": "15 ГБ интернета, 500 минут, безлимитные SMS"
+        },
+        "premium": {
+          "name": "Премиум",
+          "price": "700 ₽/мес",
+          "description": "50 ГБ интернета, 2000 минут, безлимитные SMS"
+        }
+      }
+    },
+    "beeline": {
+      "title": "Билайн",
+      "color": "#ffcc00",
+      "tariffs": {
+        "vse": {
+          "name": "Всё за 300",
+          "price": "300 ₽/мес",
+          "description": "10 ГБ интернета, 300 минут, безлимитные SMS"
+        },
+        "unlim": {
+          "name": "Безлимит",
+          "price": "600 ₽/мес",
+          "description": "Безлимитный интернет, 1000 минут, безлимитные SMS"
+        }
+      }
+    }
   }
 }
