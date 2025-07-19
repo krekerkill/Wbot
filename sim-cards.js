@@ -1,6 +1,7 @@
 class SimCards {
     constructor() {
         this.simData = {};
+        this.currentModal = null;
     }
 
     init(data) {
@@ -32,68 +33,36 @@ class SimCards {
         simContainer.appendChild(simGrid);
         container.appendChild(simContainer);
         
-        this.addSwipeHandlers(simGrid);
-        
-        simContainer.querySelectorAll('.sim-card').forEach(card => {
-            card.addEventListener('click', () => {
-                this.showSimTariffsModal(card.dataset.id);
+        this.addSimCardEventListeners(simGrid);
+    }
+
+    addSimCardEventListeners(simGrid) {
+        simGrid.querySelectorAll('.sim-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const simId = card.dataset.id;
+                this.showSimTariffsModal(simId);
             });
         });
     }
 
-    addSwipeHandlers(element) {
-        let startX, scrollLeft;
-        let isDown = false;
-
-        element.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - element.offsetLeft;
-            scrollLeft = element.scrollLeft;
-            element.style.cursor = 'grabbing';
-        });
-
-        element.addEventListener('mouseleave', () => {
-            isDown = false;
-            element.style.cursor = 'grab';
-        });
-
-        element.addEventListener('mouseup', () => {
-            isDown = false;
-            element.style.cursor = 'grab';
-        });
-
-        element.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - element.offsetLeft;
-            const walk = (x - startX) * 3;
-            element.scrollLeft = scrollLeft - walk;
-        });
-
-        element.addEventListener('touchstart', (e) => {
-            isDown = true;
-            startX = e.touches[0].pageX - element.offsetLeft;
-            scrollLeft = element.scrollLeft;
-        }, { passive: true });
-
-        element.addEventListener('touchend', () => {
-            isDown = false;
-        }, { passive: true });
-
-        element.addEventListener('touchmove', (e) => {
-            if(!isDown) return;
-            const x = e.touches[0].pageX - element.offsetLeft;
-            const walk = (x - startX) * 3;
-            element.scrollLeft = scrollLeft - walk;
-        }, { passive: true });
-    }
-
     showSimTariffsModal(simId) {
         const sim = this.simData[simId];
-        if (!sim) return;
+        if (!sim || !sim.tariffs) {
+            console.error('SIM card data or tariffs not found for:', simId);
+            return;
+        }
+
+        // Закрываем предыдущее модальное окно, если оно есть
+        if (this.currentModal) {
+            document.body.removeChild(this.currentModal);
+            document.body.classList.remove('no-scroll');
+        }
 
         const modal = document.createElement('div');
         modal.className = 'sim-tariffs-modal';
+        modal.style.display = 'block';
+        
         modal.innerHTML = `
             <div class="sim-tariffs-content">
                 <span class="close-sim-tariffs">&times;</span>
@@ -101,7 +70,9 @@ class SimCards {
                 
                 <div class="tariff-tabs">
                     ${Object.keys(sim.tariffs).map((key, index) => `
-                        <button class="tariff-tab ${index === 0 ? 'active' : ''}" data-tariff="${key}">
+                        <button class="tariff-tab ${index === 0 ? 'active' : ''}" 
+                                data-tariff="${key}"
+                                aria-label="Тариф ${sim.tariffs[key].name}">
                             ${sim.tariffs[key].name}
                         </button>
                     `).join('')}
@@ -109,10 +80,16 @@ class SimCards {
                 
                 <div class="tariff-content">
                     ${Object.entries(sim.tariffs).map(([key, tariff], index) => `
-                        <div class="tariff-details ${index === 0 ? 'active' : ''}" data-tariff="${key}">
+                        <div class="tariff-details ${index === 0 ? 'active' : ''}" 
+                             data-tariff="${key}"
+                             role="tabpanel"
+                             aria-labelledby="tab-${key}">
                             <div class="tariff-price">${tariff.price}</div>
-                            <p>${tariff.description}</p>
-                            <button class="select-tariff-btn" data-sim="${simId}" data-tariff="${key}">
+                            ${tariff.description ? `<p>${tariff.description}</p>` : ''}
+                            <button class="select-tariff-btn" 
+                                    data-sim="${simId}" 
+                                    data-tariff="${key}"
+                                    aria-label="Выбрать тариф ${tariff.name}">
                                 Выбрать тариф
                             </button>
                         </div>
@@ -123,37 +100,86 @@ class SimCards {
 
         document.body.appendChild(modal);
         document.body.classList.add('no-scroll');
+        this.currentModal = modal;
 
-        modal.querySelectorAll('.tariff-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                modal.querySelector('.tariff-tab.active').classList.remove('active');
-                tab.classList.add('active');
-                
-                const tariffId = tab.dataset.tariff;
-                modal.querySelector('.tariff-details.active').classList.remove('active');
-                modal.querySelector(`.tariff-details[data-tariff="${tariffId}"]`).classList.add('active');
-            });
+        this.setupModalEventHandlers(modal, sim);
+    }
+
+    setupModalEventHandlers(modal, sim) {
+        // Закрытие модального окна
+        const closeBtn = modal.querySelector('.close-sim-tariffs');
+        closeBtn.addEventListener('click', () => {
+            this.closeModal();
         });
 
-        modal.querySelectorAll('.select-tariff-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert(`Выбран тариф ${sim.tariffs[btn.dataset.tariff].name} от ${sim.title}`);
-                document.body.removeChild(modal);
-                document.body.classList.remove('no-scroll');
-            });
-        });
-
-        modal.querySelector('.close-sim-tariffs').addEventListener('click', () => {
-            document.body.removeChild(modal);
-            document.body.classList.remove('no-scroll');
-        });
-
+        // Клик по фону
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                document.body.removeChild(modal);
-                document.body.classList.remove('no-scroll');
+                this.closeModal();
             }
         });
+
+        // Переключение табов
+        modal.querySelectorAll('.tariff-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                this.switchTab(modal, tab.dataset.tariff);
+            });
+        });
+
+        // Выбор тарифа
+        modal.querySelectorAll('.select-tariff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.selectTariff(sim, btn.dataset.tariff);
+            });
+        });
+
+        // Закрытие по Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal();
+            }
+        });
+    }
+
+    switchTab(modal, tariffId) {
+        // Убираем активный класс у всех табов
+        modal.querySelectorAll('.tariff-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Добавляем активный класс выбранному табу
+        const activeTab = modal.querySelector(`.tariff-tab[data-tariff="${tariffId}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+
+        // Скрываем все тарифы
+        modal.querySelectorAll('.tariff-details').forEach(details => {
+            details.classList.remove('active');
+        });
+
+        // Показываем выбранный тариф
+        const activeDetails = modal.querySelector(`.tariff-details[data-tariff="${tariffId}"]`);
+        if (activeDetails) {
+            activeDetails.classList.add('active');
+        }
+    }
+
+    selectTariff(sim, tariffId) {
+        const tariff = sim.tariffs[tariffId];
+        if (!tariff) return;
+
+        // Здесь можно добавить логику обработки выбранного тарифа
+        alert(`Выбран тариф: ${tariff.name}\nЦена: ${tariff.price}`);
+        this.closeModal();
+    }
+
+    closeModal() {
+        if (this.currentModal) {
+            document.body.removeChild(this.currentModal);
+            document.body.classList.remove('no-scroll');
+            this.currentModal = null;
+        }
     }
 }
 
