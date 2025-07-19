@@ -480,11 +480,15 @@ body {
 
 .cart-item-details {
     flex-grow: 1;
+    min-width: 0;
 }
 
 .cart-item-details h3 {
     font-size: 16px;
     margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cart-item-price {
@@ -533,6 +537,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .remove-item-btn:hover {
@@ -613,23 +618,63 @@ body {
         aspect-ratio: 1/1;
     }
 
+    /* Компактный вид корзины на мобильных */
     .cart-item {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: auto auto;
+        gap: 8px 12px;
+        padding: 10px 0;
+        align-items: center;
     }
-    
+
     .cart-item-image {
-        width: 100%;
-        height: 150px;
+        grid-row: span 2;
+        width: 60px;
+        height: 60px;
+        margin: 0;
     }
-    
+
+    .cart-item-details {
+        grid-column: 2;
+        overflow: hidden;
+    }
+
+    .cart-item-details h3 {
+        font-size: 14px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cart-item-price {
+        font-size: 15px;
+        margin: 4px 0 0;
+    }
+
     .cart-item-controls {
-        flex-wrap: wrap;
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        gap: 8px;
+        align-items: center;
     }
-    
+
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .cart-item-controls input {
+        width: 40px;
+        height: 30px;
+    }
+
     .remove-item-btn {
-        margin-left: 0;
-        width: 100%;
-        padding: 8px;
+        margin-left: auto;
+        padding: 5px 8px;
+        font-size: 12px;
     }
 }
 
@@ -671,4 +716,17 @@ body {
         flex: 1;
         padding: 0 20px;
     }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 400px) {
+    .cart-item {
+        grid-template-columns: 50px 1fr;
+        gap: 6px 8px;
     }
+
+    .cart-item-image {
+        width: 50px;
+        height: 50px;
+    }
+}
