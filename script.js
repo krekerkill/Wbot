@@ -1,4 +1,5 @@
 import Cart from './cart.js';
+import SimCards from './sim-cards.js';
 
 // URL к products.json
 const PRODUCTS_JSON_URL = 'products.json';
@@ -6,6 +7,7 @@ const PRODUCTS_JSON_URL = 'products.json';
 // Глобальные переменные
 const productsData = {};
 const cart = new Cart();
+const simCards = new SimCards();
 
 // Основные элементы
 const quickViewModal = document.getElementById('quickViewModal');
@@ -24,6 +26,11 @@ async function loadProductsFromGitHub() {
 
         const data = await response.json();
         Object.assign(productsData, data);
+        
+        if (data.sim_cards) {
+            simCards.init(data.sim_cards);
+        }
+        
         renderCatalog();
         initImageSliders();
         initAddToCartButtons();
@@ -43,6 +50,8 @@ function renderCatalog() {
 
     const brandsMap = {};
     for (const id in productsData) {
+        if (id === 'sim_cards') continue;
+        
         const product = productsData[id];
         const brand = product.brand?.toLowerCase() || 'other';
         
@@ -50,7 +59,10 @@ function renderCatalog() {
         brandsMap[brand].push({ id, ...product });
     }
 
+    let brandCounter = 0;
     for (const brand in brandsMap) {
+        brandCounter++;
+        
         const group = document.createElement('div');
         group.className = 'brand-group';
         group.setAttribute('data-brand', brand);
@@ -104,6 +116,10 @@ function renderCatalog() {
 
         group.appendChild(grid);
         productsContainer.appendChild(group);
+
+        if (brandCounter % 2 === 0 && productsData.sim_cards) {
+            simCards.renderSimContainer(productsContainer);
+        }
     }
 }
 
@@ -114,7 +130,6 @@ function initImageSliders() {
         const images = slider.querySelectorAll('img');
         let currentIndex = 0;
         
-        // Создаем индикатор точек
         const dotsContainer = document.createElement('div');
         dotsContainer.className = 'image-dots';
         
@@ -127,12 +142,10 @@ function initImageSliders() {
         
         slider.appendChild(dotsContainer);
         
-        // Функция показа изображения
         function showImage(index) {
             images.forEach(img => img.classList.remove('active'));
             images[index].classList.add('active');
             
-            // Обновляем точки
             const dots = slider.querySelectorAll('.image-dot');
             dots.forEach(dot => dot.classList.remove('active'));
             dots[index].classList.add('active');
@@ -140,7 +153,6 @@ function initImageSliders() {
             currentIndex = index;
         }
         
-        // Обработчики для точек
         dotsContainer.querySelectorAll('.image-dot').forEach(dot => {
             dot.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -148,7 +160,6 @@ function initImageSliders() {
             });
         });
         
-        // Добавляем обработчики свайпов
         let touchStartX = 0;
         let touchEndX = 0;
         
@@ -164,17 +175,14 @@ function initImageSliders() {
         function handleSwipe() {
             const threshold = 50;
             if (touchStartX - touchEndX > threshold) {
-                // Свайп влево - следующее изображение
                 currentIndex = (currentIndex + 1) % images.length;
                 showImage(currentIndex);
             } else if (touchEndX - touchStartX > threshold) {
-                // Свайп вправо - предыдущее изображение
                 currentIndex = (currentIndex - 1 + images.length) % images.length;
                 showImage(currentIndex);
             }
         }
         
-        // Оставляем кнопки для десктопов
         const prevBtn = card.querySelector('.slider-prev');
         const nextBtn = card.querySelector('.slider-next');
         
@@ -200,7 +208,6 @@ function initAddToCartButtons() {
             const productId = btn.closest('.product-card').dataset.id;
             cart.addItem(productId, productsData[productId]);
             
-            // Анимация добавления
             btn.innerHTML = '<i class="fas fa-check"></i>';
             setTimeout(() => {
                 btn.innerHTML = '<i class="fas fa-shopping-cart"></i>';
@@ -219,13 +226,11 @@ function showQuickView(productId) {
         ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
         : 0;
 
-    // Установка изображений
     const sliderContainer = quickViewModal.querySelector('.image-slider');
     sliderContainer.innerHTML = (product.images || [product.image]).map((img, i) => 
         `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} alt="${product.title}">`
     ).join('');
 
-    // Добавляем точки для quick view
     const dotsContainer = document.createElement('div');
     dotsContainer.className = 'image-dots';
     
@@ -238,7 +243,6 @@ function showQuickView(productId) {
     
     sliderContainer.appendChild(dotsContainer);
 
-    // Установка деталей
     document.getElementById('quickViewTitle').textContent = product.title;
     document.getElementById('quickViewDescription').textContent = product.description;
     
@@ -251,7 +255,6 @@ function showQuickView(productId) {
         ` : ''}
     `;
 
-    // Обработчик для кнопки "Добавить в корзину" в quick view
     const quickViewCartBtn = quickViewModal.querySelector('.quick-view-cart-btn');
     quickViewCartBtn.onclick = (e) => {
         e.stopPropagation();
@@ -262,7 +265,6 @@ function showQuickView(productId) {
         }, 2000);
     };
 
-    // Добавляем свайпы для quick view
     let touchStartX = 0;
     let touchEndX = 0;
     let currentIndex = 0;
@@ -291,17 +293,14 @@ function showQuickView(productId) {
     function handleQuickViewSwipe() {
         const threshold = 50;
         if (touchStartX - touchEndX > threshold) {
-            // Свайп влево - следующее изображение
             currentIndex = (currentIndex + 1) % images.length;
             showQuickViewImage(currentIndex);
         } else if (touchEndX - touchStartX > threshold) {
-            // Свайп вправо - предыдущее изображение
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             showQuickViewImage(currentIndex);
         }
     }
 
-    // Обработчики для точек в quick view
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -337,4 +336,4 @@ productsContainer.addEventListener('click', (e) => {
 // Парсинг цены в число
 function parsePrice(priceStr) {
     return parseFloat(priceStr.replace(/[^\d]/g, ''));
-}
+                                                       }
