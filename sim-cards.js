@@ -11,11 +11,6 @@ class SimCards {
         const simContainer = document.createElement('div');
         simContainer.className = 'sim-container';
         
-        const title = document.createElement('h2');
-        title.className = 'brand-title';
-        title.textContent = 'SIM-карты';
-        container.appendChild(title);
-        
         const simGrid = document.createElement('div');
         simGrid.className = 'sim-grid';
         
@@ -50,7 +45,6 @@ class SimCards {
         let startX, scrollLeft;
         let isDown = false;
 
-        // Для мыши
         element.addEventListener('mousedown', (e) => {
             isDown = true;
             startX = e.pageX - element.offsetLeft;
@@ -72,11 +66,10 @@ class SimCards {
             if(!isDown) return;
             e.preventDefault();
             const x = e.pageX - element.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 3;
             element.scrollLeft = scrollLeft - walk;
         });
 
-        // Для тач-устройств
         element.addEventListener('touchstart', (e) => {
             isDown = true;
             startX = e.touches[0].pageX - element.offsetLeft;
@@ -90,7 +83,7 @@ class SimCards {
         element.addEventListener('touchmove', (e) => {
             if(!isDown) return;
             const x = e.touches[0].pageX - element.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 3;
             element.scrollLeft = scrollLeft - walk;
         }, { passive: true });
     }
