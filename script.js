@@ -1,24 +1,17 @@
 import Cart from './cart.js';
 import SimCards from './sim-cards.js';
 
-// URL к products.json
 const PRODUCTS_JSON_URL = 'products.json';
-
-// Глобальные переменные
 const productsData = {};
 const cart = new Cart();
 const simCards = new SimCards();
-
-// Основные элементы
 const quickViewModal = document.getElementById('quickViewModal');
 const productsContainer = document.getElementById('products-container');
 
-// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     loadProductsFromGitHub();
 });
 
-// Загрузка товаров
 async function loadProductsFromGitHub() {
     try {
         const response = await fetch(PRODUCTS_JSON_URL);
@@ -44,7 +37,6 @@ async function loadProductsFromGitHub() {
     }
 }
 
-// Отрисовка каталога
 function renderCatalog() {
     productsContainer.innerHTML = '';
 
@@ -60,7 +52,9 @@ function renderCatalog() {
     }
 
     let brandCounter = 0;
-    for (const brand in brandsMap) {
+    const brandKeys = Object.keys(brandsMap);
+    
+    for (const brand of brandKeys) {
         brandCounter++;
         
         const group = document.createElement('div');
@@ -121,9 +115,12 @@ function renderCatalog() {
             simCards.renderSimContainer(productsContainer);
         }
     }
+
+    if (brandCounter % 2 !== 0 && productsData.sim_cards) {
+        simCards.renderSimContainer(productsContainer);
+    }
 }
 
-// Инициализация слайдеров изображений
 function initImageSliders() {
     document.querySelectorAll('.product-card').forEach(card => {
         const slider = card.querySelector('.image-slider');
@@ -200,7 +197,6 @@ function initImageSliders() {
     });
 }
 
-// Инициализация кнопок "Добавить в корзину"
 function initAddToCartButtons() {
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -216,7 +212,6 @@ function initAddToCartButtons() {
     });
 }
 
-// Quick View Modal
 function showQuickView(productId) {
     const product = productsData[productId];
     if (!product) return;
@@ -312,7 +307,6 @@ function showQuickView(productId) {
     document.body.classList.add('no-scroll');
 }
 
-// Закрытие модального окна
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -325,7 +319,6 @@ quickViewModal?.addEventListener('click', (e) => {
     }
 });
 
-// Обработчик кликов по карточкам товаров
 productsContainer.addEventListener('click', (e) => {
     const productCard = e.target.closest('.product-card');
     if (productCard && !e.target.closest('.add-to-cart-btn')) {
@@ -333,7 +326,6 @@ productsContainer.addEventListener('click', (e) => {
     }
 });
 
-// Парсинг цены в число
 function parsePrice(priceStr) {
     return parseFloat(priceStr.replace(/[^\d]/g, ''));
-                                                       }
+}
