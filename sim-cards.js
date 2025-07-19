@@ -14,7 +14,7 @@ class SimCards {
         const title = document.createElement('h2');
         title.className = 'brand-title';
         title.textContent = 'SIM-карты';
-        simContainer.appendChild(title);
+        container.appendChild(title);
         
         const simGrid = document.createElement('div');
         simGrid.className = 'sim-grid';
@@ -37,11 +37,62 @@ class SimCards {
         simContainer.appendChild(simGrid);
         container.appendChild(simContainer);
         
+        this.addSwipeHandlers(simGrid);
+        
         simContainer.querySelectorAll('.sim-card').forEach(card => {
             card.addEventListener('click', () => {
                 this.showSimTariffsModal(card.dataset.id);
             });
         });
+    }
+
+    addSwipeHandlers(element) {
+        let startX, scrollLeft;
+        let isDown = false;
+
+        // Для мыши
+        element.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - element.offsetLeft;
+            scrollLeft = element.scrollLeft;
+            element.style.cursor = 'grabbing';
+        });
+
+        element.addEventListener('mouseleave', () => {
+            isDown = false;
+            element.style.cursor = 'grab';
+        });
+
+        element.addEventListener('mouseup', () => {
+            isDown = false;
+            element.style.cursor = 'grab';
+        });
+
+        element.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - element.offsetLeft;
+            const walk = (x - startX) * 2;
+            element.scrollLeft = scrollLeft - walk;
+        });
+
+        // Для тач-устройств
+        element.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - element.offsetLeft;
+            scrollLeft = element.scrollLeft;
+        }, { passive: true });
+
+        element.addEventListener('touchend', () => {
+            isDown = false;
+        }, { passive: true });
+
+        element.addEventListener('touchmove', (e) => {
+            if(!isDown) return;
+            const x = e.touches[0].pageX - element.offsetLeft;
+            const walk = (x - startX) * 2;
+            element.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
     }
 
     showSimTariffsModal(simId) {
