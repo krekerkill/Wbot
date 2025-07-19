@@ -585,23 +585,43 @@ body {
 
 /* ========== SIM CARDS ========== */
 .sim-container {
-    margin-bottom: 30px;
+    margin: 0 auto 30px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 15px;
+    width: 100%;
+    max-width: 1200px;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 20px,
+        black calc(100% - 20px),
+        transparent
+    );
 }
 
 .sim-grid {
     display: flex;
     gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 0 15px;
+    padding: 10px 30px;
+    margin: 0 -15px;
+    flex-wrap: nowrap;
+    width: max-content;
+    min-width: 100%;
+    cursor: grab;
+}
+
+.sim-grid:active {
+    cursor: grabbing;
 }
 
 .sim-card {
-    width: calc(25% - 12px);
-    aspect-ratio: 1/1;
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -609,16 +629,21 @@ body {
     font-weight: bold;
     font-size: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    user-select: none;
 }
 
 .sim-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .sim-card-content {
     text-align: center;
     padding: 15px;
+}
+
+.sim-container::-webkit-scrollbar {
+    display: none;
 }
 
 /* ========== SIM TARIFFS MODAL ========== */
@@ -822,11 +847,19 @@ body {
 
     /* Адаптация SIM-карт для мобильных */
     .sim-card {
-        width: calc(50% - 8px);
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+        font-size: 18px;
     }
     
-    .tariff-tabs {
-        flex-direction: column;
+    .sim-container {
+        mask-image: none;
+        padding: 0 15px 15px;
+    }
+    
+    .sim-grid {
+        padding: 10px 0;
     }
 }
 
@@ -881,4 +914,4 @@ body {
         width: 50px;
         height: 50px;
     }
-    }
+}
