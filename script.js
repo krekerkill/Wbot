@@ -1,15 +1,14 @@
 import Cart from './cart.js';
-import SimCards from './sim-cards.js';
 
 const PRODUCTS_JSON_URL = 'products.json';
 const productsData = {};
 const cart = new Cart();
-const simCards = new SimCards();
 const quickViewModal = document.getElementById('quickViewModal');
 const productsContainer = document.getElementById('products-container');
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProductsFromGitHub();
+    initBackToTopButton();
 });
 
 async function loadProductsFromGitHub() {
@@ -20,10 +19,7 @@ async function loadProductsFromGitHub() {
         const data = await response.json();
         Object.assign(productsData, data);
         
-        if (data.sim_cards) {
-            simCards.init(data.sim_cards);
-        }
-        
+        initBrandFilters();
         renderCatalog();
         initImageSliders();
         initAddToCartButtons();
@@ -37,7 +33,42 @@ async function loadProductsFromGitHub() {
     }
 }
 
-function renderCatalog() {
+function initBrandFilters() {
+    const brandsContainer = document.querySelector('.brands-scroll-container');
+    const brands = new Set();
+    
+    // Собираем все уникальные бренды
+    for (const id in productsData) {
+        if (id === 'sim_cards') continue;
+        const brand = productsData[id].brand?.toLowerCase() || 'other';
+        brands.add(brand);
+    }
+    
+    // Создаем кнопки для каждого бренда
+    brands.forEach(brand => {
+        const btn = document.createElement('button');
+        btn.className = 'brand-filter-btn';
+        btn.dataset.brand = brand;
+        btn.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
+        brandsContainer.appendChild(btn);
+    });
+    
+    // Обработчик кликов
+    brandsContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.brand-filter-btn');
+        if (!btn) return;
+        
+        document.querySelectorAll('.brand-filter-btn').forEach(b => 
+            b.classList.remove('active')
+        );
+        btn.classList.add('active');
+        
+        const brand = btn.dataset.brand;
+        renderCatalog(brand);
+    });
+}
+
+function renderCatalog(selectedBrand = 'all') {
     productsContainer.innerHTML = '';
 
     const brandsMap = {};
@@ -51,12 +82,15 @@ function renderCatalog() {
         brandsMap[brand].push({ id, ...product });
     }
 
-    let brandCounter = 0;
-    const brandKeys = Object.keys(brandsMap);
-    
-    for (const brand of brandKeys) {
-        brandCounter++;
-        
+    // Рендерим только выбранный бренд или все, если selectedBrand === 'all'
+    const brandsToRender = selectedBrand === 'all' 
+        ? Object.keys(brandsMap) 
+        : [selectedBrand];
+
+    brandsToRender.forEach(brand => {
+        const products = brandsMap[brand];
+        if (!products) return;
+
         const group = document.createElement('div');
         group.className = 'brand-group';
         group.setAttribute('data-brand', brand);
@@ -69,7 +103,7 @@ function renderCatalog() {
         const grid = document.createElement('div');
         grid.className = 'products-grid';
 
-        brandsMap[brand].forEach(product => {
+        products.forEach(product => {
             const hasDiscount = product.old_price && product.old_price !== product.price;
             const discountPercent = hasDiscount 
                 ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
@@ -110,15 +144,7 @@ function renderCatalog() {
 
         group.appendChild(grid);
         productsContainer.appendChild(group);
-
-        if (brandCounter % 2 === 0 && productsData.sim_cards) {
-            simCards.renderSimContainer(productsContainer);
-        }
-    }
-
-    if ((brandCounter % 2 !== 0 || brandCounter === 0) && productsData.sim_cards) {
-        simCards.renderSimContainer(productsContainer);
-    }
+    });
 }
 
 function initImageSliders() {
@@ -305,6 +331,21 @@ function showQuickView(productId) {
 
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
+}
+
+function initBackToTopButton() {
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
 
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
