@@ -9,9 +9,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Фильтр по брендам -->
+    <div class="brands-filter">
+        <div class="brands-scroll-container">
+            <button class="brand-filter-btn active" data-brand="all">Все</button>
+            <!-- Бренды будут добавляться динамически -->
+        </div>
+    </div>
+
     <!-- Контейнер товаров -->
     <div id="products-container">
-        <!-- Бренды будут добавляться динамически -->
+        <!-- Товары будут добавляться динамически -->
     </div>
 
     <!-- Quick View Modal -->
@@ -41,6 +49,11 @@
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count">0</span>
     </div>
+
+    <!-- Кнопка "Наверх" -->
+    <button id="backToTop" class="back-to-top" title="Наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script type="module" src="script.js"></script>
 </body>
