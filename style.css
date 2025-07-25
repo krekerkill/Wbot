@@ -23,6 +23,51 @@ body {
     overflow: hidden;
 }
 
+/* ========== BRANDS FILTER ========== */
+.brands-filter {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.brands-scroll-container {
+    display: flex;
+    gap: 8px;
+    padding: 0 15px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.brands-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.brand-filter-btn {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.brand-filter-btn:hover {
+    background: #e0e0e0;
+}
+
+.brand-filter-btn.active {
+    background: #4CAF50;
+    color: white;
+    font-weight: 500;
+}
+
 /* ========== MAIN CONTAINER ========== */
 #products-container {
     max-width: 1400px;
@@ -73,8 +118,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    will-change: transform, box-shadow;
-    position: relative;
 }
 
 .product-card:hover {
@@ -397,354 +440,33 @@ body {
     font-weight: bold;
 }
 
-/* ========== CART MODAL ========== */
-.cart-modal {
-    display: none;
+/* ========== BACK TO TOP BUTTON ========== */
+.back-to-top {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-    overflow-y: auto;
-}
-
-.cart-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-    max-width: 800px;
-    max-height: 80vh;
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-}
-
-.close-cart-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    color: #777;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.close-cart-modal:hover {
-    color: #333;
-}
-
-.cart-modal h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.cart-items-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    padding-right: 10px;
-}
-
-.cart-item {
-    display: flex;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.cart-item-image {
-    width: 100px;
-    height: 100px;
-    flex-shrink: 0;
-    background: #f9f9f9;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.cart-item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.cart-item-details {
-    flex-grow: 1;
-    min-width: 0;
-}
-
-.cart-item-details h3 {
-    font-size: 16px;
-    margin-bottom: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cart-item-price {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.cart-item-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.quantity-btn {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quantity-btn:hover {
-    background: #f5f5f5;
-}
-
-.cart-item-controls input {
+    bottom: 80px;
+    right: 20px;
     width: 50px;
-    height: 30px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.remove-item-btn {
-    margin-left: auto;
-    padding: 5px 10px;
-    background: #f44336;
+    height: 50px;
+    border-radius: 50%;
+    background: #2196F3;
     color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.remove-item-btn:hover {
-    background: #d32f2f;
-}
-
-.cart-summary {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.checkout-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.checkout-btn:hover {
-    background-color: #45a049;
-}
-
-.empty-cart-message {
-    text-align: center;
-    padding: 40px 0;
-    font-size: 18px;
-    color: #666;
-    display: none;
-}
-
-/* ========== SIM CARDS ========== */
-.sim-container {
-    margin: 0 auto 40px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 20px 0;
-    width: 100%;
-    max-width: 1400px;
-}
-
-.sim-grid {
-    display: flex;
-    gap: 25px;
-    padding: 0 40px;
-    margin: 0 -20px;
-    flex-wrap: nowrap;
-    width: max-content;
-    min-width: 100%;
-}
-
-.sim-card {
-    width: 200px;
-    height: 200px;
-    min-width: 200px;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.sim-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+.back-to-top.visible {
+    opacity: 1;
 }
 
-.sim-card-content {
-    text-align: center;
-    padding: 20px;
-}
-
-.sim-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.sim-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.sim-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.sim-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-/* ========== SIM TARIFFS MODAL ========== */
-.sim-tariffs-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1002;
-    overflow-y: auto;
-}
-
-.sim-tariffs-content {
-    position: relative;
-    background: white;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 600px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.close-sim-tariffs {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    color: #777;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.close-sim-tariffs:hover {
-    color: #333;
-}
-
-.tariff-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    padding-bottom: 5px;
-}
-
-.tariff-tab {
-    padding: 8px 16px;
-    background: #f0f0f0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-}
-
-.tariff-tab:hover {
-    background: #e0e0e0;
-}
-
-.tariff-tab.active {
-    background: #4CAF50;
-    color: white;
-}
-
-.tariff-details {
-    display: none;
-    padding: 15px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.tariff-details.active {
-    display: block;
-}
-
-.tariff-price {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #2a2a2a;
-}
-
-.select-tariff-btn {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.2s;
-    width: 100%;
-    font-size: 16px;
-}
-
-.select-tariff-btn:hover {
-    background: #45a049;
+.back-to-top:hover {
+    background: #0b7dda;
 }
 
 /* Адаптация для мобильных */
@@ -780,88 +502,6 @@ body {
     
     .quick-view-image-container {
         aspect-ratio: 1/1;
-    }
-
-    /* Компактный вид корзины на мобильных */
-    .cart-item {
-        display: grid;
-        grid-template-columns: 60px 1fr;
-        grid-template-rows: auto auto;
-        gap: 8px 12px;
-        padding: 10px 0;
-        align-items: center;
-    }
-
-    .cart-item-image {
-        grid-row: span 2;
-        width: 60px;
-        height: 60px;
-        margin: 0;
-    }
-
-    .cart-item-details {
-        grid-column: 2;
-        overflow: hidden;
-    }
-
-    .cart-item-details h3 {
-        font-size: 14px;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .cart-item-price {
-        font-size: 15px;
-        margin: 4px 0 0;
-    }
-
-    .cart-item-controls {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        gap: 8px;
-        align-items: center;
-    }
-
-    .quantity-btn {
-        width: 30px;
-        height: 30px;
-    }
-
-    .cart-item-controls input {
-        width: 40px;
-        height: 30px;
-    }
-
-    .remove-item-btn {
-        margin-left: auto;
-        padding: 5px 8px;
-        font-size: 12px;
-    }
-
-    /* Адаптация SIM-карт для мобильных */
-    .sim-card {
-        width: 160px;
-        height: 160px;
-        min-width: 160px;
-        font-size: 20px;
-    }
-    
-    .sim-grid {
-        gap: 20px;
-        padding: 0 30px;
-    }
-
-    /* Адаптация модального окна тарифов */
-    .sim-tariffs-content {
-        margin: 20px auto;
-        width: 95%;
-    }
-
-    .tariff-tabs {
-        flex-wrap: nowrap;
     }
 }
 
@@ -902,18 +542,5 @@ body {
     .quick-view-details {
         flex: 1;
         padding: 0 20px;
-    }
-}
-
-/* Для очень маленьких экранов */
-@media (max-width: 400px) {
-    .cart-item {
-        grid-template-columns: 50px 1fr;
-        gap: 6px 8px;
-    }
-
-    .cart-item-image {
-        width: 50px;
-        height: 50px;
     }
 }
