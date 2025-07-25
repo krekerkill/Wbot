@@ -1,152 +1,150 @@
 {
-  "products": {
-    "7576": {
-      "title": "iPhone 16 Pro Max",
-      "description": "Флагман Apple 2024 года с процессором A18 Pro, 6.7\" LTPO OLED 120Hz, тройной камерой 48MP+12MP+12MP с улучшенной ночной съемкой",
-      "price": "99 999 ₽",
-      "old_price": "119 999 ₽",
-      "images": [
-        "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
-        "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg",
-        "https://i.supaimg.com/0adc0c0a-1a40-422a-a535-50056838953a.jpg"
-      ],
-      "brand": "apple"
-    },
-    "7577": {
-      "title": "iPhone 16",
-      "description": "6.1\" OLED 60Hz, процессор A17 Pro, двойная камера 48MP+12MP, аккумулятор 3279mAh",
-      "price": "79 999 ₽",
-      "old_price": "89 999 ₽",
-      "images": [
-        "https://i.supaimg.com/iphone16.jpg",
-        "https://i.supaimg.com/iphone16_2.jpg"
-      ],
-      "brand": "apple"
-    },
-    "7578": {
-      "title": "iPhone SE 4",
-      "description": "6.1\" LCD, процессор A16 Bionic, одинарная камера 12MP, поддержка 5G",
-      "price": "49 999 ₽",
-      "images": [
-        "https://i.supaimg.com/iphone_se4.jpg"
-      ],
-      "brand": "apple"
-    },
-    "28282": {
-      "title": "Samsung Galaxy S24 Ultra",
-      "description": "6.9\" Dynamic AMOLED 2X 144Hz, Snapdragon 8 Gen 3, камера 220MP, аккумулятор 5500mAh с S Pen. Защита IP68 и Gorilla Glass Victus 3.",
-      "price": "92 999 ₽",
-      "old_price": "99 999 ₽",
-      "images": [
-        "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
-        "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg",
-        "https://i.supaimg.com/d368b375-3609-4db7-a700-b6e448b049ef.jpg"
-      ],
-      "brand": "samsung"
-    },
-    "28283": {
-      "title": "Samsung Galaxy Z Fold6",
-      "description": "7.6\" складной AMOLED 120Hz, Snapdragon 8 Gen 3, тройная камера 50MP, аккумулятор 4400mAh",
-      "price": "149 999 ₽",
-      "images": [
-        "https://i.supaimg.com/zfold6.jpg"
-      ],
-      "brand": "samsung"
-    },
-    "28284": {
-      "title": "Samsung Galaxy A55",
-      "description": "6.5\" Super AMOLED 120Hz, Exynos 1480, камера 50MP, аккумулятор 5000mAh",
-      "price": "39 999 ₽",
-      "old_price": "44 999 ₽",
-      "images": [
-        "https://i.supaimg.com/a55.jpg"
-      ],
-      "brand": "samsung"
-    },
-    "9293": {
-      "title": "Xiaomi 14 Pro",
-      "description": "6.73\" AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP с 4-кратным зумом, аккумулятор 4880mAh с зарядкой 120W. Стеклянный корпус с защитой IP68",
-      "price": "79 999 ₽",
-      "images": [
-        "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
-        "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg",
-        "https://i.supaimg.com/1fe8b4f0-0572-4c53-b6cc-16c5427a3e81.jpg"
-      ],
-      "brand": "xiaomi"
-    },
-    "9294": {
-      "title": "Xiaomi Redmi Note 13 Pro+",
-      "description": "6.67\" AMOLED 120Hz, Dimensity 7200 Ultra, камера 200MP, аккумулятор 5000mAh с зарядкой 120W",
-      "price": "34 999 ₽",
-      "images": [
-        "https://i.supaimg.com/redmi_note13.jpg"
-      ],
-      "brand": "xiaomi"
-    },
-    "9295": {
-      "title": "Xiaomi 13T",
-      "description": "6.67\" AMOLED 144Hz, Dimensity 8200 Ultra, камера 50MP Leica, аккумулятор 5000mAh",
-      "price": "49 999 ₽",
-      "old_price": "54 999 ₽",
-      "images": [
-        "https://i.supaimg.com/xiaomi13t.jpg"
-      ],
-      "brand": "xiaomi"
-    },
-    "12345": {
-      "title": "Huawei P60 Pro",
-      "description": "6.6\" OLED 120Hz, Snapdragon 8+ Gen 1, камера 48MP с переменной апертурой, HarmonyOS",
-      "price": "89 999 ₽",
-      "images": [
-        "https://i.supaimg.com/huawei_p60.jpg"
-      ],
-      "brand": "huawei"
-    },
-    "12346": {
-      "title": "Huawei Mate X3",
-      "description": "7.85\" складной OLED 120Hz, Snapdragon 8+ Gen 1, ультратонкий дизайн 5.3mm, камера 50MP",
-      "price": "129 999 ₽",
-      "images": [
-        "https://i.supaimg.com/huawei_matex3.jpg"
-      ],
-      "brand": "huawei"
-    },
-    "54321": {
-      "title": "OnePlus 12",
-      "description": "6.82\" LTPO AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP Hasselblad, аккумулятор 5400mAh",
-      "price": "69 999 ₽",
-      "images": [
-        "https://i.supaimg.com/oneplus12.jpg"
-      ],
-      "brand": "oneplus"
-    },
-    "54322": {
-      "title": "OnePlus Nord 3",
-      "description": "6.74\" AMOLED 120Hz, Dimensity 9000, камера 50MP, аккумулятор 5000mAh с зарядкой 80W",
-      "price": "39 999 ₽",
-      "images": [
-        "https://i.supaimg.com/oneplus_nord3.jpg"
-      ],
-      "brand": "oneplus"
-    },
-    "67890": {
-      "title": "Realme GT 5",
-      "description": "6.74\" AMOLED 144Hz, Snapdragon 8 Gen 2, камера 50MP Sony IMX890, зарядка 240W",
-      "price": "49 999 ₽",
-      "images": [
-        "https://i.supaimg.com/realme_gt5.jpg"
-      ],
-      "brand": "realme"
-    },
-    "67891": {
-      "title": "Realme 11 Pro+",
-      "description": "6.7\" AMOLED 120Hz, Dimensity 7050, камера 200MP с OIS, аккумулятор 5000mAh",
-      "price": "34 999 ₽",
-      "images": [
-        "https://i.supaimg.com/realme11pro.jpg"
-      ],
-      "brand": "realme"
-    }
+  "7576": {
+    "title": "iPhone 16 Pro Max",
+    "description": "Флагман Apple 2024 года с процессором A18 Pro, 6.7\" LTPO OLED 120Hz, тройной камерой 48MP+12MP+12MP с улучшенной ночной съемкой",
+    "price": "99 999 ₽",
+    "old_price": "119 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "apple"
+  },
+  "7577": {
+    "title": "iPhone 16",
+    "description": "6.1\" OLED 60Hz, процессор A17 Pro, двойная камера 48MP+12MP, аккумулятор 3279mAh",
+    "price": "79 999 ₽",
+    "old_price": "89 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "apple"
+  },
+  "7578": {
+    "title": "iPhone SE 4",
+    "description": "6.1\" LCD, процессор A16 Bionic, одинарная камера 12MP, поддержка 5G",
+    "price": "49 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "apple"
+  },
+  "28282": {
+    "title": "Samsung Galaxy S24 Ultra",
+    "description": "6.9\" Dynamic AMOLED 2X 144Hz, Snapdragon 8 Gen 3, камера 220MP, аккумулятор 5500mAh с S Pen",
+    "price": "92 999 ₽",
+    "old_price": "99 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "samsung"
+  },
+  "28283": {
+    "title": "Samsung Galaxy Z Fold6",
+    "description": "7.6\" складной AMOLED 120Hz, Snapdragon 8 Gen 3, тройная камера 50MP, аккумулятор 4400mAh",
+    "price": "149 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "samsung"
+  },
+  "28284": {
+    "title": "Samsung Galaxy A55",
+    "description": "6.5\" Super AMOLED 120Hz, Exynos 1480, камера 50MP, аккумулятор 5000mAh",
+    "price": "39 999 ₽",
+    "old_price": "44 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "samsung"
+  },
+  "9293": {
+    "title": "Xiaomi 14 Pro",
+    "description": "6.73\" AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP с 4-кратным зумом, аккумулятор 4880mAh",
+    "price": "79 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg",
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "xiaomi"
+  },
+  "9294": {
+    "title": "Xiaomi Redmi Note 13 Pro+",
+    "description": "6.67\" AMOLED 120Hz, Dimensity 7200 Ultra, камера 200MP, аккумулятор 5000mAh",
+    "price": "34 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "xiaomi"
+  },
+  "9295": {
+    "title": "Xiaomi 13T",
+    "description": "6.67\" AMOLED 144Hz, Dimensity 8200 Ultra, камера 50MP Leica, аккумулятор 5000mAh",
+    "price": "49 999 ₽",
+    "old_price": "54 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "xiaomi"
+  },
+  "12345": {
+    "title": "Huawei P60 Pro",
+    "description": "6.6\" OLED 120Hz, Snapdragon 8+ Gen 1, камера 48MP с переменной апертурой, HarmonyOS",
+    "price": "89 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "huawei"
+  },
+  "12346": {
+    "title": "Huawei Mate X3",
+    "description": "7.85\" складной OLED 120Hz, Snapdragon 8+ Gen 1, ультратонкий дизайн 5.3mm, камера 50MP",
+    "price": "129 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "huawei"
+  },
+  "54321": {
+    "title": "OnePlus 12",
+    "description": "6.82\" LTPO AMOLED 120Hz, Snapdragon 8 Gen 3, камера 50MP Hasselblad, аккумулятор 5400mAh",
+    "price": "69 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "oneplus"
+  },
+  "54322": {
+    "title": "OnePlus Nord 3",
+    "description": "6.74\" AMOLED 120Hz, Dimensity 9000, камера 50MP, аккумулятор 5000mAh",
+    "price": "39 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "oneplus"
+  },
+  "67890": {
+    "title": "Realme GT 5",
+    "description": "6.74\" AMOLED 144Hz, Snapdragon 8 Gen 2, камера 50MP Sony IMX890, зарядка 240W",
+    "price": "49 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "realme"
+  },
+  "67891": {
+    "title": "Realme 11 Pro+",
+    "description": "6.7\" AMOLED 120Hz, Dimensity 7050, камера 200MP с OIS, аккумулятор 5000mAh",
+    "price": "34 999 ₽",
+    "images": [
+      "https://i.imgur.com/JR6oXbT.jpg"
+    ],
+    "brand": "realme"
   },
   "sim_cards": {
     "mts": {
