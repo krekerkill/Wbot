@@ -13,25 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadProductsFromGitHub() {
     try {
-        console.log('Загрузка данных из:', PRODUCTS_JSON_URL);
         const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error('Не могу загрузить JSON');
 
         const data = await response.json();
         Object.assign(productsData, data);
-        
-        console.log('Данные успешно загружены:', productsData);
         
         initBrandFilters();
         renderCatalog();
         initImageSliders();
         initAddToCartButtons();
     } catch (e) {
-        console.error('Ошибка загрузки данных:', e);
+        console.error('Ошибка загрузки:', e);
         productsContainer.innerHTML = `
             <div class="error-message">
-                ❗ Ошибка загрузки товаров. Пожалуйста, проверьте подключение к интернету и файл products.json
-                <p>${e.message}</p>
+                ❗ Не удалось загрузить товары. Проверьте интернет или файл products.json
             </div>
         `;
     }
@@ -41,31 +37,14 @@ function initBrandFilters() {
     const brandsContainer = document.querySelector('.brands-scroll-container');
     const brands = new Set();
     
-    // Собираем уникальные бренды, игнорируя sim_cards
+    // Собираем все уникальные бренды
     for (const id in productsData) {
         if (id === 'sim_cards') continue;
-        
-        const product = productsData[id];
-        if (!product || !product.brand) {
-            console.warn('Продукт без бренда:', id, product);
-            continue;
-        }
-        
-        const brand = product.brand.toLowerCase();
+        const brand = productsData[id].brand?.toLowerCase() || 'other';
         brands.add(brand);
     }
     
-    // Очищаем контейнер перед добавлением кнопок
-    brandsContainer.innerHTML = '';
-    
-    // Добавляем кнопку "Все"
-    const allBtn = document.createElement('button');
-    allBtn.className = 'brand-filter-btn active';
-    allBtn.dataset.brand = 'all';
-    allBtn.textContent = 'Все';
-    brandsContainer.appendChild(allBtn);
-    
-    // Добавляем кнопки брендов
+    // Создаем кнопки для каждого бренда
     brands.forEach(brand => {
         const btn = document.createElement('button');
         btn.className = 'brand-filter-btn';
@@ -90,35 +69,27 @@ function initBrandFilters() {
 }
 
 function renderCatalog(selectedBrand = 'all') {
-    console.log('Рендеринг каталога для бренда:', selectedBrand);
     productsContainer.innerHTML = '';
 
     const brandsMap = {};
-    
-    // Собираем товары по брендам, игнорируя sim_cards
     for (const id in productsData) {
         if (id === 'sim_cards') continue;
         
         const product = productsData[id];
-        if (!product || !product.brand) continue;
-        
-        const brand = product.brand.toLowerCase();
+        const brand = product.brand?.toLowerCase() || 'other';
         
         if (!brandsMap[brand]) brandsMap[brand] = [];
         brandsMap[brand].push({ id, ...product });
     }
 
-    // Определяем какие бренды рендерить
+    // Рендерим только выбранный бренд или все, если selectedBrand === 'all'
     const brandsToRender = selectedBrand === 'all' 
         ? Object.keys(brandsMap) 
         : [selectedBrand];
 
     brandsToRender.forEach(brand => {
         const products = brandsMap[brand];
-        if (!products || products.length === 0) {
-            console.warn('Нет товаров для бренда:', brand);
-            return;
-        }
+        if (!products) return;
 
         const group = document.createElement('div');
         group.className = 'brand-group';
@@ -145,7 +116,7 @@ function renderCatalog(selectedBrand = 'all') {
             card.innerHTML = `
                 <div class="product-image-container">
                     <div class="image-slider">
-                        ${(product.images || []).map((img, i) => 
+                        ${(product.images || [product.image]).map((img, i) => 
                             `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} loading="lazy" alt="${product.title}">`
                         ).join('')}
                     </div>
@@ -180,8 +151,6 @@ function initImageSliders() {
     document.querySelectorAll('.product-card').forEach(card => {
         const slider = card.querySelector('.image-slider');
         const images = slider.querySelectorAll('img');
-        if (images.length === 0) return;
-        
         let currentIndex = 0;
         
         const dotsContainer = document.createElement('div');
@@ -258,18 +227,8 @@ function initAddToCartButtons() {
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const productCard = e.target.closest('.product-card');
-            if (!productCard) return;
-            
-            const productId = productCard.dataset.id;
-            const product = productsData[productId];
-            
-            if (!product) {
-                console.error('Продукт не найден:', productId);
-                return;
-            }
-            
-            cart.addItem(productId, product);
+            const productId = btn.closest('.product-card').dataset.id;
+            cart.addItem(productId, productsData[productId]);
             
             btn.innerHTML = '<i class="fas fa-check"></i>';
             setTimeout(() => {
@@ -281,10 +240,7 @@ function initAddToCartButtons() {
 
 function showQuickView(productId) {
     const product = productsData[productId];
-    if (!product) {
-        console.error('Продукт не найден для QuickView:', productId);
-        return;
-    }
+    if (!product) return;
 
     const hasDiscount = product.old_price && product.old_price !== product.price;
     const discountPercent = hasDiscount 
@@ -292,14 +248,14 @@ function showQuickView(productId) {
         : 0;
 
     const sliderContainer = quickViewModal.querySelector('.image-slider');
-    sliderContainer.innerHTML = (product.images || []).map((img, i) => 
+    sliderContainer.innerHTML = (product.images || [product.image]).map((img, i) => 
         `<img src="${img.trim()}" ${i === 0 ? 'class="active"' : ''} alt="${product.title}">`
     ).join('');
 
     const dotsContainer = document.createElement('div');
     dotsContainer.className = 'image-dots';
     
-    (product.images || []).forEach((_, index) => {
+    (product.images || [product.image]).forEach((_, index) => {
         const dot = document.createElement('div');
         dot.className = `image-dot ${index === 0 ? 'active' : ''}`;
         dot.dataset.index = index;
@@ -392,12 +348,6 @@ function initBackToTopButton() {
     });
 }
 
-function parsePrice(priceStr) {
-    if (!priceStr) return 0;
-    return parseFloat(priceStr.replace(/[^\d]/g, ''));
-}
-
-// Обработчики событий для модального окна
 document.querySelector('.close-quick-view')?.addEventListener('click', () => {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -410,10 +360,13 @@ quickViewModal?.addEventListener('click', (e) => {
     }
 });
 
-// Обработчик кликов по карточкам товаров
 productsContainer.addEventListener('click', (e) => {
     const productCard = e.target.closest('.product-card');
     if (productCard && !e.target.closest('.add-to-cart-btn')) {
         showQuickView(productCard.dataset.id);
     }
 });
+
+function parsePrice(priceStr) {
+    return parseFloat(priceStr.replace(/[^\d]/g, ''));
+                             }
