@@ -39,7 +39,6 @@ function initBrandFilters() {
     
     // Собираем все уникальные бренды
     for (const id in productsData) {
-        if (id === 'sim_cards') continue;
         const brand = productsData[id].brand?.toLowerCase() || 'other';
         brands.add(brand);
     }
@@ -73,8 +72,6 @@ function renderCatalog(selectedBrand = 'all') {
 
     const brandsMap = {};
     for (const id in productsData) {
-        if (id === 'sim_cards') continue;
-        
         const product = productsData[id];
         const brand = product.brand?.toLowerCase() || 'other';
         
@@ -369,4 +366,4 @@ productsContainer.addEventListener('click', (e) => {
 
 function parsePrice(priceStr) {
     return parseFloat(priceStr.replace(/[^\d]/g, ''));
-                             }
+}
