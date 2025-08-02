@@ -6,6 +6,7 @@ const cart = new Cart();
 const quickViewModal = document.getElementById('quickViewModal');
 const productsContainer = document.getElementById('products-container');
 
+// Основная загрузка
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     initEventListeners();
@@ -14,30 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadProducts() {
     try {
         const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error('Network response was not ok');
-
+        if (!response.ok) throw new Error('Ошибка загрузки товаров');
+        
         const data = await response.json();
         Object.assign(productsData, data);
         
         initBrandFilters();
         renderCatalog();
     } catch (error) {
-        console.error('Error loading products:', error);
-        showErrorMessage();
+        console.error('Ошибка:', error);
+        productsContainer.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
+            </div>
+        `;
     }
 }
 
-function showErrorMessage() {
-    productsContainer.innerHTML = `
-        <div class="error-message">
-            <i class="fas fa-exclamation-circle"></i>
-            <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
-        </div>
-    `;
-}
-
 function initEventListeners() {
-    // Back to top button
+    // Кнопка "Наверх"
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
         backToTopBtn.classList.toggle('visible', window.scrollY > 300);
@@ -46,34 +43,32 @@ function initEventListeners() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Quick view modal
+    // Закрытие быстрого просмотра
     document.querySelector('.close-quick-view')?.addEventListener('click', closeQuickView);
     quickViewModal?.addEventListener('click', (e) => {
         if (e.target === quickViewModal) closeQuickView();
     });
 
-    // Product interactions
-    productsContainer.addEventListener('click', handleProductInteraction);
-}
-
-function handleProductInteraction(e) {
-    const target = e.target;
-    
-    // Add to cart button
-    const addToCartBtn = target.closest('.add-to-cart-btn');
-    if (addToCartBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        const productId = addToCartBtn.closest('.product-card').dataset.id;
-        addToCart(productId, addToCartBtn);
-        return;
-    }
-
-    // Product card click (for quick view)
-    const productCard = target.closest('.product-card');
-    if (productCard) {
-        showQuickView(productCard.dataset.id);
-    }
+    // Обработчик кликов по товарам
+    productsContainer.addEventListener('click', (e) => {
+        const target = e.target;
+        
+        // Клик по кнопке "В корзину"
+        const addToCartBtn = target.closest('.add-to-cart-btn');
+        if (addToCartBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const productId = addToCartBtn.closest('.product-card').dataset.id;
+            addToCart(productId, addToCartBtn);
+            return;
+        }
+        
+        // Клик по карточке товара (открыть быстрый просмотр)
+        const productCard = target.closest('.product-card');
+        if (productCard) {
+            showQuickView(productCard.dataset.id);
+        }
+    });
 }
 
 function addToCart(productId, button) {
@@ -82,15 +77,15 @@ function addToCart(productId, button) {
 
     cart.addItem(productId, product);
     
-    // Visual feedback
+    // Анимация добавления
     if (button) {
-        const originalHtml = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check"></i> Добавлено';
-        button.classList.add('added');
+        const originalContent = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i>';
+        button.classList.add('added-to-cart');
         setTimeout(() => {
-            button.innerHTML = originalHtml;
-            button.classList.remove('added');
-        }, 1500);
+            button.innerHTML = originalContent;
+            button.classList.remove('added-to-cart');
+        }, 1000);
     }
 }
 
@@ -98,18 +93,18 @@ function initBrandFilters() {
     const brandsContainer = document.querySelector('.brands-scroll-container');
     const brands = new Set();
     
-    // Collect unique brands
+    // Собираем уникальные бренды
     for (const id in productsData) {
         const brand = productsData[id].brand?.toLowerCase() || 'other';
         brands.add(brand);
     }
     
-    // Create filter buttons
-    const allBrandsBtn = document.createElement('button');
-    allBrandsBtn.className = 'brand-filter-btn active';
-    allBrandsBtn.dataset.brand = 'all';
-    allBrandsBtn.textContent = 'Все';
-    brandsContainer.appendChild(allBrandsBtn);
+    // Создаем кнопки фильтров
+    const allBtn = document.createElement('button');
+    allBtn.className = 'brand-filter-btn active';
+    allBtn.dataset.brand = 'all';
+    allBtn.textContent = 'Все';
+    brandsContainer.appendChild(allBtn);
 
     [...brands].sort().forEach(brand => {
         const btn = document.createElement('button');
@@ -119,7 +114,7 @@ function initBrandFilters() {
         brandsContainer.appendChild(btn);
     });
     
-    // Filter click handler
+    // Обработчик кликов по фильтрам
     brandsContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.brand-filter-btn');
         if (!btn) return;
@@ -129,15 +124,14 @@ function initBrandFilters() {
         );
         btn.classList.add('active');
         
-        const brand = btn.dataset.brand;
-        renderCatalog(brand);
+        renderCatalog(btn.dataset.brand);
     });
 }
 
 function renderCatalog(selectedBrand = 'all') {
     productsContainer.innerHTML = '';
 
-    // Group products by brand
+    // Группируем товары по брендам
     const brandsMap = {};
     for (const id in productsData) {
         const product = productsData[id];
@@ -147,27 +141,24 @@ function renderCatalog(selectedBrand = 'all') {
         brandsMap[brand].push({ id, ...product });
     }
 
-    // Render selected brands
+    // Рендерим выбранные бренды
     const brandsToRender = selectedBrand === 'all' 
         ? Object.keys(brandsMap) 
         : [selectedBrand];
 
     brandsToRender.forEach(brand => {
         const products = brandsMap[brand];
-        if (!products || products.length === 0) return;
+        if (!products) return;
 
-        // Brand group container
         const group = document.createElement('div');
         group.className = 'brand-group';
         group.setAttribute('data-brand', brand);
 
-        // Brand title
         const title = document.createElement('h2');
         title.className = 'brand-title';
         title.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
         group.appendChild(title);
 
-        // Products grid
         const grid = document.createElement('div');
         grid.className = 'products-grid';
 
@@ -218,7 +209,7 @@ function showQuickView(productId) {
         ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
         : 0;
 
-    // Update modal content
+    // Заполняем модальное окно
     document.getElementById('quickViewTitle').textContent = product.title;
     document.getElementById('quickViewDescription').textContent = product.description;
     
@@ -231,20 +222,18 @@ function showQuickView(productId) {
         ` : ''}
     `;
 
-    // Set up add to cart button in quick view
+    // Настраиваем кнопку в модальном окне
     const quickViewCartBtn = quickViewModal.querySelector('.quick-view-cart-btn');
     quickViewCartBtn.onclick = (e) => {
         e.stopPropagation();
         addToCart(productId);
         quickViewCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
-        quickViewCartBtn.classList.add('added');
         setTimeout(() => {
             quickViewCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
-            quickViewCartBtn.classList.remove('added');
         }, 1500);
     };
 
-    // Show modal
+    // Показываем модальное окно
     quickViewModal.style.display = 'block';
     document.body.classList.add('no-scroll');
 }
