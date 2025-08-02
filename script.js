@@ -5,17 +5,36 @@ const productsData = {};
 const cart = new Cart();
 const quickViewModal = document.getElementById('quickViewModal');
 const productsContainer = document.getElementById('products-container');
+const brandsFilter = document.querySelector('.brands-filter');
 
-// Основная загрузка
+let lastScrollPosition = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     initEventListeners();
+    initScrollHandler();
 });
+
+function initScrollHandler() {
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > lastScrollPosition && currentScroll > 100) {
+            // Прокрутка вниз
+            brandsFilter.classList.add('hidden');
+        } else {
+            // Прокрутка вверх
+            brandsFilter.classList.remove('hidden');
+        }
+        
+        lastScrollPosition = currentScroll;
+    });
+}
 
 async function loadProducts() {
     try {
         const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error('Ошибка загрузки товаров');
+        if (!response.ok) throw new Error('Не удалось загрузить товары');
         
         const data = await response.json();
         Object.assign(productsData, data);
@@ -24,13 +43,17 @@ async function loadProducts() {
         renderCatalog();
     } catch (error) {
         console.error('Ошибка:', error);
-        productsContainer.innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
-            </div>
-        `;
+        showErrorMessage();
     }
+}
+
+function showErrorMessage() {
+    productsContainer.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
+        </div>
+    `;
 }
 
 function initEventListeners() {
@@ -50,25 +73,27 @@ function initEventListeners() {
     });
 
     // Обработчик кликов по товарам
-    productsContainer.addEventListener('click', (e) => {
-        const target = e.target;
-        
-        // Клик по кнопке "В корзину"
-        const addToCartBtn = target.closest('.add-to-cart-btn');
-        if (addToCartBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            const productId = addToCartBtn.closest('.product-card').dataset.id;
-            addToCart(productId, addToCartBtn);
-            return;
-        }
-        
-        // Клик по карточке товара (открыть быстрый просмотр)
-        const productCard = target.closest('.product-card');
-        if (productCard) {
-            showQuickView(productCard.dataset.id);
-        }
-    });
+    productsContainer.addEventListener('click', handleProductClick);
+}
+
+function handleProductClick(e) {
+    const target = e.target;
+    
+    // Клик по кнопке "В корзину"
+    const addToCartBtn = target.closest('.add-to-cart-btn');
+    if (addToCartBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const productId = addToCartBtn.closest('.product-card').dataset.id;
+        addToCart(productId, addToCartBtn);
+        return;
+    }
+    
+    // Клик по карточке товара (открыть быстрый просмотр)
+    const productCard = target.closest('.product-card');
+    if (productCard) {
+        showQuickView(productCard.dataset.id);
+    }
 }
 
 function addToCart(productId, button) {
@@ -79,11 +104,10 @@ function addToCart(productId, button) {
     
     // Анимация добавления
     if (button) {
-        const originalContent = button.innerHTML;
         button.innerHTML = '<i class="fas fa-check"></i>';
         button.classList.add('added-to-cart');
         setTimeout(() => {
-            button.innerHTML = originalContent;
+            button.innerHTML = '<i class="fas fa-shopping-cart"></i>';
             button.classList.remove('added-to-cart');
         }, 1000);
     }
@@ -99,19 +123,19 @@ function initBrandFilters() {
         brands.add(brand);
     }
     
-    // Создаем кнопки фильтров
-    const allBtn = document.createElement('button');
-    allBtn.className = 'brand-filter-btn active';
-    allBtn.dataset.brand = 'all';
-    allBtn.textContent = 'Все';
-    brandsContainer.appendChild(allBtn);
-
-    [...brands].sort().forEach(brand => {
+    // Создаем кнопки только для брендов (без "Все")
+    [...brands].sort().forEach((brand, index) => {
         const btn = document.createElement('button');
         btn.className = 'brand-filter-btn';
         btn.dataset.brand = brand;
         btn.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
         brandsContainer.appendChild(btn);
+        
+        // Первый бренд активен по умолчанию
+        if (index === 0) {
+            btn.classList.add('active');
+            renderCatalog(brand);
+        }
     });
     
     // Обработчик кликов по фильтрам
@@ -128,10 +152,9 @@ function initBrandFilters() {
     });
 }
 
-function renderCatalog(selectedBrand = 'all') {
+function renderCatalog(selectedBrand) {
     productsContainer.innerHTML = '';
 
-    // Группируем товары по брендам
     const brandsMap = {};
     for (const id in productsData) {
         const product = productsData[id];
@@ -141,63 +164,46 @@ function renderCatalog(selectedBrand = 'all') {
         brandsMap[brand].push({ id, ...product });
     }
 
-    // Рендерим выбранные бренды
-    const brandsToRender = selectedBrand === 'all' 
-        ? Object.keys(brandsMap) 
-        : [selectedBrand];
+    const products = selectedBrand ? brandsMap[selectedBrand] : Object.values(productsData);
+    if (!products) return;
 
-    brandsToRender.forEach(brand => {
-        const products = brandsMap[brand];
-        if (!products) return;
+    const grid = document.createElement('div');
+    grid.className = 'products-grid';
 
-        const group = document.createElement('div');
-        group.className = 'brand-group';
-        group.setAttribute('data-brand', brand);
+    products.forEach(product => {
+        const hasDiscount = product.old_price && product.old_price !== product.price;
+        const discountPercent = hasDiscount 
+            ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
+            : 0;
 
-        const title = document.createElement('h2');
-        title.className = 'brand-title';
-        title.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
-        group.appendChild(title);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.id = product.id;
 
-        const grid = document.createElement('div');
-        grid.className = 'products-grid';
-
-        products.forEach(product => {
-            const hasDiscount = product.old_price && product.old_price !== product.price;
-            const discountPercent = hasDiscount 
-                ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
-                : 0;
-
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.dataset.id = product.id;
-
-            card.innerHTML = `
-                <div class="product-image-container">
-                    <img src="${product.images?.[0] || product.image}" loading="lazy" alt="${product.title}">
-                    <button class="add-to-cart-btn" title="Добавить в корзину">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
+        card.innerHTML = `
+            <div class="product-image-container">
+                <img src="${product.images?.[0] || product.image}" loading="lazy" alt="${product.title}">
+                <button class="add-to-cart-btn" title="Добавить в корзину">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </div>
+            <div class="product-details">
+                <h3>${product.title}</h3>
+                <p>${product.description}</p>
+                <div class="price-container">
+                    <span class="price">${product.price}</span>
+                    ${hasDiscount ? `
+                        <span class="old-price">${product.old_price}</span>
+                        <span class="discount-badge">-${discountPercent}%</span>
+                    ` : ''}
                 </div>
-                <div class="product-details">
-                    <h3>${product.title}</h3>
-                    <p>${product.description}</p>
-                    <div class="price-container">
-                        <span class="price">${product.price}</span>
-                        ${hasDiscount ? `
-                            <span class="old-price">${product.old_price}</span>
-                            <span class="discount-badge">-${discountPercent}%</span>
-                        ` : ''}
-                    </div>
-                </div>
-            `;
+            </div>
+        `;
 
-            grid.appendChild(card);
-        });
-
-        group.appendChild(grid);
-        productsContainer.appendChild(group);
+        grid.appendChild(card);
     });
+
+    productsContainer.appendChild(grid);
 }
 
 function showQuickView(productId) {
@@ -212,6 +218,8 @@ function showQuickView(productId) {
     // Заполняем модальное окно
     document.getElementById('quickViewTitle').textContent = product.title;
     document.getElementById('quickViewDescription').textContent = product.description;
+    document.getElementById('quickViewImage').src = product.images?.[0] || product.image;
+    document.getElementById('quickViewImage').alt = product.title;
     
     const priceContainer = document.getElementById('quickViewPrice');
     priceContainer.innerHTML = `
@@ -229,7 +237,7 @@ function showQuickView(productId) {
         addToCart(productId);
         quickViewCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
         setTimeout(() => {
-            quickViewCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
+            quickViewCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Добавить в корзину';
         }, 1500);
     };
 
@@ -245,4 +253,4 @@ function closeQuickView() {
 
 function parsePrice(priceStr) {
     return parseFloat(priceStr.replace(/[^\d]/g, ''));
-                               }
+}
