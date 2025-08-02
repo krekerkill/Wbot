@@ -9,32 +9,17 @@ const brandsFilter = document.querySelector('.brands-filter');
 
 let lastScrollPosition = 0;
 
+// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     initEventListeners();
     initScrollHandler();
 });
 
-function initScrollHandler() {
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > lastScrollPosition && currentScroll > 100) {
-            // Прокрутка вниз
-            brandsFilter.classList.add('hidden');
-        } else {
-            // Прокрутка вверх
-            brandsFilter.classList.remove('hidden');
-        }
-        
-        lastScrollPosition = currentScroll;
-    });
-}
-
 async function loadProducts() {
     try {
         const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error('Не удалось загрузить товары');
+        if (!response.ok) throw new Error('Ошибка загрузки товаров');
         
         const data = await response.json();
         Object.assign(productsData, data);
@@ -45,15 +30,6 @@ async function loadProducts() {
         console.error('Ошибка:', error);
         showErrorMessage();
     }
-}
-
-function showErrorMessage() {
-    productsContainer.innerHTML = `
-        <div class="error-message">
-            <i class="fas fa-exclamation-triangle"></i>
-            <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
-        </div>
-    `;
 }
 
 function initEventListeners() {
@@ -113,17 +89,30 @@ function addToCart(productId, button) {
     }
 }
 
+function initScrollHandler() {
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > lastScrollPosition && currentScroll > 100) {
+            brandsFilter.classList.add('hidden');
+        } else {
+            brandsFilter.classList.remove('hidden');
+        }
+        
+        lastScrollPosition = currentScroll;
+    });
+}
+
 function initBrandFilters() {
     const brandsContainer = document.querySelector('.brands-scroll-container');
     const brands = new Set();
     
-    // Собираем уникальные бренды
     for (const id in productsData) {
         const brand = productsData[id].brand?.toLowerCase() || 'other';
         brands.add(brand);
     }
     
-    // Создаем кнопки только для брендов (без "Все")
+    // Создаем кнопки только для брендов
     [...brands].sort().forEach((brand, index) => {
         const btn = document.createElement('button');
         btn.className = 'brand-filter-btn';
@@ -134,7 +123,6 @@ function initBrandFilters() {
         // Первый бренд активен по умолчанию
         if (index === 0) {
             btn.classList.add('active');
-            renderCatalog(brand);
         }
     });
     
@@ -164,8 +152,12 @@ function renderCatalog(selectedBrand) {
         brandsMap[brand].push({ id, ...product });
     }
 
-    const products = selectedBrand ? brandsMap[selectedBrand] : Object.values(productsData);
-    if (!products) return;
+    const products = selectedBrand ? brandsMap[selectedBrand] : Object.values(productsData).flat();
+    
+    if (!products || products.length === 0) {
+        productsContainer.innerHTML = '<p>Товары не найдены</p>';
+        return;
+    }
 
     const grid = document.createElement('div');
     grid.className = 'products-grid';
@@ -249,6 +241,15 @@ function showQuickView(productId) {
 function closeQuickView() {
     quickViewModal.style.display = 'none';
     document.body.classList.remove('no-scroll');
+}
+
+function showErrorMessage() {
+    productsContainer.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
+        </div>
+    `;
 }
 
 function parsePrice(priceStr) {
