@@ -166,12 +166,15 @@ body {
     background: #45a049;
 }
 
-.add-to-cart-btn i {
-    font-size: 16px;
-}
-
 .add-to-cart-btn.added-to-cart {
     background: #8BC34A;
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 /* ========== PRODUCT DETAILS ========== */
@@ -319,6 +322,10 @@ body {
     background-color: #0b7dda;
 }
 
+.quick-view-cart-btn.added {
+    background-color: #8BC34A;
+}
+
 /* ========== CART ICON ========== */
 .cart-icon {
     position: fixed;
@@ -336,6 +343,11 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     z-index: 999;
     font-size: 24px;
+    transition: transform 0.3s;
+}
+
+.cart-icon:hover {
+    transform: scale(1.05);
 }
 
 .cart-count {
@@ -426,6 +438,12 @@ body {
     border-bottom: 1px solid #eee;
     align-items: center;
     gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.cart-item.removing {
+    opacity: 0;
+    transform: translateX(100%);
 }
 
 .cart-item-image {
@@ -489,6 +507,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.2s;
 }
 
 .quantity-btn:hover {
@@ -513,6 +532,7 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+    transition: color 0.2s;
 }
 
 .remove-item-btn:hover {
@@ -588,9 +608,9 @@ body {
     to { opacity: 1; }
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* ========== ERROR MESSAGE ========== */
@@ -598,6 +618,7 @@ body {
     text-align: center;
     padding: 40px 20px;
     color: #f44336;
+    animation: slideIn 0.3s ease;
 }
 
 .error-message i {
@@ -607,6 +628,10 @@ body {
 
 /* ========== RESPONSIVE STYLES ========== */
 @media (max-width: 767px) {
+    #products-container {
+        padding: 0;
+    }
+    
     .products-grid {
         grid-template-columns: 1fr;
         gap: 0;
@@ -686,4 +711,4 @@ body {
         flex: 1;
         padding: 0 20px;
     }
-}
+    }
