@@ -48,7 +48,6 @@ class Cart {
         if (!this.cartModal) {
             this.createCartModal();
         }
-        this.renderCartModal();
         this.cartModal.style.display = 'block';
         document.body.classList.add('no-scroll');
     }
@@ -76,6 +75,7 @@ class Cart {
         document.body.appendChild(modal);
         this.cartModal = modal;
 
+        // Добавляем обработчики событий
         modal.querySelector('.close-cart-modal').addEventListener('click', () => {
             this.hideCartModal();
         });
@@ -92,6 +92,8 @@ class Cart {
             this.updateCart();
             this.hideCartModal();
         });
+
+        this.renderCartModal();
     }
 
     renderCartModal() {
@@ -141,13 +143,14 @@ class Cart {
 
         totalPriceElement.textContent = `${this.getTotalPrice().toLocaleString()} ₽`;
 
-        // Добавляем обработчики событий
+        // Добавляем обработчики для элементов корзины
         this.addCartEventListeners();
     }
 
     addCartEventListeners() {
-        const container = this.cartModal.querySelector('.cart-items');
-        
+        const container = this.cartModal?.querySelector('.cart-items');
+        if (!container) return;
+
         container.querySelectorAll('.minus').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const itemId = e.target.closest('.cart-item').dataset.id;
@@ -185,13 +188,21 @@ class Cart {
     }
 
     hideCartModal() {
-        this.cartModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
+        if (this.cartModal) {
+            this.cartModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
     }
 
     removeItem(productId) {
-        this.cart = this.cart.filter(item => item.id !== productId);
-        this.updateCart();
+        const itemElement = document.querySelector(`.cart-item[data-id="${productId}"]`);
+        if (itemElement) {
+            itemElement.classList.add('removing');
+            setTimeout(() => {
+                this.cart = this.cart.filter(item => item.id !== productId);
+                this.updateCart();
+            }, 300);
+        }
     }
 
     updateQuantity(productId, newQuantity) {
