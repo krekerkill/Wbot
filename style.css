@@ -712,3 +712,50 @@ body {
         padding: 0 20px;
     }
     }
+/* Добавьте в конец вашего CSS-файла */
+
+/* Анимации для корзины */
+.cart-item.removing {
+    animation: slideOut 0.3s forwards;
+}
+
+@keyframes slideOut {
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+}
+
+/* Фикс для модальных окон */
+.quick-view-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+}
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+}
+
+.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Анимация кнопки добавления в корзину */
+.add-to-cart-btn.added-to-cart {
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
