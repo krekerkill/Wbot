@@ -34,14 +34,8 @@ class Cart {
     }
 
     removeItem(productId) {
-        const itemElement = document.querySelector(`.cart-item[data-id="${productId}"]`);
-        if (itemElement) {
-            itemElement.classList.add('removing');
-            setTimeout(() => {
-                this.cart = this.cart.filter(item => item.id !== productId);
-                this.updateCart();
-            }, 300);
-        }
+        this.cart = this.cart.filter(item => item.id !== productId);
+        this.updateCart();
     }
 
     updateQuantity(productId, newQuantity) {
@@ -87,17 +81,25 @@ class Cart {
         modal.className = 'cart-modal';
         modal.innerHTML = `
             <div class="cart-modal-content">
-                <span class="close-cart-modal">&times;</span>
-                <h2>Корзина</h2>
-                <div class="cart-items-container"></div>
-                <div class="cart-summary">
+                <div class="cart-header">
+                    <h2>Ваша корзина</h2>
+                    <span class="close-cart-modal">&times;</span>
+                </div>
+                <div class="cart-items">
+                    ${this.cart.length === 0 ? `
+                        <div class="empty-cart-message">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p>Корзина пуста</p>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="cart-footer">
                     <div class="cart-total">
                         <span>Итого:</span>
-                        <span class="total-price">0 ₽</span>
+                        <span class="total-price">${this.getTotalPrice().toLocaleString()} ₽</span>
                     </div>
                     <button class="checkout-btn">Оформить заказ</button>
                 </div>
-                <div class="empty-cart-message">Корзина пуста</div>
             </div>
         `;
 
@@ -123,38 +125,54 @@ class Cart {
     }
 
     renderCartModal() {
-        const container = this.cartModal.querySelector('.cart-items-container');
+        const container = this.cartModal.querySelector('.cart-items');
         const emptyMessage = this.cartModal.querySelector('.empty-cart-message');
         const totalPriceElement = this.cartModal.querySelector('.total-price');
 
         if (this.cart.length === 0) {
-            container.innerHTML = '';
-            emptyMessage.style.display = 'block';
+            container.innerHTML = `
+                <div class="empty-cart-message">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Корзина пуста</p>
+                </div>
+            `;
             totalPriceElement.textContent = '0 ₽';
             return;
         }
 
-        emptyMessage.style.display = 'none';
-        container.innerHTML = this.cart.map(item => `
-            <div class="cart-item" data-id="${item.id}">
-                <div class="cart-item-image">
-                    <img src="${item.images?.[0] || item.image}" alt="${item.title}" loading="lazy">
+        container.innerHTML = this.cart.map(item => {
+            const hasDiscount = item.old_price && item.old_price !== item.price;
+            return `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.images?.[0] || item.image}" alt="${item.title}" loading="lazy">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.title}</h3>
+                        <div class="price-container">
+                            <span class="price">${item.price}</span>
+                            ${hasDiscount ? `
+                                <span class="old-price">${item.old_price}</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        <button class="remove-item-btn" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="cart-item-details">
-                    <h3>${item.title}</h3>
-                    <div class="cart-item-price">${item.price}</div>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="quantity-btn minus">−</button>
-                    <input type="number" value="${item.quantity}" min="1">
-                    <button class="quantity-btn plus">+</button>
-                    <button class="remove-item-btn">Удалить</button>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         totalPriceElement.textContent = `${this.getTotalPrice().toLocaleString()} ₽`;
 
+        // Обработчики событий для кнопок
         container.querySelectorAll('.minus').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const itemId = e.target.closest('.cart-item').dataset.id;
@@ -171,7 +189,7 @@ class Cart {
             });
         });
 
-        container.querySelectorAll('input').forEach(input => {
+        container.querySelectorAll('.quantity-input').forEach(input => {
             input.addEventListener('change', (e) => {
                 const itemId = e.target.closest('.cart-item').dataset.id;
                 const newQuantity = parseInt(e.target.value);
@@ -192,8 +210,10 @@ class Cart {
     }
 
     hideCartModal() {
-        this.cartModal.style.display = 'none';
-        document.body.classList.remove('no-scroll');
+        if (this.cartModal) {
+            this.cartModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
     }
 
     parsePrice(priceStr) {
