@@ -1,248 +1,665 @@
-import Cart from './cart.js';
+/* ========== GLOBAL STYLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-const PRODUCTS_JSON_URL = 'products.json';
-const productsData = {};
-const cart = new Cart();
-const quickViewModal = document.getElementById('quickViewModal');
-const productsContainer = document.getElementById('products-container');
+html {
+    scroll-behavior: smooth;
+}
 
-// Основная загрузка
-document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    initEventListeners();
-});
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.5;
+    position: relative;
+    padding-bottom: 50px;
+}
 
-async function loadProducts() {
-    try {
-        const response = await fetch(PRODUCTS_JSON_URL);
-        if (!response.ok) throw new Error('Ошибка загрузки товаров');
-        
-        const data = await response.json();
-        Object.assign(productsData, data);
-        
-        initBrandFilters();
-        renderCatalog();
-    } catch (error) {
-        console.error('Ошибка:', error);
-        productsContainer.innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Не удалось загрузить товары. Пожалуйста, попробуйте позже.</p>
-            </div>
-        `;
+.no-scroll {
+    overflow: hidden;
+}
+
+/* ========== BRANDS FILTER ========== */
+.brands-filter {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.brands-scroll-container {
+    display: flex;
+    gap: 8px;
+    padding: 0 15px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.brands-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.brand-filter-btn {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.brand-filter-btn:hover {
+    background: #e0e0e0;
+}
+
+.brand-filter-btn.active {
+    background: #4CAF50;
+    color: white;
+    font-weight: 500;
+}
+
+/* ========== MAIN CONTAINER ========== */
+#products-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* ========== PRODUCT GRID ========== */
+.products-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 15px;
+}
+
+/* ========== BRAND GROUP ========== */
+.brand-group {
+    margin-bottom: 30px;
+}
+
+.brand-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 20px 0 15px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.brand-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    height: 80%;
+    width: 3px;
+    background-color: #4CAF50;
+    border-radius: 2px;
+}
+
+/* ========== PRODUCT CARD ========== */
+.product-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== IMAGE CONTAINER ========== */
+.product-image-container {
+    position: relative;
+    aspect-ratio: 1/1;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 15px;
+}
+
+.add-to-cart-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    transform: scale(1.1);
+    background: #45a049;
+}
+
+.add-to-cart-btn.added-to-cart {
+    background: #8BC34A;
+}
+
+.add-to-cart-btn i {
+    font-size: 16px;
+}
+
+/* ========== PRODUCT DETAILS ========== */
+.product-details {
+    padding: 15px;
+}
+
+.product-details h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.product-details p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2a2a2a;
+}
+
+.old-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.discount-badge {
+    background: #f44336;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ========== QUICK VIEW MODAL ========== */
+.quick-view-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.quick-view-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.close-quick-view {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 11;
+}
+
+.close-quick-view:hover {
+    color: #333;
+}
+
+.quick-view-image-container {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    aspect-ratio: 1/1;
+}
+
+.quick-view-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.quick-view-details {
+    padding: 0 15px;
+}
+
+.quick-view-details h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.quick-view-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.quick-view-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.quick-view-cart-btn:hover {
+    background-color: #0b7dda;
+}
+
+/* ========== CART ICON ========== */
+.cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 999;
+    font-size: 24px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #f44336;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ========== CART MODAL ========== */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.cart-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 600px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-cart-modal {
+    font-size: 24px;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-cart-modal:hover {
+    color: #333;
+}
+
+.cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 15px;
+}
+
+.empty-cart-message {
+    text-align: center;
+    padding: 40px 0;
+    color: #666;
+}
+
+.empty-cart-message i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+.cart-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    background: #f9f9f9;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-item-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.cart-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-price {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    background: #f5f5f5;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover {
+    background: #e0e0e0;
+}
+
+.quantity-input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-item-btn:hover {
+    color: #d32f2f;
+}
+
+.cart-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.total-price {
+    color: #2196F3;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #45a049;
+}
+
+/* ========== BACK TO TOP BUTTON ========== */
+.back-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2196F3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background: #0b7dda;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ========== ERROR MESSAGE ========== */
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #f44336;
+}
+
+.error-message i {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+@media (max-width: 767px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .product-card {
+        border-radius: 0;
+        box-shadow: none;
+        border-bottom: 1px solid #eee;
+        margin: 0;
+    }
+    
+    .product-card:hover {
+        transform: none;
+    }
+    
+    .quick-view-content {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+    
+    .cart-modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+    
+    .cart-item {
+        flex-wrap: wrap;
+    }
+    
+    .cart-item-controls {
+        width: 100%;
+        margin-top: 10px;
+        justify-content: flex-end;
     }
 }
 
-function initEventListeners() {
-    // Кнопка "Наверх"
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        backToTopBtn.classList.toggle('visible', window.scrollY > 300);
-    });
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Закрытие быстрого просмотра
-    document.querySelector('.close-quick-view')?.addEventListener('click', closeQuickView);
-    quickViewModal?.addEventListener('click', (e) => {
-        if (e.target === quickViewModal) closeQuickView();
-    });
-
-    // Обработчик кликов по товарам
-    productsContainer.addEventListener('click', (e) => {
-        const target = e.target;
-        
-        // Клик по кнопке "В корзину"
-        const addToCartBtn = target.closest('.add-to-cart-btn');
-        if (addToCartBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            const productId = addToCartBtn.closest('.product-card').dataset.id;
-            addToCart(productId, addToCartBtn);
-            return;
-        }
-        
-        // Клик по карточке товара (открыть быстрый просмотр)
-        const productCard = target.closest('.product-card');
-        if (productCard) {
-            showQuickView(productCard.dataset.id);
-        }
-    });
-}
-
-function addToCart(productId, button) {
-    const product = productsData[productId];
-    if (!product) return;
-
-    cart.addItem(productId, product);
-    
-    // Анимация добавления
-    if (button) {
-        const originalContent = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check"></i>';
-        button.classList.add('added-to-cart');
-        setTimeout(() => {
-            button.innerHTML = originalContent;
-            button.classList.remove('added-to-cart');
-        }, 1000);
+@media (min-width: 768px) and (max-width: 1023px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-function initBrandFilters() {
-    const brandsContainer = document.querySelector('.brands-scroll-container');
-    const brands = new Set();
-    
-    // Собираем уникальные бренды
-    for (const id in productsData) {
-        const brand = productsData[id].brand?.toLowerCase() || 'other';
-        brands.add(brand);
+@media (min-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
     
-    // Создаем кнопки фильтров
-    const allBtn = document.createElement('button');
-    allBtn.className = 'brand-filter-btn active';
-    allBtn.dataset.brand = 'all';
-    allBtn.textContent = 'Все';
-    brandsContainer.appendChild(allBtn);
-
-    [...brands].sort().forEach(brand => {
-        const btn = document.createElement('button');
-        btn.className = 'brand-filter-btn';
-        btn.dataset.brand = brand;
-        btn.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
-        brandsContainer.appendChild(btn);
-    });
-    
-    // Обработчик кликов по фильтрам
-    brandsContainer.addEventListener('click', (e) => {
-        const btn = e.target.closest('.brand-filter-btn');
-        if (!btn) return;
-        
-        document.querySelectorAll('.brand-filter-btn').forEach(b => 
-            b.classList.remove('active')
-        );
-        btn.classList.add('active');
-        
-        renderCatalog(btn.dataset.brand);
-    });
-}
-
-function renderCatalog(selectedBrand = 'all') {
-    productsContainer.innerHTML = '';
-
-    // Группируем товары по брендам
-    const brandsMap = {};
-    for (const id in productsData) {
-        const product = productsData[id];
-        const brand = product.brand?.toLowerCase() || 'other';
-        
-        if (!brandsMap[brand]) brandsMap[brand] = [];
-        brandsMap[brand].push({ id, ...product });
+    .quick-view-content {
+        display: flex;
     }
-
-    // Рендерим выбранные бренды
-    const brandsToRender = selectedBrand === 'all' 
-        ? Object.keys(brandsMap) 
-        : [selectedBrand];
-
-    brandsToRender.forEach(brand => {
-        const products = brandsMap[brand];
-        if (!products) return;
-
-        const group = document.createElement('div');
-        group.className = 'brand-group';
-        group.setAttribute('data-brand', brand);
-
-        const title = document.createElement('h2');
-        title.className = 'brand-title';
-        title.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
-        group.appendChild(title);
-
-        const grid = document.createElement('div');
-        grid.className = 'products-grid';
-
-        products.forEach(product => {
-            const hasDiscount = product.old_price && product.old_price !== product.price;
-            const discountPercent = hasDiscount 
-                ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
-                : 0;
-
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.dataset.id = product.id;
-
-            card.innerHTML = `
-                <div class="product-image-container">
-                    <img src="${product.images?.[0] || product.image}" loading="lazy" alt="${product.title}">
-                    <button class="add-to-cart-btn" title="Добавить в корзину">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                </div>
-                <div class="product-details">
-                    <h3>${product.title}</h3>
-                    <p>${product.description}</p>
-                    <div class="price-container">
-                        <span class="price">${product.price}</span>
-                        ${hasDiscount ? `
-                            <span class="old-price">${product.old_price}</span>
-                            <span class="discount-badge">-${discountPercent}%</span>
-                        ` : ''}
-                    </div>
-                </div>
-            `;
-
-            grid.appendChild(card);
-        });
-
-        group.appendChild(grid);
-        productsContainer.appendChild(group);
-    });
-}
-
-function showQuickView(productId) {
-    const product = productsData[productId];
-    if (!product) return;
-
-    const hasDiscount = product.old_price && product.old_price !== product.price;
-    const discountPercent = hasDiscount 
-        ? Math.round((1 - parsePrice(product.price) / parsePrice(product.old_price)) * 100)
-        : 0;
-
-    // Заполняем модальное окно
-    document.getElementById('quickViewTitle').textContent = product.title;
-    document.getElementById('quickViewDescription').textContent = product.description;
     
-    const priceContainer = document.getElementById('quickViewPrice');
-    priceContainer.innerHTML = `
-        <span class="price">${product.price}</span>
-        ${hasDiscount ? `
-            <span class="old-price">${product.old_price}</span>
-            <span class="discount-badge">-${discountPercent}%</span>
-        ` : ''}
-    `;
-
-    // Настраиваем кнопку в модальном окне
-    const quickViewCartBtn = quickViewModal.querySelector('.quick-view-cart-btn');
-    quickViewCartBtn.onclick = (e) => {
-        e.stopPropagation();
-        addToCart(productId);
-        quickViewCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
-        setTimeout(() => {
-            quickViewCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
-        }, 1500);
-    };
-
-    // Показываем модальное окно
-    quickViewModal.style.display = 'block';
-    document.body.classList.add('no-scroll');
-}
-
-function closeQuickView() {
-    quickViewModal.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-}
-
-function parsePrice(priceStr) {
-    return parseFloat(priceStr.replace(/[^\d]/g, ''));
+    .quick-view-image-container {
+        flex: 1;
+    }
+    
+    .quick-view-details {
+        flex: 1;
+        padding: 0 20px;
+    }
 }
