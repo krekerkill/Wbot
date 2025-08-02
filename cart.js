@@ -33,29 +33,6 @@ class Cart {
         this.updateCart();
     }
 
-    removeItem(productId) {
-        this.cart = this.cart.filter(item => item.id !== productId);
-        this.updateCart();
-    }
-
-    updateQuantity(productId, newQuantity) {
-        const item = this.cart.find(item => item.id === productId);
-        if (item) {
-            item.quantity = Math.max(1, newQuantity);
-            this.updateCart();
-        }
-    }
-
-    getTotalItems() {
-        return this.cart.reduce((sum, item) => sum + item.quantity, 0);
-    }
-
-    getTotalPrice() {
-        return this.cart.reduce((sum, item) => {
-            return sum + (this.parsePrice(item.price) * item.quantity);
-        }, 0);
-    }
-
     updateCart() {
         localStorage.setItem('cart', JSON.stringify(this.cart));
         this.renderCartIcon();
@@ -63,7 +40,7 @@ class Cart {
     }
 
     renderCartIcon() {
-        const cartCount = this.getTotalItems();
+        const cartCount = this.cart.reduce((sum, item) => sum + item.quantity, 0);
         document.querySelector('.cart-count').textContent = cartCount;
     }
 
@@ -85,18 +62,11 @@ class Cart {
                     <h2>Ваша корзина</h2>
                     <span class="close-cart-modal">&times;</span>
                 </div>
-                <div class="cart-items">
-                    ${this.cart.length === 0 ? `
-                        <div class="empty-cart-message">
-                            <i class="fas fa-shopping-cart"></i>
-                            <p>Корзина пуста</p>
-                        </div>
-                    ` : ''}
-                </div>
+                <div class="cart-items"></div>
                 <div class="cart-footer">
                     <div class="cart-total">
                         <span>Итого:</span>
-                        <span class="total-price">${this.getTotalPrice().toLocaleString()} ₽</span>
+                        <span class="total-price">0 ₽</span>
                     </div>
                     <button class="checkout-btn">Оформить заказ</button>
                 </div>
@@ -126,7 +96,6 @@ class Cart {
 
     renderCartModal() {
         const container = this.cartModal.querySelector('.cart-items');
-        const emptyMessage = this.cartModal.querySelector('.empty-cart-message');
         const totalPriceElement = this.cartModal.querySelector('.total-price');
 
         if (this.cart.length === 0) {
@@ -145,7 +114,7 @@ class Cart {
             return `
                 <div class="cart-item" data-id="${item.id}">
                     <div class="cart-item-image">
-                        <img src="${item.images?.[0] || item.image}" alt="${item.title}" loading="lazy">
+                        <img src="${item.images?.[0] || item.image}" alt="${item.title}">
                     </div>
                     <div class="cart-item-details">
                         <h3 class="cart-item-title">${item.title}</h3>
@@ -162,7 +131,7 @@ class Cart {
                             <input type="number" class="quantity-input" value="${item.quantity}" min="1">
                             <button class="quantity-btn plus">+</button>
                         </div>
-                        <button class="remove-item-btn" title="Удалить">
+                        <button class="remove-item-btn">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -172,7 +141,13 @@ class Cart {
 
         totalPriceElement.textContent = `${this.getTotalPrice().toLocaleString()} ₽`;
 
-        // Обработчики событий для кнопок
+        // Добавляем обработчики событий
+        this.addCartEventListeners();
+    }
+
+    addCartEventListeners() {
+        const container = this.cartModal.querySelector('.cart-items');
+        
         container.querySelectorAll('.minus').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const itemId = e.target.closest('.cart-item').dataset.id;
@@ -210,10 +185,27 @@ class Cart {
     }
 
     hideCartModal() {
-        if (this.cartModal) {
-            this.cartModal.style.display = 'none';
-            document.body.classList.remove('no-scroll');
+        this.cartModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+
+    removeItem(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        this.updateCart();
+    }
+
+    updateQuantity(productId, newQuantity) {
+        const item = this.cart.find(item => item.id === productId);
+        if (item) {
+            item.quantity = Math.max(1, newQuantity);
+            this.updateCart();
         }
+    }
+
+    getTotalPrice() {
+        return this.cart.reduce((sum, item) => {
+            return sum + (this.parsePrice(item.price) * item.quantity);
+        }, 0);
     }
 
     parsePrice(priceStr) {
