@@ -31,6 +31,11 @@ body {
     z-index: 100;
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.brands-filter.hidden {
+    transform: translateY(-100%);
 }
 
 .brands-scroll-container {
@@ -72,15 +77,14 @@ body {
 #products-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0;
+    padding: 15px;
 }
 
 /* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
-    gap: 20px;
+    gap: 16px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    padding: 15px;
 }
 
 /* ========== BRAND GROUP ========== */
@@ -93,7 +97,7 @@ body {
     font-weight: 600;
     color: #333;
     margin: 20px 0 15px;
-    padding-left: 15px;
+    padding-left: 10px;
     position: relative;
 }
 
@@ -127,7 +131,7 @@ body {
 .product-image-container {
     position: relative;
     aspect-ratio: 1/1;
-    background-color: #f9f9f9;
+    background: #f9f9f9;
     border-bottom: 1px solid #eee;
 }
 
@@ -145,8 +149,8 @@ body {
     background: #4CAF50;
     color: white;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
@@ -162,12 +166,12 @@ body {
     background: #45a049;
 }
 
-.add-to-cart-btn.added-to-cart {
-    background: #8BC34A;
-}
-
 .add-to-cart-btn i {
     font-size: 16px;
+}
+
+.add-to-cart-btn.added-to-cart {
+    background: #8BC34A;
 }
 
 /* ========== PRODUCT DETAILS ========== */
@@ -584,6 +588,11 @@ body {
     to { opacity: 1; }
 }
 
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
 /* ========== ERROR MESSAGE ========== */
 .error-message {
     text-align: center;
@@ -607,7 +616,6 @@ body {
         border-radius: 0;
         box-shadow: none;
         border-bottom: 1px solid #eee;
-        margin: 0;
     }
     
     .product-card:hover {
@@ -619,6 +627,10 @@ body {
         height: 100%;
         max-height: none;
         border-radius: 0;
+    }
+    
+    .quick-view-image-container {
+        aspect-ratio: 1/1;
     }
     
     .cart-modal-content {
@@ -643,6 +655,18 @@ body {
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .quick-view-content {
+        flex-direction: row;
+    }
+    
+    .quick-view-image-container {
+        flex: 1;
+    }
+    
+    .quick-view-details {
+        flex: 1;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -651,7 +675,7 @@ body {
     }
     
     .quick-view-content {
-        display: flex;
+        flex-direction: row;
     }
     
     .quick-view-image-container {
@@ -662,4 +686,4 @@ body {
         flex: 1;
         padding: 0 20px;
     }
-    }
+}
