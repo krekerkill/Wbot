@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Фильтр по брендам -->
+    <!-- Фильтр по брендам (без кнопки "Все") -->
     <div class="brands-filter">
         <div class="brands-scroll-container">
-            <button class="brand-filter-btn active" data-brand="all">Все</button>
             <!-- Бренды будут добавляться динамически -->
         </div>
     </div>
@@ -27,11 +26,7 @@
         <div class="quick-view-content">
             <span class="close-quick-view">&times;</span>
             <div class="quick-view-image-container">
-                <div class="image-slider">
-                    <!-- Изображения будут добавляться динамически -->
-                </div>
-                <button class="slider-prev">&lt;</button>
-                <button class="slider-next">&gt;</button>
+                <img src="" alt="" id="quickViewImage">
             </div>
             <div class="quick-view-details">
                 <h3 id="quickViewTitle"></h3>
